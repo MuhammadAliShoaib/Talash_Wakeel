@@ -1,6 +1,6 @@
-import Login from "../screens/Login.js";
-import Signup from "../screens/Signup.js";
-import Dashboard from "../screens/Dashboard.js";
+import Login from "../screens/Login.jsx";
+import Signup from "../screens/Signup.jsx";
+import Dashboard from "../screens/Dashboard.jsx";
 
 export const mainRoutes = [
   {

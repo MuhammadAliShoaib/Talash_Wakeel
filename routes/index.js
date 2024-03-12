@@ -7,3 +7,6 @@ router.get("/lawyers", async (req, res) => {
     const result = await db.Lawyer.find();
     res.json(result)
 })
+
+
+export default router;
