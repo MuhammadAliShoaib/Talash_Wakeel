@@ -1,4 +1,4 @@
-import Login from "../screens/Login.jsx";
+import Login from "../screens/login.jsx";
 import Signup from "../screens/Signup.jsx";
 import Dashboard from "../screens/Dashboard.jsx";
 

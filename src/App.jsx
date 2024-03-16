@@ -1,8 +1,12 @@
 import React from 'react'
-import { AppRouter } from './config/routing'
+import SignUp from './screens/SignUp';
+import Login from './screens/Login';
+import Dashboard from './screens/Dashboard';
 
-export const App = () => {
+const App = () => {
   return (
-    <AppRouter />
+    <Dashboard />
   )
 }
+
+export default App;
