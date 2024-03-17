@@ -15,6 +15,11 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
+import { ClientPaymentHistory } from "../ClientPaymentHistory";
+import { ClientDocuments } from "../ClientDocuments";
+import { ClientSettings } from "../ClientSettings";
+import { Route, Routes } from "react-router-dom";
+import { ClientDashboard } from "../ClientDashboard";
 
 const drawerWidth = 240;
 
@@ -82,7 +87,7 @@ const Drawer = styled(MuiDrawer, {
     }),
 }));
 
-export default function Dashboard() {
+export default function ClientDashboardMain() {
     // const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
@@ -94,13 +99,18 @@ export default function Dashboard() {
             icon: <DashboardIcon />,
         },
         {
-            Name: "Create Order",
-            route: "pharmaOrder",
+            Name: "Payment History",
+            route: "paymentHistory",
             icon: <MedicationLiquidIcon />,
         },
         {
-            Name: "Batches",
-            route: "batches",
+            Name: "Documents",
+            route: "documents",
+            icon: <MedicationLiquidIcon />,
+        },
+        {
+            Name: "Settings",
+            route: "settings",
             icon: <TimelineIcon />,
         },
     ]);
@@ -125,7 +135,7 @@ export default function Dashboard() {
                 variant="permanent"
                 open={open}
                 PaperProps={{
-                    sx: { backgroundColor: "#141925" },
+                    sx: { backgroundColor: "#000" },
                 }}
             >
                 <DrawerHeader>
@@ -194,11 +204,12 @@ export default function Dashboard() {
                 </List>
                 <Divider />
             </Drawer>
-            {/* <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default', height: "100vh" }}>
+            {/* <Box component="main">
                 <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/pharmaOrder" element={<PharmaOrder />} />
-                    <Route path="/batches" element={<Batches />} />
+                    <Route path="/" element={<ClientDashboard />} />
+                    <Route path="/paymentHistory" element={<ClientPaymentHistory />} />
+                    <Route path="/documents" element={<ClientDocuments />} />
+                    <Route path="/settings" element={<ClientSettings />} />
                 </Routes>
             </Box> */}
         </Box>
