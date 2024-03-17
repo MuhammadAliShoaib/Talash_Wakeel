@@ -15,11 +15,11 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
-import { ClientPaymentHistory } from "../ClientPaymentHistory";
-import { ClientDocuments } from "../ClientDocuments";
-import { ClientSettings } from "../ClientSettings";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { ClientDashboard } from "../ClientDashboard";
+import { FirmDashboard } from "../../Firm/FirmDashboard";
+import { FirmPaymentHistory } from "../FirmPaymentHistory";
+import { FirmDocuments } from "../FirmDocuments";
+import { FirmSettings } from "../FirmSettings";
 
 const drawerWidth = 240;
 
@@ -87,7 +87,7 @@ const Drawer = styled(MuiDrawer, {
     }),
 }));
 
-export default function ClientDashboardMain() {
+export default function FirmDashboardMain() {
     const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
@@ -200,10 +200,10 @@ export default function ClientDashboardMain() {
             </Drawer>
             <Box component="main">
                 <Routes>
-                    <Route path="/" element={<ClientDashboard />} />
-                    <Route path="/paymentHistory" element={<ClientPaymentHistory />} />
-                    <Route path="/documents" element={<ClientDocuments />} />
-                    <Route path="/settings" element={<ClientSettings />} />
+                    <Route path="/" element={<FirmDashboard />} />
+                    <Route path="/paymentHistory" element={<FirmPaymentHistory />} />
+                    <Route path="/documents" element={<FirmDocuments />} />
+                    <Route path="/settings" element={<FirmSettings />} />
                 </Routes>
             </Box>
         </Box>
