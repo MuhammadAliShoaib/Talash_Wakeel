@@ -181,11 +181,6 @@ export default function ClientDashboardMain() {
                                         color: "white",
                                     }}
                                 >
-                                    {/* {index % 2 === 0 ? (
-                    <DashboardIcon />
-                  ) : (
-                    <MedicationLiquidIcon />
-                  )} */}
                                     {text.icon}
                                 </ListItemIcon>
                                 <ListItemText

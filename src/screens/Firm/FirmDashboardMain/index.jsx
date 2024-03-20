@@ -124,7 +124,7 @@ export default function FirmDashboardMain() {
     };
 
     return (
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", }}>
             <Drawer
                 variant="permanent"
                 open={open}
@@ -181,11 +181,6 @@ export default function FirmDashboardMain() {
                                         color: "white",
                                     }}
                                 >
-                                    {/* {index % 2 === 0 ? (
-                    <DashboardIcon />
-                  ) : (
-                    <MedicationLiquidIcon />
-                  )} */}
                                     {text.icon}
                                 </ListItemIcon>
                                 <ListItemText
