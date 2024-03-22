@@ -2,49 +2,85 @@ import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import AuthContainer from "../../components/AuthContainer";
-import { cities } from "../../utils/data";
-import { MenuItem, Radio, RadioGroup} from "@mui/material";
 import FirmSignup from "./firmSignup";
 import ClientSignup from "./clientSignup";
 import { useFormik } from "formik";
-import { clientValidationSchema } from "../../utils/validation";
+import { clientSignupValidationSchema, firmSignupValidationSchema } from "../../utils/validation";
+import bcrypt from 'bcryptjs';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function SignUp() {
   const [formType, setFormType] = useState("client");
 
-const clientFormik = useFormik({
-  initialValues: {
-    clientFirstName: "",
-    clientLastName: "",
-    clientPhoneNumber: "",
-    clientEmail: "",
-    clientPassword: "",
-    clientCity: "",
-  },
-  validationSchema:{clientValidationSchema},
-  onSubmit: async (values) => {
-    console.log(values)
-  }
-})
+  // To validate client form
+  const clientFormik = useFormik({
+    initialValues: {
+      clientFirstName: "",
+      clientLastName: "",
+      clientPhoneNumber: "",
+      clientEmail: "",
+      clientPassword: "",
+      clientCity: "",
+    },
+    validationSchema: clientSignupValidationSchema,
+    onSubmit: async (values) => {
+      console.log(values)
+    }
+  })
+  
+  // To validate firm form
+  const firmFormik = useFormik({
+    initialValues: {
+      firmName: "",
+      firmEmail: "",
+      firmPhoneNumber: "",
+      firmCity: "",
+      firmPassword: ""
+    },
+    validationSchema: firmSignupValidationSchema,
+    onSubmit: async (values) => {
+      try {
+      const unix = +new Date();
+      const firmID = [values.firmName, unix].join('-');
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(values.firmPassword, salt);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      console.log(values.firmName)
+      const response = await axios.post('/api/createFirm', {
+        firmID: firmID,
+        firmName: values.firmName,
+        firmEmail: values.firmEmail,
+        firmPhoneNumber: values.firmPhoneNumber,
+        firmCity: values.firmCity,
+        firmPassword: hashedPassword,
+      })
+      if(!response) {
+        throw new Error('Something Went Wrong')
+      }
+      toast.success(`${response.data.message}`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
     });
-  };
+      } catch (error) {
+       console.log('Error Occured: ', error) 
+      }
+    }
+  })
+  
+
 
   return (
     <AuthContainer>
@@ -76,7 +112,7 @@ const clientFormik = useFormik({
             </Button>
           </Grid>
           <Box>
-          {formType === 'client' ? <ClientSignup submit={clientFormik.handleSubmit} /> : <FirmSignup submit={handleSubmit} /> }
+          {formType === 'client' ? <ClientSignup clientFormik={clientFormik} /> : <FirmSignup firmFormik={firmFormik} /> }
           </Box>
         </Box>
       </Container>

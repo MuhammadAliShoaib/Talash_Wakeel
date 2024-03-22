@@ -1,13 +1,14 @@
+import { ErrorMessage, Form, useFormikContext } from "formik";
 import { cities } from "../../utils/data";
 import {Box, Grid, Button, TextField, MenuItem, Link} from '@mui/material'
 
 
-export default function FirmSignup({submit}) {
+export default function FirmSignup({firmFormik}) {
   return (
     <Box
             component="form"
             noValidate
-            onSubmit={(event) => submit(event)}
+            onSubmit={firmFormik.handleSubmit}
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
@@ -19,35 +20,35 @@ export default function FirmSignup({submit}) {
                   fullWidth
                   id="firmName"
                   label="Firm Name"
+                  onChange={firmFormik.handleChange}
+                  value={firmFormik.values.firmName}
                   autoFocus
-                />
+                  />
+                  {firmFormik.errors.firmName ? <Box component={'span'} sx={{display: 'inline', color: 'red'}} >{firmFormik.errors.firmName}</Box> : null}
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="firmEmail"
                   label="Email Address"
-                  name="email"
-                />
+                  name="firmEmail"
+                  onChange={firmFormik.handleChange}
+                  value={firmFormik.values.firmEmail}
+                  />
+                  {firmFormik.errors.firmEmail ? <Box component={'span'} sx={{display: 'inline', color: 'red'}} >{firmFormik.errors.firmEmail}</Box> : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="contact"
+                  id="firmPhoneNumber"
                   label="Contact Number"
-                  name="contact"
-                />
+                  name="firmPhoneNumber"
+                  onChange={firmFormik.handleChange}
+                  value={firmFormik.values.firmPhoneNumber}
+                  />
+                  {firmFormik.errors.firmPhoneNumber ? <Box component={'span'} sx={{display: 'inline', color: 'red'}} >{firmFormik.errors.firmPhoneNumber}</Box> : null}
               </Grid>
 
               <Grid item xs={12}>
@@ -55,28 +56,33 @@ export default function FirmSignup({submit}) {
                   required
                   fullWidth
                   select
-                  name="city"
+                  name="firmCity"
+                  onChange={firmFormik.handleChange}
                   label="Select City"
-                  defaultValue={""}
+                  value={firmFormik.values.firmCity}
                   variant="outlined"
-                >
+                  >
                   {cities.map((city) => (
                     <MenuItem value={city.name} key={city.id}>
                       <option label={city.name} />
                     </MenuItem>
                   ))}
                 </TextField>
+                {firmFormik.errors.firmCity ? <Box component={'span'} sx={{display: 'inline', color: 'red'}} >{firmFormik.errors.firmCity}</Box> : null}
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  name="firmPassword"
                   label="Password"
                   type="password"
-                  id="password"
-                />
+                  id="firmPassword"
+                  onChange={firmFormik.handleChange}
+                  value={firmFormik.values.firmPassword}
+                  />
+                  {firmFormik.errors.firmPassword ? <Box component={'span'} sx={{display: 'inline', color: 'red'}} >{firmFormik.errors.firmPassword}</Box> : null}
               </Grid>
             </Grid>
             <Button
@@ -84,7 +90,7 @@ export default function FirmSignup({submit}) {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-            >
+              >
               Sign Up
             </Button>
             <Grid container justifyContent="center">

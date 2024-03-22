@@ -6,7 +6,6 @@ const firmSchema = new Schema({
     firmName: String,
     firmEmail: String,
     firmPhoneNumber: String,
-    firmAddress: String,
     firmCity: String,
     firmPassword: String,
 })

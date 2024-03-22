@@ -8,12 +8,11 @@ export const firmSignupValidationSchema = Yup.object({
         .matches(/^[0-9]+$/, "Must be a valid phone number")
         .min(11, "Phone number must be at least 11 digits")
         .required("Phone number is required"),
-    firmAddress: Yup.string().required("Firm address is required"),
     firmCity: Yup.string().required("City is required"),
     firmPassword: Yup.string().required("Password is required"),
 });
 
-export const clientValidationSchema = Yup.object().shape({
+export const clientSignupValidationSchema = Yup.object().shape({
     clientFirstName: Yup.string().required("First name is required"),
     clientLastName: Yup.string().required("Last name is required"),
     clientEmail: Yup.string().email("Invalid email address").required("Email is required"),
