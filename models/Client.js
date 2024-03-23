@@ -2,12 +2,13 @@ import mongoose from 'mongoose';
 const { model, Schema } = mongoose;
 
 const clientSchema = new Schema({
+  clientID: Number,
   clientFirstName: String,
   clientLastName: String,
   clientEmail: String,
-  clientPassword: String,
-  clientCity: String,
   clientPhoneNumber: String,
+  clientCity: String,
+  clientPassword: String,
   isDeleted: Boolean,
 })
 

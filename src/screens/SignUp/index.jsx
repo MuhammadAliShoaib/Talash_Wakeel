@@ -24,14 +24,40 @@ export default function SignUp() {
     initialValues: {
       clientFirstName: "",
       clientLastName: "",
-      clientPhoneNumber: "",
       clientEmail: "",
-      clientPassword: "",
+      clientPhoneNumber: "",
       clientCity: "",
+      clientPassword: "",
     },
     validationSchema: clientSignupValidationSchema,
     onSubmit: async (values) => {
-      console.log(values)
+      try {
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(values.clientPassword, salt);
+      const response = await axios.post('/api/client/register', {
+        clientFirstName: values.clientFirstName,
+        clientLastName: values.clientLastName,
+        clientEmail: values.clientEmail,
+        clientPhoneNumber: values.clientPhoneNumber,
+        clientCity: values.clientCity,
+        clientPassword: hashedPassword,
+      })
+      if(!response) {
+        throw new Error('Something Went Wrong')
+      }
+      toast.success(`${response.data.message}`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+    });
+      } catch (error) {
+       console.log('Error Occured: ', error) 
+      }
     }
   })
   
@@ -53,7 +79,7 @@ export default function SignUp() {
       const hashedPassword = bcrypt.hashSync(values.firmPassword, salt);
 
       console.log(values.firmName)
-      const response = await axios.post('/api/createFirm', {
+      const response = await axios.post('/api/firm/createFirm', {
         firmID: firmID,
         firmName: values.firmName,
         firmEmail: values.firmEmail,

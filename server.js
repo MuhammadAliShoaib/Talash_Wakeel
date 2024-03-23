@@ -1,11 +1,12 @@
 import express from 'express'
 const app = express();
-
-import indexRoute from './routes/index.js'
+import firmRoutes from './routes/firmRoutes.js'
+import clientRoutes from './routes/clientRoutes.js'
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', indexRoute);
+app.use('/firm', firmRoutes);
+app.use('/client', clientRoutes);
 
 const PORT = 5200;
 
