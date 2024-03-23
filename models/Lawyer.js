@@ -3,12 +3,12 @@ const { model, Schema } = mongoose;
 
 const lawyerSchema = new Schema({
     barCouncilId: String,
-    email: String,
-    field: String,
-    firmId: String,
+    firmID: String,
     firstName: String,
     lastName: String,
+    email: String,
     password: String,
+    field: String,
     userType: String,
     isDeleted: Boolean,
 })
