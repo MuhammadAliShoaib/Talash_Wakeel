@@ -17,28 +17,28 @@ export const cities = [
 export const firms = [
     {
         id: 1,
-        image: '',
+        image: "../assets/firm.jpeg",
         email: 'karachi@gmail.com',
         phoneNo: "12345678910",
         city: "Karachi"
     },
     {
         id: 2,
-        image: '',
+        image: "../assets/firm.jpeg",
         email: 'szabist@gmail.com',
         phoneNo: "12345678910",
         city: "Karachi"
     },
     {
         id: 3,
-        image: '',
+        image: "../assets/firm.jpeg",
         email: 'szabistIsl@gmail.com',
         phoneNo: "12345678910",
         city: "Islamabad"
     },
     {
         id: 4,
-        image: '',
+        image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
         city: "Gharo"

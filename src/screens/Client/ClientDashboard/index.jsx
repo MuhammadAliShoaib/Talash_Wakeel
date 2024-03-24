@@ -1,15 +1,20 @@
 import React from 'react'
 import { firms } from '../../../utils/data'
 import { FirmCard } from '../../../components/Cards/FirmCard'
+import Header from '../../../components/Header'
 
 export const ClientDashboard = () => {
   return (
     <div>
-      {firms.map((firm, index) => {
-        return (
-          <FirmCard key={index} item={firm} />
-        )
-      })}
+      <Header title="Dashboard" />
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        {firms.map((firm, index) => {
+          return (
+            <FirmCard key={index} item={firm} />
+          )
+        })}
+      </div>
     </div>
+
   )
 }

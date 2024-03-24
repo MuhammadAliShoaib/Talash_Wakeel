@@ -193,7 +193,7 @@ export default function ClientDashboardMain() {
                 </List>
                 <Divider />
             </Drawer>
-            <Box component="main">
+            <Box component="main" sx={{width:'100vw',height : '100vh'}}>
                 <Routes>
                     <Route path="/" element={<ClientDashboard />} />
                     <Route path="/paymentHistory" element={<ClientPaymentHistory />} />
