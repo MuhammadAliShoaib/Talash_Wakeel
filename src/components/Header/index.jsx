@@ -1,12 +1,15 @@
 import Box from "@mui/material/Box";
 import { Badge, Button, IconButton, Typography } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Header({ title }) {
 
+    const navigate = useNavigate();
+
 
     let handleDisconnect = () => {
+        navigate('/')
     }
 
     return (

@@ -193,7 +193,7 @@ export default function FirmDashboardMain() {
                 </List>
                 <Divider />
             </Drawer>
-            <Box component="main">
+            <Box component="main"  sx={{width:'100vw',height : '100vh'}}>
                 <Routes>
                     <Route path="/" element={<FirmDashboard />} />
                     <Route path="/paymentHistory" element={<FirmPaymentHistory />} />

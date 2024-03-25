@@ -1,7 +1,10 @@
 import React from 'react'
+import Header from '../../../components/Header'
 
 export const ClientPaymentHistory = () => {
   return (
-    <div>ClientPaymentHistory</div>
+    <div>
+       <Header title="Payment History" />
+    </div>
   )
 }

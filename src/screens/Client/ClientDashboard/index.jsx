@@ -7,7 +7,7 @@ export const ClientDashboard = () => {
   return (
     <div>
       <Header title="Dashboard" />
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
         {firms.map((firm, index) => {
           return (
             <FirmCard key={index} item={firm} />

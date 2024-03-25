@@ -1,13 +1,13 @@
 import { Grid } from "@mui/material"
-import img from "../../assets/Logo.png"
+import img from "../../assets/tkLogoWhite.png"
 
 function AuthContainer({ children, image }) {
   return (
     <Grid container sx={{ height: "100vh", alignItems: "center", width: '100vw', justifyContent: 'center' }}>
       <Grid
-       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}
       >
-        <img src={image} width={"80%"} height={"100%"}/>
+        <img src={image} width={"100%"} height={"100%"}/>
       </Grid>
       <Grid
       >
