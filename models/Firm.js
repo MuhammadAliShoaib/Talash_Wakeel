@@ -4,6 +4,7 @@ const { model, Schema } = mongoose;
 const firmSchema = new Schema({
     firmID: String,
     firmName: String,
+    barCouncilId : Number,
     firmEmail: String,
     firmPhoneNumber: String,
     firmCity: String,

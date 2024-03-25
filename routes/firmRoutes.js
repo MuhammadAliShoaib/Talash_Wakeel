@@ -7,6 +7,7 @@ router.post("/createFirm", async (req, res) => {
     const {
       firmID,
       firmName,
+      barCouncilId,
       firmEmail,
       firmPhoneNumber,
       firmCity,
@@ -18,6 +19,7 @@ router.post("/createFirm", async (req, res) => {
       await db.Firm.create({
         firmID,
         firmName,
+        barCouncilId,
         firmEmail,
         firmPhoneNumber,
         firmCity,
