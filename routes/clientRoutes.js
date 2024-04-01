@@ -6,7 +6,7 @@ const getUpdatedSequence = async (sequenceName) => {
   const res = await db.Counter.findOneAndUpdate(
     { _id: sequenceName },
     { $inc: { seq: 1 } },
-    { new: true }
+    { new: true, upsert: true }
   );
 
   return res.seq;

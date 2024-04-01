@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { model, Schema } = mongoose;
 
 const firmSchema = new Schema({
-    firmID: String,
-    firmName: String,
-    barCouncilId : Number,
-    firmEmail: String,
-    firmPhoneNumber: String,
-    firmCity: String,
-    firmPassword: String,
-})
+  firmID: String,
+  barCouncilId: Number,
+  firmName: String,
+  firmEmail: String,
+  firmPhoneNumber: String,
+  firmCity: String,
+  firmPassword: String,
+});
 
-export const Firm = model('Firm', firmSchema);
+export const Firm = model("Firm", firmSchema);

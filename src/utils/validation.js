@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const firmSignupValidationSchema = Yup.object({
   firmName: Yup.string().required("Firm name is required"),
-  barCouncilId : Yup.number().required('Council ID is required'),
+  barCouncilId: Yup.number().min(7).required("Council ID is required"),
   firmEmail: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
