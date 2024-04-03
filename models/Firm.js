@@ -3,12 +3,13 @@ const { model, Schema } = mongoose;
 
 const firmSchema = new Schema({
   firmID: String,
-  barCouncilId: Number,
-  firmName: String,
-  firmEmail: String,
-  firmPhoneNumber: String,
-  firmCity: String,
-  firmPassword: String,
+  barCouncilId: { type: Number, required: true },
+  firmName: { type: String, required: true },
+  firmEmail: { type: String, required: true },
+  firmPhoneNumber: { type: String, required: true },
+  firmCity: { type: String, required: true },
+  firmPassword: { type: String, required: true },
+  refreshToken: String,
 });
 
 export const Firm = model("Firm", firmSchema);

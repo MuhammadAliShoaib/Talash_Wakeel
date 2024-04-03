@@ -1,6 +1,8 @@
 import express from "express";
 const router = express.Router();
 import { db } from "../models/index.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const getUpdatedSequence = async (sequenceName) => {
   const res = await db.Counter.findOneAndUpdate(
@@ -50,13 +52,29 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  try {
-    const client = await db.Client.findOne({ clientEmail: req.body.email });
+  const { email, password } = req.body;
 
-    if (client !== null) {
+  try {
+    const client = await db.Client.findOne({ clientEmail: email });
+    if (client === null)
+      return res.status(404).json({ message: "Client Not Found" });
+    const match = bcrypt.compareSync(password, client.clientPassword);
+
+    if (match) {
+      // jwt Auth
+      const accessToken = jwt.sign(
+        { email: client.clientEmail },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "15m" }
+      );
+      const refreshToken = jwt.sign(
+        { email: client.clientEmail },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "1d" }
+      );
       res.status(200).json(client);
     } else {
-      res.status(404).json({ message: "Client Not Found" });
+      res.status(401).json({ message: "Unauthorized" });
     }
   } catch (error) {
     console.log(error);

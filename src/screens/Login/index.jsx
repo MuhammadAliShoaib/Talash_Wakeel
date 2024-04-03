@@ -39,80 +39,124 @@ export default function Login() {
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
       if (loginType === "client") {
-        const response = await axios.post("/api/client/login", {
-          email: values.email,
-        });
-
-        if (!response) {
-          throw new Error("Error Occured");
-        }
-
-        const validatePassword = bcrypt.compareSync(
-          values.password,
-          response.data.clientPassword
-        );
-
-        if (validatePassword) {
-          navigate("/client");
-          toast.success(`Login Successful`, {
-            position: "bottom-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
+        try {
+          const response = await axios.post("/api/clientAuth/login", {
+            email: values.email,
+            password: values.password,
           });
-        } else {
-          toast.error(`Email or Password Invalid`, {
-            position: "bottom-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
+
+          if (!response) {
+            throw new Error("Error Occured");
+          }
+
+          if (response.status === 200) {
+            navigate("/client");
+            toast.success(`Login Successful`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 401) {
+            toast.error(`${error.response.data.message}`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          } else if (error.response && error.response.status === 404) {
+            toast.error(`${error.response.data.message}`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          } else {
+            toast.error(`Internal Server Error`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
         }
       } else {
-        const response = await axios.post("/api/firm/login", {
-          email: values.email,
-        });
-
-        if (!response) {
-          throw new Error("Error Occured");
-        }
-
-        const validatePassword = bcrypt.compareSync(
-          values.password,
-          response.data.firmPassword
-        );
-
-        if (validatePassword) {
-          navigate("/firm");
-          toast.success(`Login Successful`, {
-            position: "bottom-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
+        try {
+          const response = await axios.post("/api/firmAuth/login", {
+            email: values.email,
+            password: values.password,
           });
-        } else {
-          toast.error(`Email or Password Invalid`, {
-            position: "bottom-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
+
+          if (!response) {
+            throw new Error("Error Occured");
+          }
+
+          if (response.status === 200) {
+            navigate("/firm");
+            toast.success(`Login Successful`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 401) {
+            toast.error(`${error.response.data.message}`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          } else if (error.response && error.response.status === 404) {
+            toast.error(`${error.response.data.message}`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          } else {
+            toast.error(`Internal Server Error`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
         }
       }
     },

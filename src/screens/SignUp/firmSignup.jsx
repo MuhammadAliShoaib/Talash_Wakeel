@@ -1,7 +1,6 @@
 import { ErrorMessage, Form, useFormikContext } from "formik";
 import { cities } from "../../utils/data";
-import { Box, Grid, Button, TextField, MenuItem, Link } from '@mui/material'
-
+import { Box, Grid, Button, TextField, MenuItem, Link } from "@mui/material";
 
 export default function FirmSignup({ firmFormik }) {
   return (
@@ -24,7 +23,11 @@ export default function FirmSignup({ firmFormik }) {
             value={firmFormik.values.firmName}
             autoFocus
           />
-          {firmFormik.errors.firmName ? <Box component={'span'} sx={{ display: 'inline', color: 'red' }} >{firmFormik.errors.firmName}</Box> : null}
+          {firmFormik.errors.firmName ? (
+            <Box component={"span"} sx={{ display: "inline", color: "red" }}>
+              {firmFormik.errors.firmName}
+            </Box>
+          ) : null}
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -38,7 +41,11 @@ export default function FirmSignup({ firmFormik }) {
             value={firmFormik.values.barCouncilId}
             autoFocus
           />
-          {firmFormik.errors.barCouncilId ? <Box component={'span'} sx={{ display: 'inline', color: 'red' }} >{firmFormik.errors.firmName}</Box> : null}
+          {firmFormik.errors.barCouncilId ? (
+            <Box component={"span"} sx={{ display: "inline", color: "red" }}>
+              {firmFormik.errors.barCouncilId}
+            </Box>
+          ) : null}
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -50,7 +57,11 @@ export default function FirmSignup({ firmFormik }) {
             onChange={firmFormik.handleChange}
             value={firmFormik.values.firmEmail}
           />
-          {firmFormik.errors.firmEmail ? <Box component={'span'} sx={{ display: 'inline', color: 'red' }} >{firmFormik.errors.firmEmail}</Box> : null}
+          {firmFormik.errors.firmEmail ? (
+            <Box component={"span"} sx={{ display: "inline", color: "red" }}>
+              {firmFormik.errors.firmEmail}
+            </Box>
+          ) : null}
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -62,7 +73,11 @@ export default function FirmSignup({ firmFormik }) {
             onChange={firmFormik.handleChange}
             value={firmFormik.values.firmPhoneNumber}
           />
-          {firmFormik.errors.firmPhoneNumber ? <Box component={'span'} sx={{ display: 'inline', color: 'red' }} >{firmFormik.errors.firmPhoneNumber}</Box> : null}
+          {firmFormik.errors.firmPhoneNumber ? (
+            <Box component={"span"} sx={{ display: "inline", color: "red" }}>
+              {firmFormik.errors.firmPhoneNumber}
+            </Box>
+          ) : null}
         </Grid>
 
         <Grid item xs={12}>
@@ -82,7 +97,11 @@ export default function FirmSignup({ firmFormik }) {
               </MenuItem>
             ))}
           </TextField>
-          {firmFormik.errors.firmCity ? <Box component={'span'} sx={{ display: 'inline', color: 'red' }} >{firmFormik.errors.firmCity}</Box> : null}
+          {firmFormik.errors.firmCity ? (
+            <Box component={"span"} sx={{ display: "inline", color: "red" }}>
+              {firmFormik.errors.firmCity}
+            </Box>
+          ) : null}
         </Grid>
 
         <Grid item xs={12}>
@@ -96,15 +115,14 @@ export default function FirmSignup({ firmFormik }) {
             onChange={firmFormik.handleChange}
             value={firmFormik.values.firmPassword}
           />
-          {firmFormik.errors.firmPassword ? <Box component={'span'} sx={{ display: 'inline', color: 'red' }} >{firmFormik.errors.firmPassword}</Box> : null}
+          {firmFormik.errors.firmPassword ? (
+            <Box component={"span"} sx={{ display: "inline", color: "red" }}>
+              {firmFormik.errors.firmPassword}
+            </Box>
+          ) : null}
         </Grid>
       </Grid>
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-      >
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Sign Up
       </Button>
       <Grid container justifyContent="center">
@@ -115,5 +133,5 @@ export default function FirmSignup({ firmFormik }) {
         </Grid>
       </Grid>
     </Box>
-  )
+  );
 }
