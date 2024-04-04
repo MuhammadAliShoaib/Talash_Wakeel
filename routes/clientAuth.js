@@ -63,19 +63,51 @@ router.post("/login", async (req, res) => {
     if (match) {
       // jwt Auth
       const accessToken = jwt.sign(
-        { email: client.clientEmail },
+        { user: client.clientEmail },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "15m" }
+        { expiresIn: "5m" }
       );
       const refreshToken = jwt.sign(
-        { email: client.clientEmail },
-        process.env.ACCESS_TOKEN_SECRET,
+        { user: client.clientEmail },
+        process.env.REFRESH_TOKEN_SECRET,
         { expiresIn: "1d" }
       );
-      res.status(200).json(client);
+      client.refreshToken = refreshToken;
+      await client.save();
+
+      res.cookie("jwt", refreshToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+      res.status(200).json({ accessToken });
     } else {
       res.status(401).json({ message: "Unauthorized" });
     }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.get("/refreshToken", async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(401);
+  try {
+    console.log("Cookie: ", cookies.jwt);
+    const refreshToken = cookies.jwt;
+
+    const client = await db.Client.findOne({ refreshToken: refreshToken });
+    if (client === null) return res.sendStatus(403);
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403);
+      const accessToken = jwt.sign(
+        { user: user },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "5m" }
+      );
+      res.status(200).json({ accessToken });
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
