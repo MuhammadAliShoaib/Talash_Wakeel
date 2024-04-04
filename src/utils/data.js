@@ -17,6 +17,7 @@ export const cities = [
 export const firms = [
     {
         id: 1,
+        namne : "Szabist",
         image: "../assets/firm.jpeg",
         email: 'karachi@gmail.com',
         phoneNo: "12345678910",
@@ -24,6 +25,7 @@ export const firms = [
     },
     {
         id: 2,
+        namne : "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabist@gmail.com',
         phoneNo: "12345678910",
@@ -31,6 +33,7 @@ export const firms = [
     },
     {
         id: 3,
+        namne : "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistIsl@gmail.com',
         phoneNo: "12345678910",
@@ -38,6 +41,7 @@ export const firms = [
     },
     {
         id: 4,
+        namne : "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
@@ -45,6 +49,7 @@ export const firms = [
     },
     {
         id: 4,
+        namne : "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
@@ -52,6 +57,7 @@ export const firms = [
     },
     {
         id: 4,
+        namne : "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
@@ -59,6 +65,7 @@ export const firms = [
     },
     {
         id: 4,
+        namne : "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",

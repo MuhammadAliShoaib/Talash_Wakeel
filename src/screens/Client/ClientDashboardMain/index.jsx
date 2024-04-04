@@ -20,6 +20,7 @@ import { ClientDocuments } from "../ClientDocuments";
 import { ClientSettings } from "../ClientSettings";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { ClientDashboard } from "../ClientDashboard";
+import { FirmLawyers } from "../FirmLawyers";
 
 const drawerWidth = 240;
 
@@ -193,9 +194,10 @@ export default function ClientDashboardMain() {
                 </List>
                 <Divider />
             </Drawer>
-            <Box component="main" sx={{width:'100vw',height : '100vh'}}>
+            <Box component="main" sx={{ width: '100vw', height: '100vh' }}>
                 <Routes>
                     <Route path="/" element={<ClientDashboard />} />
+                    <Route path="/:id" element={<FirmLawyers />} />
                     <Route path="/paymentHistory" element={<ClientPaymentHistory />} />
                     <Route path="/documents" element={<ClientDocuments />} />
                     <Route path="/settings" element={<ClientSettings />} />

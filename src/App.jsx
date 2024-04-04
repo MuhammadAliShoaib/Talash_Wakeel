@@ -4,6 +4,7 @@ import Login from './screens/Login';
 import ClientDashboardMain from './screens/Client/ClientDashboardMain';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import FirmDashboardMain from './screens/Firm/FirmDashboardMain';
+import { FirmLawyers } from './screens/Client/FirmLawyers';
 
 const App = () => {
   return (
@@ -11,8 +12,8 @@ const App = () => {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Login />} />
-        <Route path="client/*" element={<ClientDashboardMain />} />
         <Route path="firm/*" element={<FirmDashboardMain />} />
+        <Route path="client/*" element={<ClientDashboardMain />} />
       </Routes>
     </BrowserRouter>
   )
