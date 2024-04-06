@@ -44,7 +44,7 @@ export default function Login() {
             email: values.email,
             password: values.password,
           });
-
+          console.log(response.data);
           if (!response) {
             throw new Error("Error Occured");
           }

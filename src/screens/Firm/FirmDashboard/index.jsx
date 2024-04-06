@@ -1,34 +1,42 @@
-import React, { useState } from 'react'
-import AddLawyerModal from '../../../components/Modal/AddLawyerModal'
-import Header from '../../../components/Header'
-import { lawyers } from '../../../utils/data'
-import { LawyerCard } from '../../../components/Cards/LawyerCard'
-import { Button } from '@mui/material'
+import React, { useState } from "react";
+import AddLawyerModal from "../../../components/Modal/AddLawyerModal";
+import Header from "../../../components/Header";
+import { lawyers } from "../../../utils/data";
+import { LawyerCard } from "../../../components/Cards/LawyerCard";
+import { Button } from "@mui/material";
 
 export const FirmDashboard = () => {
-
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (inputField, e) => {
-    console.log(inputField, e)
-  }
+    console.log(inputField, e);
+  };
 
   const handleAddLawyer = () => {
-    console.log("Lawyer added")
-  }
+    console.log("Lawyer added");
+  };
 
   const toggleModal = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div>
-      <AddLawyerModal onSave={handleAddLawyer} open={isOpen} onClose={() => setIsOpen(false)} />
-      <Header title="Dashboard" />
-      {lawyers.length == 0 &&
-        <h1 style={{ textAlign: 'center' }}>Welcome..</h1>
-      }
-      <div style={{ display: 'flex', justifyContent: lawyers.length==0 ? "center" : "flex-end" }}>
+      <AddLawyerModal
+        onSave={handleAddLawyer}
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+      <Header title="Dashboard" role="firm" />
+      {lawyers.length == 0 && (
+        <h1 style={{ textAlign: "center" }}>Welcome..</h1>
+      )}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: lawyers.length == 0 ? "center" : "flex-end",
+        }}
+      >
         <Button
           onClick={toggleModal}
           href=""
@@ -39,13 +47,11 @@ export const FirmDashboard = () => {
           Add Lawyer
         </Button>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {lawyers.map((lawyer, index) => {
-          return (
-            <LawyerCard key={index} item={lawyer} />
-          )
+          return <LawyerCard key={index} item={lawyer} />;
         })}
       </div>
     </div>
-  )
-}
+  );
+};
