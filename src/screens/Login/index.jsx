@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../config/context/AuthProvider";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -19,12 +18,13 @@ import AuthContainer from "../../components/AuthContainer";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "../../utils/validation";
 import axios from "axios";
-import bcrypt from "bcryptjs";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function Login() {
+  const { setAuth } = useContext(AuthContext);
   const [loginType, setLoginType] = useState("client");
+
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
@@ -40,11 +40,22 @@ export default function Login() {
     onSubmit: async (values) => {
       if (loginType === "client") {
         try {
-          const response = await axios.post("/api/clientAuth/login", {
-            email: values.email,
-            password: values.password,
-          });
+          const response = await axios.post(
+            "/api/clientAuth/login",
+            {
+              email: values.email,
+              password: values.password,
+            },
+            {
+              headers: { "Content-Type": "application/json" },
+              withCredentials: true,
+            }
+          );
           console.log(response.data);
+          const name = response.data.client.clientFirstName;
+          const email = response.data.client.clientEmail;
+          const accessToken = response.data.accessToken;
+          setAuth({ name, email, accessToken });
           if (!response) {
             throw new Error("Error Occured");
           }
@@ -100,10 +111,22 @@ export default function Login() {
         }
       } else {
         try {
-          const response = await axios.post("/api/firmAuth/login", {
-            email: values.email,
-            password: values.password,
-          });
+          const response = await axios.post(
+            "/api/firmAuth/login",
+            {
+              email: values.email,
+              password: values.password,
+            },
+            {
+              headers: { "Content-Type": "application/json" },
+              withCredentials: true,
+            }
+          );
+          console.log(response.data);
+          const name = response.data.firm.firmName;
+          const email = response.data.firm.firmEmail;
+          const accessToken = response.data.accessToken;
+          setAuth({ name, email, accessToken });
 
           if (!response) {
             throw new Error("Error Occured");

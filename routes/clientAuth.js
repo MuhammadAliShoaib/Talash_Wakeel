@@ -79,7 +79,7 @@ router.post("/login", async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
-      res.status(200).json({ accessToken });
+      res.status(200).json({ client, accessToken });
     } else {
       res.status(401).json({ message: "Unauthorized" });
     }
