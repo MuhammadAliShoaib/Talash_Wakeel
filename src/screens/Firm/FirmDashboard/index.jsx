@@ -11,14 +11,11 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 export const FirmDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [lawyerData,setLawyerData] = useState(lawyers)
 
-  const defaultProps = {
-    options: lawyerTypes,
-    getOptionLabel: (option) => option.title,
-  };
-
-  const handleChange = (inputField, e) => {
-    console.log(inputField, e);
+  const handleChange = (e) => {
+    const array = lawyers.filter((lawyer)=>lawyer.name===e.target.value)
+    setLawyerData(array)
   };
 
   const handleAddLawyer = () => {
@@ -45,6 +42,7 @@ export const FirmDashboard = () => {
           display: "flex",
           justifyContent: lawyers.length == 0 ? "center" : "space-between",
           padding: '10px',
+          flexWrap :'wrap'
         }}
       >
         <div style={{ display: 'flex', width: '35%', justifyContent:'space-between',alignItems:'center',padding : '10px' }}>
@@ -59,6 +57,7 @@ export const FirmDashboard = () => {
               <TextField
                 {...params} 
                 label="Search name"
+                onChange={handleChange}
                 InputProps={{
                   ...params.InputProps,
                   type: 'search',
@@ -79,7 +78,7 @@ export const FirmDashboard = () => {
         </Button>
       </div>
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        {lawyers.map((lawyer, index) => {
+        {lawyerData.map((lawyer, index) => {
           return <LawyerCard key={index} item={lawyer} />;
         })}
       </div>

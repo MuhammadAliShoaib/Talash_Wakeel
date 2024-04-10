@@ -17,7 +17,7 @@ export const cities = [
 export const firms = [
     {
         id: 1,
-        namne : "Szabist",
+        namne: "Szabist",
         image: "../assets/firm.jpeg",
         email: 'karachi@gmail.com',
         phoneNo: "12345678910",
@@ -25,7 +25,7 @@ export const firms = [
     },
     {
         id: 2,
-        namne : "Szabist",
+        namne: "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabist@gmail.com',
         phoneNo: "12345678910",
@@ -33,7 +33,7 @@ export const firms = [
     },
     {
         id: 3,
-        namne : "Szabist",
+        namne: "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistIsl@gmail.com',
         phoneNo: "12345678910",
@@ -41,7 +41,7 @@ export const firms = [
     },
     {
         id: 4,
-        namne : "Szabist",
+        namne: "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
@@ -49,7 +49,7 @@ export const firms = [
     },
     {
         id: 4,
-        namne : "Szabist",
+        namne: "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
@@ -57,7 +57,7 @@ export const firms = [
     },
     {
         id: 4,
-        namne : "Szabist",
+        namne: "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
@@ -65,7 +65,7 @@ export const firms = [
     },
     {
         id: 4,
-        namne : "Szabist",
+        namne: "Szabist",
         image: "../assets/firm.jpeg",
         email: 'szabistGharo@gmail.com',
         phoneNo: "12345678910",
@@ -74,17 +74,19 @@ export const firms = [
 ]
 
 
-export const lawyers= [
+export const lawyers = [
     {
         id: 1,
-        name : "Abdul Muneeb",
-        email : "abdulmuneeb@gmail.com",
-        field : "BSCS"
+        name: "Abdul Muneeb",
+        email: "abdulmuneeb@gmail.com",
+        field: "BSCS",
+        type: "Tax Lawyer"
     },
     {
         id: 2,
-        name : "Syed Mehdi",
-        email : "syedmehdi@gmail.com",
-        field : "BSCS"
+        name: "Syed Mehdi",
+        email: "syedmehdi@gmail.com",
+        field: "BSCS",
+        type: "Family Lawyer"
     }
 ]

@@ -45,7 +45,7 @@ export default function DropDown({ options }) {
         size='small'
         sx={{ height: '35px' }}
       >
-        <Button onClick={handleClick}>{selectedIndex === null ? "Select type" : options[selectedIndex]}</Button>
+        <Button sx={{width : '250px'}} onClick={handleClick}>{selectedIndex === null ? "Select type" : options[selectedIndex]}</Button>
         <Button
           size="small"
           aria-controls={open ? 'split-button-menu' : undefined}
