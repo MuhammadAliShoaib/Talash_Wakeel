@@ -1,5 +1,5 @@
 import React from "react";
-import { firms } from "../../../utils/data";
+import { firms } from "../../../utility/data";
 import { FirmCard } from "../../../components/Cards/FirmCard";
 import Header from "../../../components/Header";
 

@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import AddLawyerModal from "../../../components/Modal/AddLawyerModal";
 import Header from "../../../components/Header";
-import { lawyers } from "../../../utils/data";
+import { lawyers } from "../../../utility/data";
 import { LawyerCard } from "../../../components/Cards/LawyerCard";
 import { Button } from "@mui/material";
+import DropDown from "../../../components/DropDown";
+import { lawyerTypes } from "../../../utility/utils";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 export const FirmDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const defaultProps = {
+    options: lawyerTypes,
+    getOptionLabel: (option) => option.title,
+  };
 
   const handleChange = (inputField, e) => {
     console.log(inputField, e);
@@ -34,9 +43,31 @@ export const FirmDashboard = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: lawyers.length == 0 ? "center" : "flex-end",
+          justifyContent: lawyers.length == 0 ? "center" : "space-between",
+          padding: '10px',
         }}
       >
+        <div style={{ display: 'flex', width: '35%', justifyContent:'space-between',alignItems:'center',padding : '10px' }}>
+          <Autocomplete
+            freeSolo
+            id="free-solo-2-demo"
+            disableClearable
+            style={{width : '40%'}}
+            size="small"
+            options={lawyerTypes.map((option) => option)}
+            renderInput={(params) => (
+              <TextField
+                {...params} 
+                label="Search name"
+                InputProps={{
+                  ...params.InputProps,
+                  type: 'search',
+                }}
+              />
+            )}
+          />
+          <DropDown options={lawyerTypes} />
+        </div>
         <Button
           onClick={toggleModal}
           href=""

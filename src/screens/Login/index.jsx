@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import AuthContainer from "../../components/AuthContainer";
 import { useFormik } from "formik";
-import { loginValidationSchema } from "../../utils/validation";
+import { loginValidationSchema } from "../../utility/validation";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // import { save_tokens_constant } from "../constant.js";
 import { signup_async } from "../services/authService";
-import { asyncStatus } from "../../utils/asyncStatus";
+import { asyncStatus } from "../../utility/asyncStatus";
 
 let initialState = {
   data: null,

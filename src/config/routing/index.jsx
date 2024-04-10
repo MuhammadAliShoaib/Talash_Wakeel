@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Private_Routes } from "./Private_Routes.jsx";
 import { Public_Routes } from "./PublicRoutes.jsx";
-import { mainRoutes } from "../../utils/routeList.jsx";
+import { mainRoutes } from "../../utility/routeList.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncStatus } from "../../utils/asyncStatus.js";
+import { asyncStatus } from "../../utility/asyncStatus.js";
 import { LinearProgress, Stack } from "@mui/material";
 
 export const AppRouter = () => {

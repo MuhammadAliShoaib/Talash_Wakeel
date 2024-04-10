@@ -1,4 +1,4 @@
-import { cities } from "../../utils/data";
+import { cities } from "../../utility/data";
 import {Box, Grid, Button, TextField, MenuItem, Link} from '@mui/material'
 
 

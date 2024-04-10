@@ -14,7 +14,7 @@ import { useFormik } from "formik";
 import {
   clientSignupValidationSchema,
   firmSignupValidationSchema,
-} from "../../utils/validation";
+} from "../../utility/validation";
 import bcrypt from "bcryptjs";
 import axios from "axios";
 import { toast } from "react-toastify";

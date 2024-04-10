@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router'
 import Header from '../../../components/Header';
-import { lawyers } from '../../../utils/data';
+import { lawyers } from '../../../utility/data';
 import { LawyerCard } from '../../../components/Cards/LawyerCard'
 
 export const FirmLawyers = () => {
