@@ -1,5 +1,4 @@
-import { useState, useContext } from "react";
-import { AuthContext } from "../../config/context/AuthProvider";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,9 +19,10 @@ import { loginValidationSchema } from "../../utility/validation";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useAuth from "../../../hooks/useAuth";
 
 export default function Login() {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
   const [loginType, setLoginType] = useState("client");
 
   const navigate = useNavigate();
