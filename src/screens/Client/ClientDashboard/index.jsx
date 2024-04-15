@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { FirmCard } from "../../../components/Cards/FirmCard";
 import Header from "../../../components/Header";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const ClientDashboard = () => {
   const [firms, setFirms] = useState([]);
   const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const getFirms = async () => {
     try {
@@ -14,6 +17,7 @@ export const ClientDashboard = () => {
       setFirms(response);
     } catch (error) {
       console.log(error);
+      navigate("/", { state: { from: location }, replace: true });
     }
   };
 
