@@ -19,7 +19,7 @@ import { loginValidationSchema } from "../../utility/validation";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 export default function Login() {
   const { setAuth } = useAuth();
@@ -55,7 +55,7 @@ export default function Login() {
           const name = response.data.client.clientFirstName;
           const email = response.data.client.clientEmail;
           const accessToken = response.data.accessToken;
-          setAuth({ name, email, accessToken });
+          setAuth({ name, email, accessToken, isFirm: false });
           if (!response) {
             throw new Error("Error Occured");
           }
@@ -126,7 +126,7 @@ export default function Login() {
           const name = response.data.firm.firmName;
           const email = response.data.firm.firmEmail;
           const accessToken = response.data.accessToken;
-          setAuth({ name, email, accessToken });
+          setAuth({ name, email, accessToken, isFirm: true });
 
           if (!response) {
             throw new Error("Error Occured");
