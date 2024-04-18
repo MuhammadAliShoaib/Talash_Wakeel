@@ -6,16 +6,16 @@ import { LawyerCard } from "../../../components/Cards/LawyerCard";
 import { Button } from "@mui/material";
 import DropDown from "../../../components/DropDown";
 import { lawyerTypes } from "../../../utility/utils";
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 export const FirmDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [lawyerData,setLawyerData] = useState(lawyers)
+  const [lawyerData, setLawyerData] = useState(lawyers);
 
   const handleChange = (e) => {
-    const array = lawyers.filter((lawyer)=>lawyer.name===e.target.value)
-    setLawyerData(array)
+    const array = lawyers.filter((lawyer) => lawyer.name === e.target.value);
+    setLawyerData(array);
   };
 
   const handleAddLawyer = () => {
@@ -33,7 +33,7 @@ export const FirmDashboard = () => {
         open={isOpen}
         onClose={() => setIsOpen(false)}
       />
-      <Header title="Dashboard" role="firm" />
+      <Header title="Dashboard" />
       {lawyers.length == 0 && (
         <h1 style={{ textAlign: "center" }}>Welcome..</h1>
       )}
@@ -41,26 +41,34 @@ export const FirmDashboard = () => {
         style={{
           display: "flex",
           justifyContent: lawyers.length == 0 ? "center" : "space-between",
-          padding: '10px',
-          flexWrap :'wrap'
+          padding: "10px",
+          flexWrap: "wrap",
         }}
       >
-        <div style={{ display: 'flex', width: '35%', justifyContent:'space-between',alignItems:'center',padding : '10px' }}>
+        <div
+          style={{
+            display: "flex",
+            width: "35%",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "10px",
+          }}
+        >
           <Autocomplete
             freeSolo
             id="free-solo-2-demo"
             disableClearable
-            style={{width : '40%'}}
+            style={{ width: "40%" }}
             size="small"
             options={lawyerTypes.map((option) => option)}
             renderInput={(params) => (
               <TextField
-                {...params} 
+                {...params}
                 label="Search name"
                 onChange={handleChange}
                 InputProps={{
                   ...params.InputProps,
-                  type: 'search',
+                  type: "search",
                 }}
               />
             )}

@@ -13,7 +13,6 @@ export const ClientDashboard = () => {
   const getFirms = async () => {
     try {
       const response = (await axiosPrivate.get("/client/getFirm")).data;
-      console.log(response);
       setFirms(response);
     } catch (error) {
       console.log(error);
@@ -27,7 +26,7 @@ export const ClientDashboard = () => {
 
   return (
     <div>
-      <Header title="Dashboard" role="client" />
+      <Header title="Dashboard" />
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {firms.map((firm, index) => {
           return <FirmCard book={true} key={index} item={firm} />;

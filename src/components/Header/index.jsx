@@ -3,13 +3,15 @@ import { Badge, Button, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useAuth from "../../hooks/useAuth";
 
-export default function Header({ title, role }) {
+export default function Header({ title }) {
   const navigate = useNavigate();
+  const { auth } = useAuth();
 
   let handleDisconnect = async () => {
     try {
-      if (role === "firm") {
+      if (auth.isfirm) {
         const response = (await axios.get("/api/firmAuth/logout")).data;
         toast.success(`${response.message}`, {
           position: "bottom-right",
@@ -22,7 +24,7 @@ export default function Header({ title, role }) {
           theme: "dark",
         });
         navigate("/");
-      } else if (role === "client") {
+      } else if (!auth.isfirm) {
         const response = (await axios.get("/api/clientAuth/logout")).data;
         toast.success(`${response.message}`, {
           position: "bottom-right",
