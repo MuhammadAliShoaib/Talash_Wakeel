@@ -7,6 +7,7 @@ import ClientDashboardMain from "./screens/Client/ClientDashboardMain";
 import FirmDashboardMain from "./screens/Firm/FirmDashboardMain";
 import { FirmLawyers } from "./screens/Client/FirmLawyers";
 import RequireAuth from "./config/routing/RequireAuth.jsx";
+import LandingPage from "./screens/LandingPage/index.jsx";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         </Route>
       </Route>
     </Routes>
+    // <LandingPage />
   );
 };
 

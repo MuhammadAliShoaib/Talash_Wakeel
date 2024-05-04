@@ -24,7 +24,7 @@ export const clientSignupValidationSchema = Yup.object().shape({
   clientCity: Yup.string().required("City is required"),
   clientPhoneNumber: Yup.string()
     .matches(/^[0-9]+$/, "Must be a valid phone number")
-    .min(10, "Phone number must be at least 10 digits")
+    .min(11, "Phone number must be at least 11 digits")
     .required("Phone number is required"),
 });
 
