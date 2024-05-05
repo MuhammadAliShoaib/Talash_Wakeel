@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import { Button, Modal, TextField, Box, Typography } from '@mui/material';
+import DropDown from '../../DropDown';
+import { lawyerTypes } from '../../../utility/utils';
+import { Formik, useFormik } from 'formik';
+import { createLawyerValidationSchema } from '../../../utility/validation';
 
-const AddLawyerModal = ({ open, onClose, onSave }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [field, setField] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const AddLawyerModal = ({ open, onClose }) => {
 
-  const handleSave = () => {
-    onSave({ firstName,lastName,field, email, password });
-    setName('');
-    setEmail('');
-    setPhoneNumber('');
-  };
+  const lawyerFormik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      councilId: 0,
+      type: "",
+      password: "",
+    },
+    validationSchema: createLawyerValidationSchema,
+    onSubmit: async (values) => {
+      onClose()
+    },
+  });
 
   return (
     <Modal
@@ -21,7 +28,9 @@ const AddLawyerModal = ({ open, onClose, onSave }) => {
       onClose={onClose}
       aria-labelledby="user-details-modal"
       aria-describedby="user-details-input"
+      onSubmit={lawyerFormik.handleSubmit}
     >
+
       <Box
         sx={{
           position: 'absolute',
@@ -35,48 +44,62 @@ const AddLawyerModal = ({ open, onClose, onSave }) => {
           textAlign: 'center',
         }}
       >
-        <Typography variant="h5" gutterBottom sx={{color : 'black'}}>
+        <Typography variant="h5" gutterBottom sx={{ color: 'black' }}>
           Create Lawyer
         </Typography>
         <TextField
           label="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
           fullWidth
           margin="normal"
+          id="firstName"
+          name="firstName"
+          onChange={lawyerFormik.handleChange}
+          value={lawyerFormik.values.firstName}
         />
         <TextField
           label="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
           fullWidth
           margin="normal"
+          id="lastName"
+          name="lastName"
+          onChange={lawyerFormik.handleChange}
+          value={lawyerFormik.values.lastName}
+        />
+        <TextField
+          label="Council Id"
+          type='number'
+          fullWidth
+          margin="normal"
+          id="councilId"
+          name="councilId"
+          onChange={lawyerFormik.handleChange}
+          value={lawyerFormik.values.councilId}
         />
         <TextField
           label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           fullWidth
           margin="normal"
+          id="email"
+          name="email"
+          onChange={lawyerFormik.handleChange}
+          value={lawyerFormik.values.email}
         />
         <TextField
-          label="Field"
-          value={field}
-          onChange={(e) => setField(e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-         <TextField
           label="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           fullWidth
           type='password'
           margin="normal"
+          id="password"
+          name="password"
+          onChange={lawyerFormik.handleChange}
+          value={lawyerFormik.values.password}
         />
-        <Button variant="contained" onClick={handleSave} sx={{marginTop : '15px'}}>
-          Create
-        </Button>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '15px' }}>
+          <DropDown options={lawyerTypes} />
+          <Button variant="contained" type='submit'>
+            Create
+          </Button>
+        </div>
       </Box>
     </Modal>
   );

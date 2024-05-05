@@ -3,7 +3,7 @@ import AddLawyerModal from "../../../components/Modal/AddLawyerModal";
 import Header from "../../../components/Header";
 import { lawyers } from "../../../utility/data";
 import { LawyerCard } from "../../../components/Cards/LawyerCard";
-import { Button } from "@mui/material";
+import { Button, Grid, Container, Typography } from "@mui/material";
 import DropDown from "../../../components/DropDown";
 import { lawyerTypes } from "../../../utility/utils";
 import TextField from "@mui/material/TextField";
@@ -18,78 +18,66 @@ export const FirmDashboard = () => {
     setLawyerData(array);
   };
 
-  const handleAddLawyer = () => {
-    console.log("Lawyer added");
-  };
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <div>
-      <AddLawyerModal
-        onSave={handleAddLawyer}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
+    <>
       <Header title="Dashboard" />
-      {lawyers.length == 0 && (
-        <h1 style={{ textAlign: "center" }}>Welcome..</h1>
-      )}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: lawyers.length == 0 ? "center" : "space-between",
-          padding: "10px",
-          flexWrap: "wrap",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            width: "35%",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "10px",
-          }}
-        >
-          <Autocomplete
-            freeSolo
-            id="free-solo-2-demo"
-            disableClearable
-            style={{ width: "40%" }}
-            size="small"
-            options={lawyerTypes.map((option) => option)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Search name"
-                onChange={handleChange}
-                InputProps={{
-                  ...params.InputProps,
-                  type: "search",
-                }}
-              />
-            )}
-          />
-          <DropDown options={lawyerTypes} />
-        </div>
-        <Button
-          onClick={toggleModal}
-          href=""
-          size="medium"
-          variant="contained"
-          sx={{ my: 1, mx: 1.5 }}
-        >
-          Add Lawyer
-        </Button>
-      </div>
-      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        {lawyerData.map((lawyer, index) => {
-          return <LawyerCard key={index} item={lawyer} />;
-        })}
-      </div>
-    </div>
+      <Container maxWidth="false" disableGutters sx={{ padding: '10px' }}>
+        <AddLawyerModal
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+        {lawyers.length === 0 && (
+          <Typography variant="h4" align="center">
+            Welcome..
+          </Typography>
+        )}
+        <Grid container spacing={3} sx={{ my: 0 }}>
+          <Grid item xs={12} md={6}>
+            <Autocomplete
+              freeSolo
+              id="free-solo-2-demo"
+              disableClearable
+              options={lawyerTypes}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Search name"
+                  onChange={handleChange}
+                  InputProps={{
+                    ...params.InputProps,
+                    type: "search",
+                  }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12} md={4} sx={{ display: "flex", alignItems: "center" }}>
+            <DropDown options={lawyerTypes} />
+          </Grid>
+          <Grid item xs={12} md={2} sx={{ display: "flex", alignItems: "center", displa: 'flex', justifyContent: 'flex-end' }} >
+            <Button
+              onClick={toggleModal}
+              href=""
+              size="medium"
+              variant="contained"
+            >
+              Add Lawyer
+            </Button>
+          </Grid>
+        </Grid>
+        <Grid container spacing={3}>
+          {lawyerData.map((lawyer, index) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+              <LawyerCard item={lawyer} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </>
   );
 };

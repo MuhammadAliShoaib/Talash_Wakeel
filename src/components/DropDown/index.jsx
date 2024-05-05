@@ -9,17 +9,17 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
-
-export default function DropDown({ options }) {
+export default function DropDown({ options, setType }) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
   };
-
+  
   const handleMenuItemClick = (event, index) => {
+    // console.info(`You clicked ${options[index]}`);
+    setType(options[index])
     setSelectedIndex(index);
     setOpen(false);
   };
@@ -43,9 +43,14 @@ export default function DropDown({ options }) {
         ref={anchorRef}
         aria-label="Button group with a nested menu"
         size='small'
-        sx={{ height: '35px' }}
+        sx={{
+          height: 'auto',
+          '@media (max-width: 600px)': {
+            width: '100%',
+          },
+        }}
       >
-        <Button sx={{width : '250px'}} onClick={handleClick}>{selectedIndex === null ? "Select type" : options[selectedIndex]}</Button>
+        <Button sx={{ width: '80%' }} onClick={handleClick}>{selectedIndex === null ? "Select type" : options[selectedIndex]}</Button>
         <Button
           size="small"
           aria-controls={open ? 'split-button-menu' : undefined}
