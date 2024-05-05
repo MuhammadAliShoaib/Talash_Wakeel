@@ -16,14 +16,14 @@ export const firmSignupValidationSchema = Yup.object({
 
 
 export const createLawyerValidationSchema = Yup.object({
-  FirstName: Yup.string().required("First name is required"),
-  LastName: Yup.string().required("Last name is required"),
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
   CouncilId: Yup.number().min(7).required("Council ID is required"),
-  Email: Yup.string()
+  email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  Type: Yup.string().required("Type is required"),
-  firmPassword: Yup.string().min(5).required("Password is required"),
+  type: Yup.string().required("Type is required"),
+  password: Yup.string().min(5).required("Password is required"),
 });
 
 export const clientSignupValidationSchema = Yup.object().shape({
