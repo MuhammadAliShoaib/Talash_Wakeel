@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddLawyerModal from "../../../components/Modal/AddLawyerModal";
 import Header from "../../../components/Header";
 import { lawyers } from "../../../utility/data";
@@ -7,21 +7,25 @@ import { Button, Grid, Container, Typography } from "@mui/material";
 import DropDown from "../../../components/DropDown";
 import { lawyerTypes } from "../../../utility/utils";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 
 export const FirmDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [lawyerData, setLawyerData] = useState(lawyers);
 
   const handleChange = (e) => {
-    const array = lawyers.filter((lawyer) => lawyer.name === e.target.value);
-    setLawyerData(array);
+    const lowerCaseQuery = (e.target.value).toLowerCase();
+    const filteredNames = lawyers.filter(lawyer => lawyer.name.toLowerCase().includes(lowerCaseQuery));
+    setLawyerData(filteredNames);
   };
-
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleDropDown = (type) => {
+    const array = lawyers.filter((lawyer) => lawyer.type === type);
+    setLawyerData(array);
+  }
 
   return (
     <>
@@ -36,30 +40,20 @@ export const FirmDashboard = () => {
             Welcome..
           </Typography>
         )}
-        <Grid container spacing={3} sx={{ my: 0 }}>
-          <Grid item xs={12} md={6}>
-            <Autocomplete
-              freeSolo
-              id="free-solo-2-demo"
-              disableClearable
-              options={lawyerTypes}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Search name"
-                  onChange={handleChange}
-                  InputProps={{
-                    ...params.InputProps,
-                    type: "search",
-                  }}
-                />
-              )}
+        <Grid container spacing={2} sx={{ my: 0 }}>
+          <Grid item xs={12} md={2}>
+            <TextField
+              label="Search name"
+              onChange={handleChange}
+              InputProps={{
+                type: "search",
+              }}
             />
           </Grid>
           <Grid item xs={12} md={4} sx={{ display: "flex", alignItems: "center" }}>
-            <DropDown options={lawyerTypes} />
+            <DropDown options={lawyerTypes} setType={handleDropDown} />
           </Grid>
-          <Grid item xs={12} md={2} sx={{ display: "flex", alignItems: "center", displa: 'flex', justifyContent: 'flex-end' }} >
+          <Grid item xs={12} md={6} sx={{ display: "flex", alignItems: "center", displa: 'flex', justifyContent: 'flex-end' }} >
             <Button
               onClick={toggleModal}
               href=""

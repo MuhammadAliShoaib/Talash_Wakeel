@@ -9,14 +9,14 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
-export default function DropDown({ options, setType }) {
+export default function DropDown({ options, setType, value=null }) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(null);
 
   const handleClick = () => {
   };
-  
+
   const handleMenuItemClick = (event, index) => {
     // console.info(`You clicked ${options[index]}`);
     setType(options[index])
@@ -71,6 +71,7 @@ export default function DropDown({ options, setType }) {
         role={undefined}
         transition
         disablePortal
+        value={value ? value : null}
       >
         {({ TransitionProps, placement }) => (
           <Grow
