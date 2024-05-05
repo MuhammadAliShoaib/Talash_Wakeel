@@ -14,14 +14,14 @@ export default function LandingPage() {
             <Navbar />
             <Container maxWidth={false} disableGutters>
                 <Container maxWidth={false} sx={{ mt: 5, textAlign: 'center' }} disableGutters>
-                    <Grid container spacing={3} sx={{ paddingX: '20px',display:'flex',justifyContent:'center',alignItems:'center' }}>
+                    <Grid container spacing={3} sx={{ paddingX: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Grid item xs={12} md={6}>
                             <span className="header2">TalashWakeel.pk</span>
                             <br />
                             <span className="subHeading">Empower Your Legal Journey With Us</span>
                             <br />
                             <span className="header3">
-                                TalashWakeel.pk, based on the management of professional work. Useful inversion for both lawyers and clients, removing the barriers between the two parties. Allowing users to find lawyers in different lawyer’s firms based on their requirements.
+                                Welcome to TalaskWakeel.pk, your trusted Advocates & Legal Consultants in all the legal matters. At TalashWakeel.pk we understand that navigating the complexities of the legal landscape can be a daunting task. That’s why we’re here to guide you through every step with expertise, dedication, and unwavering commitment. As a premier law firm in Pakistan, we offer a comprehensive range of legal services to cater to your diverse needs, ensuring that you receive the best possible legal solutions.
                             </span>
                         </Grid>
                         <Grid item >

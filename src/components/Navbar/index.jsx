@@ -1,12 +1,13 @@
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import Image from "../../assets/logoIcon.png"
 
 const Navbar = () => {
 
     const navigate = useNavigate()
 
-    const handleClick = (route)=>{
+    const handleClick = (route) => {
         navigate(`${route}`)
     }
 
@@ -18,16 +19,19 @@ const Navbar = () => {
             elevation={0}
             sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
         >
-            <Toolbar sx={{ flexWrap: "wrap" }}>
+            <Toolbar sx={{ flexWrap: "wrap"}}>
+                <div style={{width : '60px',height : '60px',borderRadius : '50%'}}>
+                    <img src={Image} width={'100%'} height={'100%'}/>
+                </div>
                 <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1, color: "#ffffff" }}>
-                    Talash Wakeel
+                    TalashWakeel
                 </Typography>
                 <Button
                     href=""
                     size="medium"
                     variant="contained"
-                    sx={{ my: 1, mx: 1.5,background:'white',color :"#000" }}
-                    onClick={()=>handleClick('/login')}
+                    sx={{ my: 1, mx: 1.5, background: 'white', color: "#000" }}
+                    onClick={() => handleClick('/login')}
                 >
                     Login
                 </Button>
@@ -35,8 +39,8 @@ const Navbar = () => {
                     href=""
                     size="medium"
                     variant="contained"
-                    sx={{ my: 1, mx: 1.5,background:'white',color :"#000" }}
-                    onClick={()=>handleClick('/signup')}
+                    sx={{ my: 1, mx: 1.5, background: 'white', color: "#000" }}
+                    onClick={() => handleClick('/signup')}
                 >
                     Signup
                 </Button>
