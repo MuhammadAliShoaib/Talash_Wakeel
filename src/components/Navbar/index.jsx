@@ -1,7 +1,15 @@
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+
+    const navigate = useNavigate()
+
+    const handleClick = (route)=>{
+        navigate(`${route}`)
+    }
+
     return (
         <AppBar
             position="static"
@@ -19,6 +27,7 @@ const Navbar = () => {
                     size="medium"
                     variant="contained"
                     sx={{ my: 1, mx: 1.5,background:'white',color :"#000" }}
+                    onClick={()=>handleClick('/login')}
                 >
                     Login
                 </Button>
@@ -27,6 +36,7 @@ const Navbar = () => {
                     size="medium"
                     variant="contained"
                     sx={{ my: 1, mx: 1.5,background:'white',color :"#000" }}
+                    onClick={()=>handleClick('/signup')}
                 >
                     Signup
                 </Button>
