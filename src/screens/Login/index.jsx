@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 
 export default function Login() {
-  const { setAuth } = useAuth();
+  const { setAuth, auth } = useAuth();
   const [loginType, setLoginType] = useState("client");
 
   const navigate = useNavigate();
@@ -125,8 +125,15 @@ export default function Login() {
           console.log(response.data);
           const name = response.data.firm.firmName;
           const email = response.data.firm.firmEmail;
+          const barCouncilId = response.data.firm.barCouncilId;
           const accessToken = response.data.accessToken;
-          setAuth({ name, email, accessToken, isFirm: true });
+          setAuth({
+            name,
+            email,
+            barCouncilId,
+            accessToken,
+            isFirm: true,
+          });
 
           if (!response) {
             throw new Error("Error Occured");
@@ -220,6 +227,11 @@ export default function Login() {
                   value="firm"
                   control={<Radio />}
                   label="Firm"
+                />
+                <FormControlLabel
+                  value="lawyer"
+                  control={<Radio />}
+                  label="Lawyer"
                 />
               </RadioGroup>
             </FormControl>

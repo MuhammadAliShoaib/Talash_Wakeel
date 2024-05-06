@@ -14,11 +14,10 @@ export const firmSignupValidationSchema = Yup.object({
   firmPassword: Yup.string().min(5).required("Password is required"),
 });
 
-
 export const createLawyerValidationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
   lastName: Yup.string().required("Last name is required"),
-  CouncilId: Yup.number().min(7).required("Council ID is required"),
+  councilId: Yup.number().min(7).required("Council ID is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
