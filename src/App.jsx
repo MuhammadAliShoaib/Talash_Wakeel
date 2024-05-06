@@ -8,6 +8,7 @@ import FirmDashboardMain from "./screens/Firm/FirmDashboardMain";
 import { FirmLawyers } from "./screens/Client/FirmLawyers";
 import RequireAuth from "./config/routing/RequireAuth.jsx";
 import LandingPage from "./screens/LandingPage/index.jsx";
+import LawyerDashboardMain from "./screens/Lawyer/LawyerDashboardMain";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route element={<RequireAuth />}>
           <Route path="firm/*" element={<FirmDashboardMain />} />
           <Route path="client/*" element={<ClientDashboardMain />} />
+          <Route path="lawyer/*" element={<LawyerDashboardMain />} />
         </Route>
       </Route>
     </Routes>

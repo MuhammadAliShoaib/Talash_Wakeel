@@ -7,15 +7,10 @@ import { Button, Grid, Container, Typography } from "@mui/material";
 import DropDown from "../../../components/DropDown";
 import { lawyerTypes } from "../../../utility/utils";
 import TextField from "@mui/material/TextField";
-import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-import useAuth from "../../../hooks/useAuth";
 
-export const FirmDashboard = () => {
-  const { auth } = useAuth();
-  const axiosPrivate = useAxiosPrivate();
+export const LawyerDashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [lawyers, setLawyers] = useState();
-  const [lawyerData, setLawyerData] = useState();
+  const [lawyerData, setLawyerData] = useState(lawyers);
 
   const handleChange = (e) => {
     const lowerCaseQuery = e.target.value.toLowerCase();
@@ -30,44 +25,21 @@ export const FirmDashboard = () => {
   };
 
   const handleDropDown = (type) => {
-    const array = lawyers.filter((lawyer) => lawyer.field === type);
+    const array = lawyers.filter((lawyer) => lawyer.type === type);
     setLawyerData(array);
   };
-
-  const getLawyers = async () => {
-    try {
-      const res = (
-        await axiosPrivate.get("/firm/getLawyers", {
-          params: { id: auth.barCouncilId },
-        })
-      ).data;
-      if (!res) {
-        throw new Error("An Error Occured");
-      }
-
-      console.log(res);
-      setLawyers(res);
-      setLawyerData(res);
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-  };
-
-  useEffect(() => {
-    getLawyers();
-  }, []);
 
   return (
     <>
       <Header title="Dashboard" />
       <Container maxWidth="false" disableGutters sx={{ padding: "10px" }}>
-        <AddLawyerModal open={isOpen} onClose={() => setIsOpen(false)} />
-        {lawyerData?.length === 0 && (
+        {/* <AddLawyerModal open={isOpen} onClose={() => setIsOpen(false)} /> */}
+        {/* {lawyers.length === 0 && (
           <Typography variant="h4" align="center">
             Welcome..
           </Typography>
-        )}
-        <Grid container spacing={2} sx={{ my: 0 }}>
+        )} */}
+        {/* <Grid container spacing={2} sx={{ my: 0 }}>
           <Grid item xs={12} md={2}>
             <TextField
               label="Search name"
@@ -107,12 +79,12 @@ export const FirmDashboard = () => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          {lawyerData?.map((lawyer, index) => (
+          {lawyerData.map((lawyer, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <LawyerCard item={lawyer} />
             </Grid>
           ))}
-        </Grid>
+        </Grid> */}
       </Container>
     </>
   );

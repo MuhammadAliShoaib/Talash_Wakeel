@@ -109,7 +109,7 @@ export default function Login() {
             });
           }
         }
-      } else {
+      } else if (loginType === "firm") {
         try {
           const response = await axios.post(
             "/api/firmAuth/login",
@@ -122,7 +122,7 @@ export default function Login() {
               withCredentials: true,
             }
           );
-          console.log(response.data);
+          // console.log(response.data);
           const name = response.data.firm.firmName;
           const email = response.data.firm.firmEmail;
           const barCouncilId = response.data.firm.barCouncilId;
@@ -141,6 +141,85 @@ export default function Login() {
 
           if (response.status === 200) {
             navigate("/firm");
+            toast.success(`Login Successful`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 401) {
+            toast.error(`${error.response.data.message}`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          } else if (error.response && error.response.status === 404) {
+            toast.error(`${error.response.data.message}`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          } else {
+            toast.error(`Internal Server Error`, {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+          }
+        }
+      } else if (loginType === "lawyer") {
+        try {
+          const response = await axios.post(
+            "/api/lawyerAuth/login",
+            {
+              email: values.email,
+              password: values.password,
+            },
+            {
+              headers: { "Content-Type": "application/json" },
+              withCredentials: true,
+            }
+          );
+          // console.log(response.data);
+          const name = response.data.lawyer.firstName;
+          const email = response.data.lawyer.email;
+          const barCouncilId = response.data.lawyer.barCouncilId;
+          const accessToken = response.data.accessToken;
+          setAuth({
+            name,
+            email,
+            barCouncilId,
+            accessToken,
+            isFirm: false,
+          });
+
+          if (!response) {
+            throw new Error("Error Occured");
+          }
+
+          if (response.status === 200) {
+            navigate("/lawyer");
             toast.success(`Login Successful`, {
               position: "bottom-right",
               autoClose: 3000,

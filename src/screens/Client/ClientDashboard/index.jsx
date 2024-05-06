@@ -12,7 +12,7 @@ export const ClientDashboard = () => {
 
   const getFirms = async () => {
     try {
-      const response = (await axiosPrivate.get("/client/getFirm")).data;
+      const response = (await axiosPrivate.get("/client/getFirms")).data;
       setFirms(response);
     } catch (error) {
       console.log(error);

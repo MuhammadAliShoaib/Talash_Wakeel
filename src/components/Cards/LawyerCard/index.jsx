@@ -1,15 +1,27 @@
-import { Button } from '@mui/material'
-import React from 'react'
+import { Button } from "@mui/material";
+import React from "react";
 
 export const LawyerCard = ({ item, book = false }) => {
-
   return (
-    <div style={{ margin: '10px', padding: '10px', borderRadius: '20px', width: '220px', height: '240px', boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px", display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      <h3 style={{ color: 'black', alignSelf: 'center' }}>{item.name}</h3>
-      <p style={{ color: 'black' }}>Email : {item.email}</p>
-      <p style={{ color: 'black' }}>Field : {item.field}</p>
-      <p style={{ color: 'black' }}>Type : {item.type}</p>
-      {book &&
+    <div
+      style={{
+        margin: "10px",
+        padding: "10px",
+        borderRadius: "20px",
+        width: "220px",
+        height: "240px",
+        boxShadow:
+          "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      <h3 style={{ color: "black", alignSelf: "center" }}>{item.firstName}</h3>
+      <p style={{ color: "black" }}>Email : {item.email}</p>
+      <p style={{ color: "black" }}>Field : {item.field}</p>
+      {/* <p style={{ color: 'black' }}>Type : {item.type}</p> */}
+      {book && (
         <Button
           href=""
           size="small"
@@ -18,7 +30,7 @@ export const LawyerCard = ({ item, book = false }) => {
         >
           Book
         </Button>
-      }
+      )}
     </div>
-  )
-}
+  );
+};
