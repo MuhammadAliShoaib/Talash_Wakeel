@@ -17,14 +17,15 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
 
 
     const handleDateChange = (selectedDate) => {
-        setDate((dayjs(selectedDate).$d));
+        // console.log((dayjs(selectedDate).$d).toLocaleDateString())
+        setDate((dayjs(selectedDate).$d).toLocaleDateString());
     }
 
     const book = async () => {
-        if (date == null) {
-            setError(true)
-            return
-        }
+        // if (date == null) {
+        //     setError(true)
+        //     return
+        // }
         try {
             const res = await axiosPrivate.post(`/client/bookAppointment`, {
                 firmId: firmId,
@@ -117,9 +118,8 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             label="Appointment date"
-                            value={date}
-                            onChange={(date) =>
-                                setDate(date?.toLocaleString())}
+                            // value={date}
+                            onChange={handleDateChange}
                         />
                     </LocalizationProvider>
                     {error ? (
