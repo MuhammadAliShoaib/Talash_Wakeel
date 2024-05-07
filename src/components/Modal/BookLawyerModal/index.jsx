@@ -7,6 +7,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import useAuth from "../../../hooks/useAuth";
 import axiosPrivate from "../../../api/axiosPrivate";
+import { toast } from "react-toastify";
 
 export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   const { auth } = useAuth();
@@ -26,9 +27,11 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
     // }
     try {
       const res = await axiosPrivate.post(`/client/bookAppointment`, {
-        firmId: firmId,
-        LawyerId: data.barCouncilId,
-        clientId: auth.clientID,
+        firmBarCouncilId: firmId,
+        lawyerBarCouncilId: data.lawyerBarCouncilId,
+        lawyerName: data.firstName,
+        clientID: auth.clientID,
+        clientName: auth.name,
         bookingDate: date,
       });
 
@@ -46,20 +49,10 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
         progress: undefined,
         theme: "dark",
       });
+      onClose();
     } catch (error) {
       console.log("Error: ", error);
-      if (error.res && error.res.status === 409) {
-        toast.error(`${error.res.data.message}`, {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      } else if (error.res && error.res.status === 500) {
+      if (error.res && error.res.status === 500) {
         toast.error(`${error.res.data.message}`, {
           position: "bottom-right",
           autoClose: 3000,
@@ -82,9 +75,9 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
       aria-describedby="user-details-input"
     >
       <Box
-        component="form"
-        noValidate
-        onSubmit={book}
+        // component="form"
+        // noValidate
+        // onSubmit={book}
         sx={{
           position: "absolute",
           width: "90%",
@@ -126,7 +119,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
             </Box>
           ) : null}
         </Grid>
-        <Button type="submit" variant="contained">
+        <Button onClick={book} variant="contained">
           Confirm Booking
         </Button>
       </Box>

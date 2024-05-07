@@ -56,7 +56,7 @@ export default function Login() {
           const name = response.data.client.clientFirstName;
           const email = response.data.client.clientEmail;
           const accessToken = response.data.accessToken;
-          setAuth({ name, email, accessToken, isFirm: false,clientID });
+          setAuth({ name, email, accessToken, isFirm: false, clientID });
           if (!response) {
             throw new Error("Error Occured");
           }
@@ -126,12 +126,12 @@ export default function Login() {
           // console.log(response.data);
           const name = response.data.firm.firmName;
           const email = response.data.firm.firmEmail;
-          const barCouncilId = response.data.firm.barCouncilId;
+          const firmBarCouncilId = response.data.firm.firmBarCouncilId;
           const accessToken = response.data.accessToken;
           setAuth({
             name,
             email,
-            barCouncilId,
+            firmBarCouncilId,
             accessToken,
             isFirm: true,
           });
@@ -205,12 +205,12 @@ export default function Login() {
           // console.log(response.data);
           const name = response.data.lawyer.firstName;
           const email = response.data.lawyer.email;
-          const barCouncilId = response.data.lawyer.barCouncilId;
+          const lawyerBarCouncilId = response.data.lawyer.lawyerBarCouncilId;
           const accessToken = response.data.accessToken;
           setAuth({
             name,
             email,
-            barCouncilId,
+            lawyerBarCouncilId,
             accessToken,
             isFirm: false,
           });

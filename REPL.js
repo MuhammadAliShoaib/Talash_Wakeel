@@ -1,6 +1,19 @@
-import { db } from './models/index.js'
+import { db } from "./models/index.js";
 
-db.Counter.create({
-  _id: 'client',
-  seq: 0,
-}).then(() => process.exit())
+const clientId = 2;
+
+db.Booking.aggregate([
+  {
+    $match: { clientId: clientId },
+  },
+  {
+    $lookup: {
+      from: "Firm",
+      localField: "firmId",
+      foreignField: "barCouncilId",
+      as: "firm",
+    },
+  },
+])
+  .then((res) => console.log(JSON.stringify(res)))
+  .then((res) => process.exit());

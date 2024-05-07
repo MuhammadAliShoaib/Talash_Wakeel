@@ -3,6 +3,7 @@ import { Firm } from "./Firm.js";
 import { Lawyer } from "./Lawyer.js";
 import { Client } from "./Client.js";
 import { Counter } from "./Counter.js";
+import { Booking } from "./Booking.js";
 
 (async () => {
   await mongoose.connect(process.env.DB_CONNECTION_STRING);
@@ -13,4 +14,5 @@ export const db = {
   Lawyer,
   Client,
   Counter,
+  Booking,
 };

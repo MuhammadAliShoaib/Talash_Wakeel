@@ -1,51 +1,52 @@
-import React, { useState } from 'react'
-import Header from '../../../components/Header'
-import { Box, Container, Grid, Typography } from '@mui/material'
-import useAuth from '../../../hooks/useAuth'
-import ClientBookedTable from '../../../components/ClientBookedTable'
+import React, { useState, useEffect } from "react";
+import Header from "../../../components/Header";
+import { Box, Container, Grid, Typography } from "@mui/material";
+import useAuth from "../../../hooks/useAuth";
+import ClientBookedTable from "../../../components/ClientBookedTable";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const sample = [
   {
     firmName: "Szabist",
-    lawyerName: "Abdul Muneeb",
+    firstName: "Abdul Muneeb",
     date: "08/05/2024",
-    status: "Done"
-  }
-]
+    status: "Done",
+  },
+];
 
 export const ClientPaymentHistory = () => {
-
-  const [data, setData] = useState(sample)
-  const { auth } = useAuth()
-
+  const axiosPrivate = useAxiosPrivate();
+  const [data, setData] = useState();
+  const { auth } = useAuth();
 
   const getAppointments = async () => {
     try {
       const res = (
-        await axiosPrivate.get("/client/getAppointments", { params: { id: auth.clientID } })
+        await axiosPrivate.get("/client/getAppointments", {
+          params: { clientID: auth.clientID },
+        })
       ).data;
       if (!res) {
         throw new Error("An Error Occured");
       }
-      setData(res)
+      // console.log(res);
+      setData(res);
+      // console.log(data);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
-  // useEffect(() => { 
-  //   getAppointments()
-  // }, [])
+  useEffect(() => {
+    getAppointments();
+  }, []);
 
   return (
     <div>
       <Header title="Payment History" />
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
-          <Typography
-            variant="h5"
-            color={"black"}
-          >
+          <Typography variant="h5" color={"black"}>
             Lawyer Appointments
           </Typography>
         </Container>
@@ -63,5 +64,5 @@ export const ClientPaymentHistory = () => {
         </Container>
       </Box>
     </div>
-  )
-}
+  );
+};

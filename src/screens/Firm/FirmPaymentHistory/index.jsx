@@ -1,64 +1,62 @@
-import React, { useEffect, useState } from 'react'
-import Header from '../../../components/Header'
-import FirmTable from '../../../components/FirmTable'
-import { Box, Container, Grid, Typography } from '@mui/material'
-import useAuth from '../../../hooks/useAuth'
-
+import React, { useEffect, useState } from "react";
+import Header from "../../../components/Header";
+import FirmTable from "../../../components/FirmTable";
+import { Box, Container, Grid, Typography } from "@mui/material";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 const sample = [
   {
     clientID: 1,
-    barCouncilId: '2012281',
-    date: '08/05/2024',
-    status: "Done"
+    barCouncilId: "2012281",
+    date: "08/05/2024",
+    status: "Done",
   },
   {
     clientID: 2,
-    barCouncilId: '2012281',
-    date: '08/05/2024',
-    status: "Done"
+    barCouncilId: "2012281",
+    date: "08/05/2024",
+    status: "Done",
   },
   {
     clientID: 3,
-    barCouncilId: '2012281',
-    date: '08/05/2024',
-    status: "Done"
-  }
-]
+    barCouncilId: "2012281",
+    date: "08/05/2024",
+    status: "Done",
+  },
+];
 
 export const FirmPaymentHistory = () => {
-
-  const [data, setData] = useState(sample)
-  const { auth } = useAuth()
-
+  const axiosPrivate = useAxiosPrivate();
+  const [data, setData] = useState(sample);
+  const { auth } = useAuth();
 
   const getAppointments = async () => {
     try {
       const res = (
-        await axiosPrivate.get("/firm/getAppointments", { params: { id: auth.barCouncilId } })
+        await axiosPrivate.get("/firm/getAppointments", {
+          params: { id: auth.firmBarCouncilId },
+        })
       ).data;
       if (!res) {
         throw new Error("An Error Occured");
       }
-      setData(res)
+      setData(res);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
-  // useEffect(() => { 
-  //   getAppointments()
-  // }, [])
+  useEffect(() => {
+    getAppointments();
+  }, []);
 
   return (
     <div>
       <Header title="Payment History" />
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
-          <Typography
-            variant="h5"
-            color={"black"}
-          >
+          <Typography variant="h5" color={"black"}>
             Lawyer Appointments
           </Typography>
         </Container>
@@ -76,5 +74,5 @@ export const FirmPaymentHistory = () => {
         </Container>
       </Box>
     </div>
-  )
-}
+  );
+};

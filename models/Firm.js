@@ -3,7 +3,7 @@ const { model, Schema } = mongoose;
 
 const firmSchema = new Schema({
   firmID: String,
-  barCouncilId: { type: Number, required: true },
+  firmBarCouncilId: { type: Number, required: true },
   firmName: { type: String, required: true },
   firmEmail: { type: String, required: true },
   firmPhoneNumber: { type: String, required: true },

@@ -6,7 +6,7 @@ export const FirmCard = ({ item }) => {
   let navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/client/${item.barCouncilId}`);
+    navigate(`/client/${item.firmBarCouncilId}`);
   };
 
   return (

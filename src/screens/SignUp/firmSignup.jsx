@@ -32,18 +32,18 @@ export default function FirmSignup({ firmFormik }) {
         <Grid item xs={12} sm={6}>
           <TextField
             autoComplete="given-name"
-            name="barCouncilId"
+            name="firmBarCouncilId"
             required
             fullWidth
-            id="barCouncilId"
+            id="firmBarCouncilId"
             label="Bar Council ID"
             onChange={firmFormik.handleChange}
-            value={firmFormik.values.barCouncilId}
+            value={firmFormik.values.firmBarCouncilId}
             autoFocus
           />
-          {firmFormik.errors.barCouncilId ? (
+          {firmFormik.errors.firmBarCouncilId ? (
             <Box component={"span"} sx={{ display: "inline", color: "red" }}>
-              {firmFormik.errors.barCouncilId}
+              {firmFormik.errors.firmBarCouncilId}
             </Box>
           ) : null}
         </Grid>

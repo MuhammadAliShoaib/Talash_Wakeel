@@ -38,7 +38,7 @@ export const FirmDashboard = () => {
     try {
       const res = (
         await axiosPrivate.get("/firm/getLawyers", {
-          params: { id: auth.barCouncilId },
+          params: { id: auth.firmBarCouncilId },
         })
       ).data;
       if (!res) {
