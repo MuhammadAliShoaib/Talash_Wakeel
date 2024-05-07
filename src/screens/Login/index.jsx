@@ -52,10 +52,11 @@ export default function Login() {
             }
           );
           console.log(response.data);
+          const clientID = response.data.client.clientID;
           const name = response.data.client.clientFirstName;
           const email = response.data.client.clientEmail;
           const accessToken = response.data.accessToken;
-          setAuth({ name, email, accessToken, isFirm: false });
+          setAuth({ name, email, accessToken, isFirm: false,clientID });
           if (!response) {
             throw new Error("Error Occured");
           }

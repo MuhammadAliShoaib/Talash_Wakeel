@@ -62,7 +62,7 @@ export const FirmLawyers = () => {
       <Header title="Szabist Firm" />
       <div style={{ padding: "10px" }}>
         {item &&
-          <BookLawyerModal open={displayModal} onClose={() => setDisplayModal(false)} data={item} />
+          <BookLawyerModal open={displayModal} onClose={() => setDisplayModal(false)} data={item} firmId={id} />
         }
         <Grid container spacing={2} sx={{ my: 0 }}>
           <Grid item xs={12} md={2}>

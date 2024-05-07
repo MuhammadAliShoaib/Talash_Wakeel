@@ -1,91 +1,83 @@
 import React, { useEffect, useState } from "react";
-import AddLawyerModal from "../../../components/Modal/AddLawyerModal";
 import Header from "../../../components/Header";
-import { lawyers } from "../../../utility/data";
-import { LawyerCard } from "../../../components/Cards/LawyerCard";
-import { Button, Grid, Container, Typography } from "@mui/material";
-import DropDown from "../../../components/DropDown";
-import { lawyerTypes } from "../../../utility/utils";
-import TextField from "@mui/material/TextField";
+import { Grid, Container, Box, Typography } from "@mui/material";
+import AppointmentTable from "../../../components/AppointmentTable";
+import useAuth from "../../../hooks/useAuth";
+import axiosPrivate from "../../../api/axiosPrivate";
 
 export const LawyerDashboard = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [lawyerData, setLawyerData] = useState(lawyers);
 
-  const handleChange = (e) => {
-    const lowerCaseQuery = e.target.value.toLowerCase();
-    const filteredNames = lawyers.filter((lawyer) =>
-      lawyer.name.toLowerCase().includes(lowerCaseQuery)
-    );
-    setLawyerData(filteredNames);
+  const [data, setData] = useState()
+  const { auth } = useAuth()
+
+
+  const getAppointments = async () => {
+    try {
+      const res = (
+        await axiosPrivate.get("/lawyer/getAppointments", { params: { id: auth.barCouncilId } })
+      ).data;
+      if (!res) {
+        throw new Error("An Error Occured");
+      }
+      setData(res)
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
 
-  const handleDropDown = (type) => {
-    const array = lawyers.filter((lawyer) => lawyer.type === type);
-    setLawyerData(array);
-  };
+  // useEffect(()=>{
+  //   getAppointments()
+  // },[])
 
   return (
     <>
       <Header title="Dashboard" />
-      <Container maxWidth="false" disableGutters sx={{ padding: "10px" }}>
-        {/* <AddLawyerModal open={isOpen} onClose={() => setIsOpen(false)} /> */}
-        {/* {lawyers.length === 0 && (
-          <Typography variant="h4" align="center">
-            Welcome..
+      <Box sx={{ paddingTop: "25px" }}>
+        <Container>
+          <Typography
+            variant="h5"
+            color={"black"}
+          >
+            Current Booked Appointments
           </Typography>
-        )} */}
-        {/* <Grid container spacing={2} sx={{ my: 0 }}>
-          <Grid item xs={12} md={2}>
-            <TextField
-              label="Search name"
-              onChange={handleChange}
-              InputProps={{
-                type: "search",
-              }}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={4}
-            sx={{ display: "flex", alignItems: "center" }}
-          >
-            <DropDown options={lawyerTypes} setType={handleDropDown} />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              displa: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Button
-              onClick={toggleModal}
-              href=""
-              size="medium"
-              variant="contained"
+        </Container>
+
+        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              Add Lawyer
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid container spacing={3}>
-          {lawyerData.map((lawyer, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <LawyerCard item={lawyer} />
+              <AppointmentTable data={data} />
             </Grid>
-          ))}
-        </Grid> */}
-      </Container>
+          </Grid>
+        </Container>
+      </Box>
+
+      <Box sx={{ paddingTop: "25px" }}>
+        <Container>
+          <Typography
+            variant="h5"
+            color={"black"}
+          >
+            Previous Booked Appointments
+          </Typography>
+        </Container>
+
+        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              style={{ paddingTop: "5px", paddingBottom: "10px" }}
+            >
+              <AppointmentTable data={data}/>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
     </>
   );
 };
