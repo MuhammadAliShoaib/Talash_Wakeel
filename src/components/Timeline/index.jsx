@@ -20,9 +20,9 @@ export default function TimeLine() {
                                 <div style={{ backgroundColor: "#71A5DE", display: "inline-flex", justifyContent: 'center', alignItems: 'center', padding: '10px', marginRight: '10px', borderRadius: '10px' }}>
                                     <CachedIcon color='primary' />
                                 </div>
-                                <span className="header3" style={{ color: 'black' }}>Accurate Location</span>
+                                <span className="header3" style={{ color: 'black' }}>Family Law</span>
                             </div>
-                            <p style={{ margin: '0', marginTop: '10px', color: 'black' }}>Revolutionizing the Pharma Industry’s Supply Chain Management with  Blockchain Technology to ensures. Dummey text to be changed.
+                            <p style={{ margin: '0', marginTop: '10px', color: 'black' }}>We recognize the emotional and sensitive nature of family-related legal matters. Our experienced family law advocates provide compassionate support and skillful advocacy in cases involving divorce, child custody, adoption, spousal support, and more.
                             </p>
                         </div>
                     </div>
@@ -45,9 +45,9 @@ export default function TimeLine() {
                                 <div style={{ backgroundColor: "#71A5DE", display: "inline-flex", justifyContent: 'center', alignItems: 'center', padding: '10px', marginRight: '10px', borderRadius: '10px' }}>
                                     <CachedIcon color='primary' />
                                 </div>
-                                <span className="header3" style={{ color: 'black' }}>Accurate Location</span>
+                                <span className="header3" style={{ color: 'black' }}>Civil Law</span>
                             </div>
-                            <p style={{ margin: '0', marginTop: '10px', color: 'black' }}>Revolutionizing the Pharma Industry’s Supply Chain Management with  Blockchain Technology to ensures. Dummey text to be changed.
+                            <p style={{ margin: '0', marginTop: '10px', color: 'black' }}>Whether you're facing a contractual dispute or seeking remedies for civil wrongs, our proficient civil lawyer team will work tirelessly to safeguard your rights and interests. We offer adept representation for a variety of civil litigation matters.
                             </p>
                         </div>
                     </div>
@@ -70,9 +70,9 @@ export default function TimeLine() {
                                 <div style={{ backgroundColor: "#71A5DE", display: "inline-flex", justifyContent: 'center', alignItems: 'center', padding: '10px', marginRight: '10px', borderRadius: '10px' }}>
                                     <CachedIcon color='primary' />
                                 </div>
-                                <span className="header3" style={{ color: 'black' }}>Accurate Location</span>
+                                <span className="header3" style={{ color: 'black' }}>Corporate Law</span>
                             </div>
-                            <p style={{ margin: '0', marginTop: '10px', color: 'black' }}>Revolutionizing the Pharma Industry’s Supply Chain Management with  Blockchain Technology to ensures. Dummey text to be changed.
+                            <p style={{ margin: '0', marginTop: '10px', color: 'black' }}>Navigating the intricate world of corporate law requires in-depth knowledge and strategic thinking. Our corporate lawyers offer insightful counsel for issues like mergers and acquisitions, corporate governance, contract drafting, and compliance.
                             </p>
                         </div>
                     </div>
