@@ -4,9 +4,18 @@ import { Box, Container, Grid, Typography } from '@mui/material'
 import useAuth from '../../../hooks/useAuth'
 import ClientBookedTable from '../../../components/ClientBookedTable'
 
+const sample = [
+  {
+    firmName: "Szabist",
+    lawyerName: "Abdul Muneeb",
+    date: "08/05/2024",
+    status: "Done"
+  }
+]
+
 export const ClientPaymentHistory = () => {
 
-  const [data, setData] = useState()
+  const [data, setData] = useState(sample)
   const { auth } = useAuth()
 
 

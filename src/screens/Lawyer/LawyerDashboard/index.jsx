@@ -5,9 +5,31 @@ import AppointmentTable from "../../../components/AppointmentTable";
 import useAuth from "../../../hooks/useAuth";
 import axiosPrivate from "../../../api/axiosPrivate";
 
+
+const sample = [
+  {
+    clientID : 1,
+    clientFirstName : "Abdul",
+    clientLastName : "Muneeb",
+    date : "08/05/2024"
+  },
+  {
+    clientID : 1,
+    clientFirstName : "Abdul",
+    clientLastName : "Muneeb",
+    date : "08/05/2024"
+  },
+  {
+    clientID : 1,
+    clientFirstName : "Abdul",
+    clientLastName : "Muneeb",
+    date : "08/05/2024"
+  }
+]
+
 export const LawyerDashboard = () => {
 
-  const [data, setData] = useState()
+  const [data, setData] = useState(sample)
   const { auth } = useAuth()
 
 

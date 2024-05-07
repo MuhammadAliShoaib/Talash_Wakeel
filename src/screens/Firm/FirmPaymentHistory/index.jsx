@@ -4,9 +4,31 @@ import FirmTable from '../../../components/FirmTable'
 import { Box, Container, Grid, Typography } from '@mui/material'
 import useAuth from '../../../hooks/useAuth'
 
+
+const sample = [
+  {
+    clientID: 1,
+    barCouncilId: '2012281',
+    date: '08/05/2024',
+    status: "Done"
+  },
+  {
+    clientID: 2,
+    barCouncilId: '2012281',
+    date: '08/05/2024',
+    status: "Done"
+  },
+  {
+    clientID: 3,
+    barCouncilId: '2012281',
+    date: '08/05/2024',
+    status: "Done"
+  }
+]
+
 export const FirmPaymentHistory = () => {
 
-  const [data, setData] = useState()
+  const [data, setData] = useState(sample)
   const { auth } = useAuth()
 
 
