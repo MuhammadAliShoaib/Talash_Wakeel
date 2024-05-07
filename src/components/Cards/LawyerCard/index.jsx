@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-export const LawyerCard = ({ item, book = false }) => {
+export const LawyerCard = ({ item, book = false, onClick }) => {
   return (
     <div
       style={{
@@ -27,6 +27,7 @@ export const LawyerCard = ({ item, book = false }) => {
           size="small"
           variant="contained"
           sx={{ my: 1, mx: 1.5 }}
+          onClick={() => onClick(item)}
         >
           Book
         </Button>

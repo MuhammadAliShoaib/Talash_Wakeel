@@ -22,7 +22,7 @@ export const FirmDashboard = () => {
     const filteredNames = lawyers.filter((lawyer) =>
       lawyer.name.toLowerCase().includes(lowerCaseQuery)
     );
-    setLawyerData(filteredNames);
+    setLawyers(filteredNames);
   };
 
   const toggleModal = () => {
@@ -31,7 +31,7 @@ export const FirmDashboard = () => {
 
   const handleDropDown = (type) => {
     const array = lawyers.filter((lawyer) => lawyer.field === type);
-    setLawyerData(array);
+    setLawyers(array);
   };
 
   const getLawyers = async () => {
@@ -47,7 +47,6 @@ export const FirmDashboard = () => {
 
       console.log(res);
       setLawyers(res);
-      setLawyerData(res);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -62,7 +61,7 @@ export const FirmDashboard = () => {
       <Header title="Dashboard" />
       <Container maxWidth="false" disableGutters sx={{ padding: "10px" }}>
         <AddLawyerModal open={isOpen} onClose={() => setIsOpen(false)} />
-        {lawyerData?.length === 0 && (
+        {lawyers?.length === 0 && (
           <Typography variant="h4" align="center">
             Welcome..
           </Typography>
@@ -107,7 +106,7 @@ export const FirmDashboard = () => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          {lawyerData?.map((lawyer, index) => (
+          {lawyers?.map((lawyer, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <LawyerCard item={lawyer} />
             </Grid>

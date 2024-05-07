@@ -7,12 +7,15 @@ import { Grid, TextField } from "@mui/material";
 import DropDown from "../../../components/DropDown";
 import { lawyerTypes } from "../../../utility/utils";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { BookLawyerModal } from "../../../components/Modal/BookLawyerModal";
 
 export const FirmLawyers = () => {
   const axiosPrivate = useAxiosPrivate();
   let { id } = useParams();
   const [lawyers, setLawyers] = useState();
   const [lawyerData, setLawyerData] = useState();
+  const [displayModal, setDisplayModal] = useState(false)
+  const [item, setItem] = useState()
 
   const handleDropDown = (type) => {
     const array = lawyers.filter((lawyer) => lawyer.field === type);
@@ -44,6 +47,12 @@ export const FirmLawyers = () => {
     }
   };
 
+  const handleModal = (item) => {
+    console.log(item)
+    setItem(item)
+    setDisplayModal(!displayModal)
+  }
+
   useEffect(() => {
     getLawyers();
   }, [id]);
@@ -52,6 +61,9 @@ export const FirmLawyers = () => {
     <>
       <Header title="Szabist Firm" />
       <div style={{ padding: "10px" }}>
+        {item &&
+          <BookLawyerModal open={displayModal} onClose={() => setDisplayModal(false)} data={item} />
+        }
         <Grid container spacing={2} sx={{ my: 0 }}>
           <Grid item xs={12} md={2}>
             <TextField
@@ -75,7 +87,7 @@ export const FirmLawyers = () => {
           style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
         >
           {lawyerData?.map((lawyer, index) => {
-            return <LawyerCard key={index} item={lawyer} book />;
+            return <LawyerCard key={index} item={lawyer} book onClick={handleModal} />;
           })}
         </div>
       </div>

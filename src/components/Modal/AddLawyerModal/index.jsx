@@ -8,9 +8,8 @@ import {
   Grid,
   MenuItem,
 } from "@mui/material";
-import DropDown from "../../DropDown";
 import { lawyerTypes } from "../../../utility/utils";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { createLawyerValidationSchema } from "../../../utility/validation";
 import bcrypt from "bcryptjs";
 import useAuth from "../../../hooks/useAuth";
