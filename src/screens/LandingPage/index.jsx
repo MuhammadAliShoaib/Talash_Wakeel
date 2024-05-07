@@ -67,7 +67,7 @@ export default function LandingPage() {
                                 <Grid container spacing={3}>
                                     <Grid item xs={12}>
                                         <span className="header2" style={{ fontSize: "2.5rem" }}>
-                                            Main Features
+                                            Legal Specialties
                                         </span>
                                     </Grid>
                                 </Grid>
