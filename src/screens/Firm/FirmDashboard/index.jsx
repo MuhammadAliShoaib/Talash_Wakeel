@@ -54,7 +54,7 @@ export const FirmDashboard = () => {
 
   useEffect(() => {
     getLawyers();
-  }, []);
+  }, [lawyers]);
 
   return (
     <>

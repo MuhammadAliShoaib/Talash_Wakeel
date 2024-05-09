@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Work from '../../components/Work';
 import TimeLine from '../../components/Timeline';
 import Navbar from '../../components/Navbar';
+import { specialities } from '../../utility/data';
 
 export default function LandingPage() {
     return (
@@ -30,38 +31,46 @@ export default function LandingPage() {
                     </Grid>
 
 
-                    <Grid container spacing={3} sx={{ marginY: '10px', backgroundColor: '#000', marginX: 0, paddingY: '20px', width: '100vw' }}>
+                    <Grid container spacing={3} sx={{ marginY: '10px', marginX: 0, paddingY: '20px', width: '100vw' }}>
                         <Grid container spacing={3} sx={{ marginY: 1 }}>
                             <Grid item xs={12}>
-                                <span className="header2" style={{ fontSize: "2.5rem", color: '#ffffff' }}>
-                                    How Does it work?
-                                </span>
+                                <div className="header2" style={{ fontSize: "2.5rem", color: '#000' }}>
+                                    Legal Specialities
+                                </div>
+                                <div style={{ fontSize: "1 rem", color: '#000', marginTop: '20px', marginBottom: '10px' }}>
+                                    Our advocates work only on those legal cases which are based on truth only.
+                                </div>
                             </Grid>
                         </Grid>
                         <Grid container spacing={3} sx={{ marginY: 1 }}>
                             <Grid item xs={12}>
-                                <Grid container spacing={3}>
-                                    <Grid item xs={12} md={4} sx={{ padding: 0, display: 'flex', justifyContent: 'center' }}>
+                                <Grid container spacing={3} sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}>
+                                    {specialities.map((x, i) => {
+                                        return (
+                                            <Grid item sx={{ padding: 0, display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                                                <div style={{ padding: "15px" }}>
+                                                    <Work title={x.title} description={x.description} />
+                                                </div>
+                                            </Grid>
+                                        )
+                                    })}
+
+                                    {/* <Grid item sx={{ padding: 0, display: 'flex', justifyContent: 'center' }}>
                                         <div style={{ padding: "15px" }}>
                                             <Work image={Image2} />
                                         </div>
                                     </Grid>
-                                    <Grid item xs={12} md={4} sx={{ padding: 0, display: 'flex', justifyContent: 'center' }}>
+                                    <Grid item sx={{ padding: 0, display: 'flex', justifyContent: 'center' }}>
                                         <div style={{ padding: "15px" }}>
                                             <Work image={Image2} />
                                         </div>
-                                    </Grid>
-                                    <Grid item xs={12} md={4} sx={{ padding: 0, display: 'flex', justifyContent: 'center' }}>
-                                        <div style={{ padding: "15px" }}>
-                                            <Work image={Image2} />
-                                        </div>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
 
-                    <Grid container spacing={3}>
+                    {/* <Grid container spacing={3}>
                         <Grid container spacing={3} sx={{ marginY: 1 }}>
                             <Grid item xs={12}>
                                 <Grid container spacing={3}>
@@ -78,7 +87,7 @@ export default function LandingPage() {
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </Container>
             </Container>
         </div>
