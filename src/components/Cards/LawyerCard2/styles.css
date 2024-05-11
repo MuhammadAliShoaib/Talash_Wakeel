@@ -37,17 +37,27 @@
   background: linear-gradient(#92bCa6, #A2CCB6);
 }
 
+.profile { 
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
 
-.laweryCard:hover .additional {
+
+/* .laweryCard:hover .additional {
   width: 100%;
   border-radius: 0 5px 5px 0;
-}
+} */
 
 .laweryCard .additional .user-card {
   width: 150px;
   height: 100%;
   position: relative;
   float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .laweryCard .additional .user-card::after {

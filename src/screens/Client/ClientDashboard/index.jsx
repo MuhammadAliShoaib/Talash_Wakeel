@@ -31,11 +31,9 @@ export const ClientDashboard = () => {
       <Header title="Dashboard" />
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
         {firms.map((firm, index) => {
-          return <FirmCard book={true} key={index} item={firm} />;
+          return <FirmCard2 key={index} item={firm} />;
         })}
       </div>
-      <FirmCard2 />
-      {/* <LawyerCard2 /> */}
     </div>
   );
 };

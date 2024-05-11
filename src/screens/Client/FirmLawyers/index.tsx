@@ -8,6 +8,7 @@ import DropDown from "../../../components/DropDown";
 import { lawyerTypes } from "../../../utility/utils";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { BookLawyerModal } from "../../../components/Modal/BookLawyerModal";
+import LawyerCard2 from "../../../components/Cards/LawyerCard2";
 
 export const FirmLawyers = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -90,6 +91,7 @@ export const FirmLawyers = () => {
             return <LawyerCard key={index} item={lawyer} book onClick={handleModal} />;
           })}
         </div>
+        <LawyerCard2/>
       </div>
     </>
   );
