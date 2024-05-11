@@ -2,8 +2,11 @@ import React from 'react';
 import './styles.css'; // Import your CSS file
 import StarIcon from '@mui/icons-material/Star';
 import Image from "../../../assets/profile.jpg"
+import Image2 from "../../../assets/firm.jpeg"
+import Image3 from "../../../assets/balance.png"
+import { Button } from '@mui/material';
 
-const LawyerCard2 = ({ name, groupName, joinedDate, position, location, awards, matches, pals, coffee }) => {
+const LawyerCard2 = ({ item, onClick }) => {
   return (
     <div className="">
       <div className="laweryCard">
@@ -12,7 +15,7 @@ const LawyerCard2 = ({ name, groupName, joinedDate, position, location, awards, 
             <div className="level center">
               Tax Lawyer
             </div>
-            <div >
+            <div className='profileContainer' >
               <img src={Image} className='profile' />
             </div>
             <div className="points center">
@@ -25,9 +28,24 @@ const LawyerCard2 = ({ name, groupName, joinedDate, position, location, awards, 
           </div>
         </div>
         <div className="general">
-          <h1>{name}</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut pulvinar.</p>
-          <span className="more">Random Text</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <img src={Image2} className='firmImage' />
+            <img src={Image3} className='firmImage' />
+          </div>
+          <h3 style={{ color: "black", alignSelf: "center" }}>{item.firstName} {item.lastName}</h3>
+          <p style={{ color: "black" }}>ID : {item.lawyerBarCouncilId}</p>
+          <p style={{ color: "black" }}>Description : Lorem ipsum</p>
+          <span className="more">
+            <Button
+              href=""
+              size="small"
+              variant="contained"
+              sx={{ my: 1, mx: 1.5 }}
+              onClick={() => onClick(item)}
+            >
+              Book
+            </Button>
+          </span>
         </div>
       </div>
     </div>

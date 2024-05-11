@@ -88,10 +88,9 @@ export const FirmLawyers = () => {
           style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
         >
           {lawyerData?.map((lawyer, index) => {
-            return <LawyerCard key={index} item={lawyer} book onClick={handleModal} />;
+            return <LawyerCard2 key={index} item={lawyer} onClick={handleModal} />;
           })}
         </div>
-        <LawyerCard2/>
       </div>
     </>
   );
