@@ -3,6 +3,8 @@ import { FirmCard } from "../../../components/Cards/FirmCard";
 import Header from "../../../components/Header";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import FirmCard2 from "../../../components/Cards/FirmCard2";
+import LawyerCard2 from "../../../components/Cards/LawyerCard2";
 
 export const ClientDashboard = () => {
   const [firms, setFirms] = useState([]);
@@ -32,6 +34,8 @@ export const ClientDashboard = () => {
           return <FirmCard book={true} key={index} item={firm} />;
         })}
       </div>
+      <FirmCard2 />
+      {/* <LawyerCard2 /> */}
     </div>
   );
 };
