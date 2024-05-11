@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.css'; // Import your CSS file
 import StarIcon from '@mui/icons-material/Star';
 import Image from "../../../assets/profile.jpg"
@@ -6,11 +6,24 @@ import Image2 from "../../../assets/firm.jpeg"
 import Image3 from "../../../assets/balance.png"
 import { Button } from '@mui/material';
 
+function getRandomColor() {
+  const red = Math.floor(Math.random() * 256);
+  const green = Math.floor(Math.random() * 256);
+  const blue = Math.floor(Math.random() * 256);
+
+  const color = `rgb(${red}, ${green}, ${blue})`;
+
+  return color;
+}
+
 const LawyerCard2 = ({ item, onClick }) => {
+
+  const [color, setColor] = useState(getRandomColor())
+
   return (
-    <div className="">
+    <div >
       <div className="laweryCard">
-        <div className="additional">
+        <div className="additional" style={{ backgroundColor: color }}>
           <div className="user-card">
             <div className="level center">
               Tax Lawyer
