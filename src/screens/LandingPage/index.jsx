@@ -8,6 +8,7 @@ import Work from '../../components/Work';
 import TimeLine from '../../components/Timeline';
 import Navbar from '../../components/Navbar';
 import { specialities } from '../../utility/data';
+import { Footer } from '../../components/Footer';
 
 export default function LandingPage() {
     return (
@@ -90,6 +91,7 @@ export default function LandingPage() {
                     </Grid> */}
                 </Container>
             </Container>
+            {/* <Footer /> */}
         </div>
     );
 }
