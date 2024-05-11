@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Modal, Typography } from "@mui/material";
+import { Box, Button, Grid, MenuItem, Modal, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -14,6 +14,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   const [error, setError] = useState(false);
 
   const [date, setDate] = useState("");
+  const [mode, setMode] = useState("");
 
   const handleDateChange = (selectedDate) => {
     // console.log((dayjs(selectedDate).$d).toLocaleDateString())
@@ -105,6 +106,26 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
             Field: {data.field}
           </Typography>
         </Box>
+        <Grid sx={{ paddingBottom: "10px" }}>
+          <TextField
+            required
+            sx={{
+              width: '62%'
+            }}
+            select
+            name="mode"
+            onChange={(e) => setMode(e.target.value)}
+            label="Select Mode"
+            value={mode}
+            variant="outlined"
+          >
+            {["Physical", "Online"].map((city, index) => (
+              <MenuItem value={city} key={index}>
+                <option label={city} />
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
         <Grid sx={{ paddingBottom: "10px" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
