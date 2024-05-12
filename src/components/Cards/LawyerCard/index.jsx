@@ -18,8 +18,6 @@ export const LawyerCard = ({ item, book = false, onClick }) => {
       }}
     >
       <h3 style={{ color: "black", alignSelf: "center" }}>{item.firstName}</h3>
-      <p style={{ color: "black" }}>Email : {item.email}</p>
-      <p style={{ color: "black" }}>Field : {item.field}</p>
       {/* <p style={{ color: 'black' }}>Type : {item.type}</p> */}
       {book && (
         <Button

@@ -123,7 +123,7 @@ export default function Login() {
               withCredentials: true,
             }
           );
-          // console.log(response.data);
+          console.log(response.data);
           const name = response.data.firm.firmName;
           const email = response.data.firm.firmEmail;
           const firmBarCouncilId = response.data.firm.firmBarCouncilId;
