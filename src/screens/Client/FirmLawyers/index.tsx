@@ -13,10 +13,10 @@ import LawyerCard2 from "../../../components/Cards/LawyerCard2";
 export const FirmLawyers = () => {
   const axiosPrivate = useAxiosPrivate();
   let { id } = useParams();
-  const [lawyers, setLawyers] = useState();
-  const [lawyerData, setLawyerData] = useState();
-  const [displayModal, setDisplayModal] = useState(false)
-  const [item, setItem] = useState()
+  const [lawyers, setLawyers] = useState([]);
+  const [lawyerData, setLawyerData] = useState([]);
+  const [displayModal, setDisplayModal] = useState(false);
+  const [item, setItem] = useState();
 
   const handleDropDown = (type) => {
     const array = lawyers.filter((lawyer) => lawyer.field === type);
@@ -49,10 +49,10 @@ export const FirmLawyers = () => {
   };
 
   const handleModal = (item) => {
-    console.log(item)
-    setItem(item)
-    setDisplayModal(!displayModal)
-  }
+    console.log(item);
+    setItem(item);
+    setDisplayModal(!displayModal);
+  };
 
   useEffect(() => {
     getLawyers();
@@ -62,9 +62,14 @@ export const FirmLawyers = () => {
     <>
       <Header title="Szabist Firm" />
       <div style={{ padding: "10px" }}>
-        {item &&
-          <BookLawyerModal open={displayModal} onClose={() => setDisplayModal(false)} data={item} firmId={id} />
-        }
+        {item && (
+          <BookLawyerModal
+            open={displayModal}
+            onClose={() => setDisplayModal(false)}
+            data={item}
+            firmId={id}
+          />
+        )}
         <Grid container spacing={2} sx={{ my: 0 }}>
           <Grid item xs={12} md={2}>
             <TextField
@@ -88,7 +93,9 @@ export const FirmLawyers = () => {
           style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
         >
           {lawyerData?.map((lawyer, index) => {
-            return <LawyerCard2 key={index} item={lawyer} onClick={handleModal} />;
+            return (
+              <LawyerCard2 key={index} item={lawyer} onClick={handleModal} />
+            );
           })}
         </div>
       </div>

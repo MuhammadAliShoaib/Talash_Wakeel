@@ -31,21 +31,27 @@ router.get("/getLawyers", async (req, res) => {
 
 router.post("/bookAppointment", async (req, res) => {
   const {
+    appointmentId,
     firmBarCouncilId,
     lawyerBarCouncilId,
     lawyerName,
     clientID,
     clientName,
     bookingDate,
+    status,
+    mode,
   } = req.body;
   try {
     await db.Booking.create({
+      appointmentId,
       firmBarCouncilId,
       lawyerBarCouncilId,
       lawyerName,
       clientID,
       clientName,
       bookingDate,
+      status,
+      mode,
     });
     res.status(200).json({ message: "Booking Successfull" });
   } catch (error) {

@@ -9,9 +9,9 @@ export default function Header({ title }) {
   const navigate = useNavigate();
   const { auth } = useAuth();
 
-  let handleDisconnect = async () => {
+  const handleDisconnect = async () => {
     try {
-      if (auth.isfirm) {
+      if (auth.role === "firm") {
         const response = (await axios.get("/api/firmAuth/logout")).data;
         toast.success(`${response.message}`, {
           position: "bottom-right",
@@ -24,8 +24,21 @@ export default function Header({ title }) {
           theme: "dark",
         });
         navigate("/");
-      } else if (!auth.isfirm) {
+      } else if (auth.role === "client") {
         const response = (await axios.get("/api/clientAuth/logout")).data;
+        toast.success(`${response.message}`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        navigate("/");
+      } else if (auth.role === "lawyer") {
+        const response = (await axios.get("/api/lawyerAuth/logout")).data;
         toast.success(`${response.message}`, {
           position: "bottom-right",
           autoClose: 3000,

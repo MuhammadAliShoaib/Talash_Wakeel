@@ -31,7 +31,7 @@ export const FirmDashboard = () => {
 
   const handleDropDown = (type) => {
     const array = lawyers.filter((lawyer) => lawyer.field === type);
-    setLawyers(array);
+    setLawyerData(array);
   };
 
   const getLawyers = async () => {
@@ -47,25 +47,26 @@ export const FirmDashboard = () => {
 
       console.log(res);
       setLawyers(res);
+      setLawyerData(res);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
-  // useEffect(() => {
-  //   getLawyers();
-  // }, [lawyers]);
+  useEffect(() => {
+    getLawyers();
+  }, [isOpen]);
 
   return (
     <>
       <Header title="Dashboard" />
       <Container maxWidth="false" disableGutters sx={{ padding: "10px" }}>
         <AddLawyerModal open={isOpen} onClose={() => setIsOpen(false)} />
-        {lawyers?.length === 0 && (
+        {/* {lawyers?.length === 0 && (
           <Typography variant="h4" align="center">
             Welcome..
           </Typography>
-        )}
+        )} */}
         <Grid container spacing={2} sx={{ my: 0 }}>
           <Grid item xs={12} md={2}>
             <TextField
@@ -106,7 +107,7 @@ export const FirmDashboard = () => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          {lawyers?.map((lawyer, index) => (
+          {lawyerData?.map((lawyer, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <LawyerCard item={lawyer} />
             </Grid>

@@ -56,7 +56,7 @@ export default function Login() {
           const name = response.data.client.clientFirstName;
           const email = response.data.client.clientEmail;
           const accessToken = response.data.accessToken;
-          setAuth({ name, email, accessToken, isFirm: false, clientID });
+          setAuth({ name, email, accessToken, role: "client", clientID });
           if (!response) {
             throw new Error("Error Occured");
           }
@@ -133,7 +133,7 @@ export default function Login() {
             email,
             firmBarCouncilId,
             accessToken,
-            isFirm: true,
+            role: "firm",
           });
 
           if (!response) {
@@ -212,7 +212,7 @@ export default function Login() {
             email,
             lawyerBarCouncilId,
             accessToken,
-            isFirm: false,
+            role: "lawyer",
           });
 
           if (!response) {

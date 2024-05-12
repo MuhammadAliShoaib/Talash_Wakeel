@@ -1,4 +1,12 @@
-import { Box, Button, Grid, MenuItem, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  MenuItem,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -17,23 +25,22 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   const [mode, setMode] = useState("");
 
   const handleDateChange = (selectedDate) => {
-    // console.log((dayjs(selectedDate).$d).toLocaleDateString())
     setDate(dayjs(selectedDate).$d.toLocaleDateString());
   };
 
   const book = async () => {
-    // if (date == null) {
-    //     setError(true)
-    //     return
-    // }
     try {
+      const unix = +new Date();
       const res = await axiosPrivate.post(`/client/bookAppointment`, {
+        appointmentId: unix,
         firmBarCouncilId: firmId,
         lawyerBarCouncilId: data.lawyerBarCouncilId,
         lawyerName: data.firstName,
         clientID: auth.clientID,
         clientName: auth.name,
         bookingDate: date,
+        status: "Pending",
+        mode,
       });
 
       if (!res) {
@@ -110,7 +117,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
           <TextField
             required
             sx={{
-              width: '62%'
+              width: "62%",
             }}
             select
             name="mode"
@@ -119,9 +126,9 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
             value={mode}
             variant="outlined"
           >
-            {["Physical", "Online"].map((city, index) => (
-              <MenuItem value={city} key={index}>
-                <option label={city} />
+            {["Physical", "Online"].map((mode, index) => (
+              <MenuItem value={mode} key={index}>
+                <option label={mode} />
               </MenuItem>
             ))}
           </TextField>

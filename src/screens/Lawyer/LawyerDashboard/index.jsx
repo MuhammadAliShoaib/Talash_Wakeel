@@ -5,30 +5,9 @@ import AppointmentTable from "../../../components/AppointmentTable";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
-const sample = [
-  {
-    clientID: 1,
-    clientFirstName: "Abdul",
-    clientLastName: "Muneeb",
-    date: "08/05/2024",
-  },
-  {
-    clientID: 1,
-    clientFirstName: "Abdul",
-    clientLastName: "Muneeb",
-    date: "08/05/2024",
-  },
-  {
-    clientID: 1,
-    clientFirstName: "Abdul",
-    clientLastName: "Muneeb",
-    date: "08/05/2024",
-  },
-];
-
 export const LawyerDashboard = () => {
   const axiosPrivate = useAxiosPrivate();
-  const [data, setData] = useState(sample);
+  const [flag, setFlag] = useState(false);
   const [oldRecord, setOldRecord] = useState([]);
   const [currentRecord, setCurrentRecord] = useState([]);
   const { auth } = useAuth();
@@ -41,17 +20,26 @@ export const LawyerDashboard = () => {
         })
       ).data;
       if (!res) {
-        throw new Error("An Error Occured");
+        throw new Error("An Error Occurred");
       }
-      // setData(res);
 
-      res.map((data) => {
-        if (new Date() < new Date(data.bookingDate)) {
-          setCurrentRecord((prev) => [...prev, data]);
+      const currentDate = new Date();
+      const updatedCurrentRecord = [];
+      const updatedOldRecord = [];
+
+      res.forEach((data) => {
+        if (
+          new Date(data.bookingDate) > currentDate &&
+          data.status !== "Done"
+        ) {
+          updatedCurrentRecord.push(data);
         } else {
-          setOldRecord((prev) => [...prev, data]);
+          updatedOldRecord.push(data);
         }
       });
+
+      setCurrentRecord(updatedCurrentRecord);
+      setOldRecord(updatedOldRecord);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -59,7 +47,7 @@ export const LawyerDashboard = () => {
 
   useEffect(() => {
     getAppointments();
-  }, []);
+  }, [flag]);
 
   return (
     <>
@@ -78,7 +66,11 @@ export const LawyerDashboard = () => {
               xs={12}
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              <AppointmentTable data={currentRecord} />
+              <AppointmentTable
+                data={currentRecord}
+                flag={flag}
+                setFlag={setFlag}
+              />
             </Grid>
           </Grid>
         </Container>

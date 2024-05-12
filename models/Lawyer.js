@@ -9,6 +9,7 @@ const lawyerSchema = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   field: { type: String, required: true },
+  refreshToken: String,
   isDeleted: Boolean,
 });
 
