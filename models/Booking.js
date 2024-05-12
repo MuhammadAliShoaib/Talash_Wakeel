@@ -4,10 +4,11 @@ const { model, Schema } = mongoose;
 const bookingSchema = new Schema({
   firmBarCouncilId: { type: Number, required: true },
   lawyerBarCouncilId: { type: Number, required: true },
-  lawyerName: String,
+  lawyerName: { type: String, required: true },
   clientID: { type: Number, required: true },
-  clientName: String,
-  bookingDate: Date,
+  clientName: { type: String, required: true },
+  bookingDate: { type: Date, required: true },
+  status: { type, String, required: true },
 });
 
 export const Booking = model("Booking", bookingSchema);

@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 const { model, Schema } = mongoose;
 
 const firmSchema = new Schema({
-  firmID: String,
   firmBarCouncilId: { type: Number, required: true },
   firmName: { type: String, required: true },
   firmEmail: { type: String, required: true },

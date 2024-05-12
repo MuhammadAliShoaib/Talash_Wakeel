@@ -21,7 +21,6 @@ router.post("/createFirm", async (req, res) => {
 
     if (!firm) {
       await db.Firm.create({
-        firmID,
         firmName,
         firmBarCouncilId,
         firmEmail,

@@ -77,14 +77,11 @@ export default function SignUp() {
     validationSchema: firmSignupValidationSchema,
     onSubmit: async (values) => {
       try {
-        const unix = +new Date();
-        const firmID = [values.firmName, unix].join("-");
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(values.firmPassword, salt);
 
         console.log(values.firmName);
         const response = await axios.post("/api/firmAuth/createFirm", {
-          firmID: firmID,
           firmName: values.firmName,
           firmBarCouncilId: values.firmBarCouncilId,
           firmEmail: values.firmEmail,
