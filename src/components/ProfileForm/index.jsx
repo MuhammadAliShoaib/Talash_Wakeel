@@ -20,6 +20,15 @@ const ProfilePicture = styled('div')(() => ({
 }));
 
 export default function ProfileForm() {
+
+    const [selectedFile, setSelectedFile] = React.useState(null);
+
+    const handleFileChange = (e) => {
+        console.log(e.target.files[0]);
+        setSelectedFile(e.target.files[0]);
+    };
+
+
     return (
         <Grid container spacing={3}>
             <FormGrid item xs={12}>
@@ -33,6 +42,7 @@ export default function ProfileForm() {
                             id="profile-picture"
                             type="file"
                             style={{ display: 'none' }}
+                            onChange={handleFileChange}
                         />
                         <IconButton component="span" sx={{ backgroundColor: '#EEEEEE', position: 'absolute', bottom: -10, right: 0, }}>
                             <PhotoCamera />
