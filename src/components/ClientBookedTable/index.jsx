@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { MenuItem, TextField } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,7 +31,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function ClientBookedTable({ data }) {
-  //   console.log("Data: ", data);
+
+  const [status, setStatus] = useState("Done")
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer component={Paper}>
@@ -52,9 +55,24 @@ export default function ClientBookedTable({ data }) {
                   {new Date(client.bookingDate).toLocaleDateString("en-GB")}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {new Date(client.bookingDate) < new Date()
+                  {/* {new Date(client.bookingDate) < new Date()
                     ? "Closed"
-                    : "Open"}
+                    : "Open"} */}
+                  <TextField
+                    required
+                    select
+                    name="mode"
+                    onChange={(e) => setStatus(e.target.value)}
+                    value={status}
+                    variant="outlined"
+                    sx={{ backgroundColor: 'white' }}
+                  >
+                    {["Done", "Cancel"].map((status, index) => (
+                      <MenuItem value={status} key={index}>
+                        <option label={status} />
+                      </MenuItem>
+                    ))}
+                  </TextField>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
