@@ -16,7 +16,7 @@ function getRandomColor() {
   return color;
 }
 
-const LawyerCard2 = ({ item, onClick }) => {
+const LawyerCard2 = ({ item, onClick, button = false }) => {
 
   const [color, setColor] = useState(getRandomColor())
 
@@ -48,17 +48,19 @@ const LawyerCard2 = ({ item, onClick }) => {
           <h3 style={{ color: "black", alignSelf: "center" }}>{item.firstName} {item.lastName}</h3>
           <p style={{ color: "black" }}>ID : {item.lawyerBarCouncilId}</p>
           <p style={{ color: "black" }}>Description : Lorem ipsum</p>
-          <span className="more">
-            <Button
-              href=""
-              size="small"
-              variant="contained"
-              sx={{ my: 1, mx: 1.5 }}
-              onClick={() => onClick(item)}
-            >
-              Book
-            </Button>
-          </span>
+          {button &&
+            <span className="more">
+              <Button
+                href=""
+                size="small"
+                variant="contained"
+                sx={{ my: 1, mx: 1.5 }}
+                onClick={() => onClick(item)}
+              >
+                Book
+              </Button>
+            </span>
+          }
         </div>
       </div>
     </div>
