@@ -43,7 +43,7 @@ export const ClientPaymentHistory = () => {
 
   return (
     <div>
-      <Header title="Payment History" />
+      <Header title="Appointment Details" />
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
           <Typography variant="h5" color={"black"}>

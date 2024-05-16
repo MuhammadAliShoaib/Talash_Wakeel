@@ -51,9 +51,9 @@ const FirmCard2 = ({ item }) => {
       </div>
       {/* <div className="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi vero corrupti sit. Similique repellat rem tempora nihil consectetur, nemo enim dolorem sunt asperiores qui quis voluptate perspiciatis soluta. Voluptates sequi ducimus suscipit.</div> */}
       <div className="desc">
-        <p style={{ color: "black" }}>Email : {item.firmEmail}</p>
-        <p style={{ color: "black" }}>Phone : {item.firmPhoneNumber}</p>
-        <p style={{ color: "black" }}>City : {item.firmCity}</p>
+        <p style={{ color: "black",fontWeight : 'bold' }}>{item.firmEmail}</p>
+        <p style={{ color: "black",fontWeight : 'bold' }}>{item.firmPhoneNumber}</p>
+        <p style={{ color: "black",fontWeight : 'bold' }}>{item.firmCity}</p>
       </div>
     </div>
   );

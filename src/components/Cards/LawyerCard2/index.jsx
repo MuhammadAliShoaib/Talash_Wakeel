@@ -57,7 +57,7 @@ const LawyerCard2 = ({ item, onClick, button = false }) => {
                 sx={{ my: 1, mx: 1.5 }}
                 onClick={() => onClick(item)}
               >
-                Book
+                Book Appointment
               </Button>
             </span>
           }
