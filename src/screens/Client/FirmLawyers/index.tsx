@@ -94,7 +94,7 @@ export const FirmLawyers = () => {
         >
           {lawyerData?.map((lawyer, index) => {
             return (
-              <LawyerCard2 key={index} item={lawyer} onClick={handleModal} />
+              <LawyerCard2 key={index} item={lawyer} onClick={handleModal} button />
             );
           })}
         </div>

@@ -9,6 +9,7 @@ import { lawyerTypes } from "../../../utility/utils";
 import TextField from "@mui/material/TextField";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from "../../../hooks/useAuth";
+import LawyerCard2 from "../../../components/Cards/LawyerCard2";
 
 export const FirmDashboard = () => {
   const { auth } = useAuth();
@@ -109,7 +110,7 @@ export const FirmDashboard = () => {
         <Grid container spacing={3}>
           {lawyerData?.map((lawyer, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <LawyerCard item={lawyer} />
+              <LawyerCard2 item={lawyer} />
             </Grid>
           ))}
         </Grid>

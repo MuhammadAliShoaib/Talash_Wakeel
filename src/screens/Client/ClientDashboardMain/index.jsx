@@ -21,6 +21,9 @@ import { ClientSettings } from "../ClientSettings";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { ClientDashboard } from "../ClientDashboard";
 import { FirmLawyers } from "../FirmLawyers";
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const drawerWidth = 240;
 
@@ -100,19 +103,19 @@ export default function ClientDashboardMain() {
             icon: <DashboardIcon />,
         },
         {
-            Name: "Payment History",
-            route: "paymentHistory",
-            icon: <MedicationLiquidIcon />,
+            Name: "Appointment",
+            route: "appointment",
+            icon: <BookmarkAddedIcon />,
         },
         {
             Name: "Documents",
             route: "documents",
-            icon: <MedicationLiquidIcon />,
+            icon: <AssignmentIcon />,
         },
         {
             Name: "Settings",
             route: "settings",
-            icon: <TimelineIcon />,
+            icon: <SettingsIcon />,
         },
     ]);
 
@@ -198,7 +201,7 @@ export default function ClientDashboardMain() {
                 <Routes>
                     <Route path="/" element={<ClientDashboard />} />
                     <Route path="/:id" element={<FirmLawyers />} />
-                    <Route path="/paymentHistory" element={<ClientPaymentHistory />} />
+                    <Route path="/appointment" element={<ClientPaymentHistory />} />
                     <Route path="/documents" element={<ClientDocuments />} />
                     <Route path="/settings" element={<ClientSettings />} />
                 </Routes>

@@ -20,6 +20,9 @@ import { FirmDashboard } from "../../Firm/FirmDashboard";
 import { FirmPaymentHistory } from "../FirmPaymentHistory";
 import { FirmDocuments } from "../FirmDocuments";
 import { FirmSettings } from "../FirmSettings";
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const drawerWidth = 240;
 
@@ -99,19 +102,19 @@ export default function FirmDashboardMain() {
             icon: <DashboardIcon />,
         },
         {
-            Name: "Payment History",
-            route: "paymentHistory",
-            icon: <MedicationLiquidIcon />,
+            Name: "Appointments",
+            route: "appointment",
+            icon: <BookmarkAddedIcon />,
         },
         {
             Name: "Documents",
             route: "documents",
-            icon: <MedicationLiquidIcon />,
+            icon: <AssignmentIcon />,
         },
         {
             Name: "Settings",
             route: "settings",
-            icon: <TimelineIcon />,
+            icon: <SettingsIcon />,
         },
     ]);
 
@@ -193,10 +196,10 @@ export default function FirmDashboardMain() {
                 </List>
                 <Divider />
             </Drawer>
-            <Box component="main"  sx={{width:'100vw',height : '100vh'}}>
+            <Box component="main" sx={{ width: '100vw', height: '100vh' }}>
                 <Routes>
                     <Route path="/" element={<FirmDashboard />} />
-                    <Route path="/paymentHistory" element={<FirmPaymentHistory />} />
+                    <Route path="/appointment" element={<FirmPaymentHistory />} />
                     <Route path="/documents" element={<FirmDocuments />} />
                     <Route path="/settings" element={<FirmSettings />} />
                 </Routes>
