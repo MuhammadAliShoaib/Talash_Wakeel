@@ -23,7 +23,7 @@ export default function Header({ title }) {
           progress: undefined,
           theme: "dark",
         });
-        navigate("/");
+        navigate("/login");
       } else if (auth.role === "client") {
         const response = (await axios.get("/api/clientAuth/logout")).data;
         toast.success(`${response.message}`, {
@@ -36,7 +36,7 @@ export default function Header({ title }) {
           progress: undefined,
           theme: "dark",
         });
-        navigate("/");
+        navigate("/login");
       } else if (auth.role === "lawyer") {
         const response = (await axios.get("/api/lawyerAuth/logout")).data;
         toast.success(`${response.message}`, {
@@ -49,7 +49,7 @@ export default function Header({ title }) {
           progress: undefined,
           theme: "dark",
         });
-        navigate("/");
+        navigate("/login");
       } else throw new Error("Something went wrong");
     } catch (error) {
       console.log(error);
