@@ -6,7 +6,7 @@ export const ClientDocuments = () => {
   return (
     <div>
       <Header title="Documents" />
-      <Documents />
+      {/* <Documents /> */}
     </div>
   )
 }
