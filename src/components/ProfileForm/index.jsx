@@ -1,116 +1,128 @@
 import * as React from 'react';
-import FormLabel from '@mui/material/FormLabel';
-import Grid from '@mui/material/Grid';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { styled } from '@mui/system';
-import IconButton from '@mui/material/IconButton';
+import { Box, Grid, IconButton, TextField, MenuItem, Button, styled } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import Image from "../../assets/profile.jpg"
-import { Button } from '@mui/material';
-
-const FormGrid = styled(Grid)(() => ({
-    display: 'flex',
-    flexDirection: 'column',
-}));
+import axios from 'axios';
+import Image from "../../assets/profile.jpg";
+import { cities } from '../../utility/data';
 
 const ProfilePicture = styled('div')(() => ({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 }));
 
 export default function ProfileForm() {
+  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [imageUrl, setImageUrl] = React.useState("");
 
-    const [selectedFile, setSelectedFile] = React.useState(null);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
 
-    const handleFileChange = (e) => {
-        console.log(e.target.files[0]);
-        setSelectedFile(e.target.files[0]);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
     };
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      setImageUrl("");
+    }
+  };
 
+  const handleUpload = () => {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('upload_preset', 'TalashWakeel'); 
+      formData.append('cloud_name', 'dg8syp8h6'); 
 
-    return (
-        <Grid container spacing={3}>
-            <FormGrid item xs={12}>
-                <ProfilePicture>
-                    <label htmlFor="profile-picture" style={{ position: 'relative' }}>
-                        <div style={{ borderRadius: '50%', width: '150px', height: '150px', backgroundColor: 'red', overflow: 'hidden' }}>
-                            <img src={Image} width={'100%'} height={'100%'} />
-                        </div>
-                        <input
-                            accept="image/*"
-                            id="profile-picture"
-                            type="file"
-                            style={{ display: 'none' }}
-                            onChange={handleFileChange}
-                        />
-                        <IconButton component="span" sx={{ backgroundColor: '#EEEEEE', position: 'absolute', bottom: -10, right: 0, }}>
-                            <PhotoCamera />
-                        </IconButton>
-                    </label>
-                </ProfilePicture>
-            </FormGrid>
-            <FormGrid item xs={12} md={6}>
-                <FormLabel htmlFor="first-name" required>
-                    First name
-                </FormLabel>
-                <OutlinedInput
-                    id="first-name"
-                    name="first-name"
-                    type="name"
-                    placeholder="Enter First Name"
-                    autoComplete="first name"
-                    required
-                />
-            </FormGrid>
-            <FormGrid item xs={12} md={6}>
-                <FormLabel htmlFor="last-name" required>
-                    Last name
-                </FormLabel>
-                <OutlinedInput
-                    id="last-name"
-                    name="last-name"
-                    type="last-name"
-                    placeholder="Enter Last Name"
-                    autoComplete="last name"
-                    required
-                />
-            </FormGrid>
-            <FormGrid item xs={6}>
-                <FormLabel htmlFor="city" required>
-                    City
-                </FormLabel>
-                <OutlinedInput
-                    id="city"
-                    name="city"
-                    type="city"
-                    placeholder="Enter City"
-                    autoComplete="City"
-                    required
-                />
-            </FormGrid>
-            <FormGrid item xs={6}>
-                <FormLabel htmlFor="zip" required>
-                    Phone Number
-                </FormLabel>
-                <OutlinedInput
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    type="number"
-                    placeholder="+92..."
-                />
-            </FormGrid>
-            <FormGrid item xs={6}>
-                <FormLabel htmlFor="country" required>
-                    Password
-                </FormLabel>
-                <OutlinedInput
-                    id="country"
-                    name="password"
-                    placeholder="Enter Password"
-                    type='password'
-                />
-            </FormGrid>
+      axios.post('https://api.cloudinary.com/v1_1/dg8syp8h6/image/upload', formData)
+        .then(response => {
+          setImageUrl(response.data.secure_url);
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+        });
+    } else {
+      console.error('No file selected.');
+    }
+  };
+
+  return (
+    <Box sx={{ p: 2 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <ProfilePicture>
+            <label htmlFor="profile-picture" style={{ position: 'relative' }}>
+              <div style={{ borderRadius: '50%', width: '150px', height: '150px', overflow: 'hidden' }}>
+                <img src={imageUrl.length !== 0 ? imageUrl : Image} width="100%" height="100%" alt="Profile" />
+              </div>
+              <input
+                accept="image/*"
+                id="profile-picture"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+              <IconButton component="span" sx={{ backgroundColor: '#EEEEEE', position: 'absolute', bottom: -10, right: 0 }}>
+                <PhotoCamera />
+              </IconButton>
+            </label>
+          </ProfilePicture>
         </Grid>
-    );
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            fullWidth
+            label="First Name"
+            autoFocus
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            fullWidth
+            label="Second Name"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            label="Contact Number"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            select
+            label="Select City"
+            variant="outlined"
+          >
+            {cities.map((city) => (
+              <MenuItem key={city.id} value={city.name}>
+                {city.name}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+          />
+        </Grid>
+      </Grid>
+      <Button
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={handleUpload}
+      >
+        Update
+      </Button>
+    </Box>
+  );
 }
