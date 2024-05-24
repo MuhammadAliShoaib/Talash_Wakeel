@@ -69,6 +69,8 @@ export default function AppointmentTable({ data, setFlag, flag }) {
               <StyledTableCell>Client ID</StyledTableCell>
               <StyledTableCell>Client Name</StyledTableCell>
               <StyledTableCell>Date</StyledTableCell>
+              <StyledTableCell>Time</StyledTableCell>
+              <StyledTableCell>Mode</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -79,6 +81,12 @@ export default function AppointmentTable({ data, setFlag, flag }) {
                 <StyledTableCell>{booking.clientName}</StyledTableCell>
                 <StyledTableCell>
                   {new Date(booking.bookingDate).toLocaleDateString("en-GB")}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {new Date(booking.bookingDate).toLocaleDateString("en-GB")}
+                </StyledTableCell>
+                <StyledTableCell>
+                  Online
                 </StyledTableCell>
                 <StyledTableCell>
                   {booking.status === "Pending" ? (

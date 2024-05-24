@@ -55,7 +55,7 @@ export const LawyerDashboard = () => {
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
           <Typography variant="h5" color={"black"}>
-            Current Booked Appointments
+            Requested Appointments
           </Typography>
         </Container>
 
@@ -79,7 +79,7 @@ export const LawyerDashboard = () => {
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
           <Typography variant="h5" color={"black"}>
-            Previous Booked Appointments
+            Confirmed Appointments
           </Typography>
         </Container>
 
@@ -95,6 +95,55 @@ export const LawyerDashboard = () => {
           </Grid>
         </Container>
       </Box>
+
+      <Box sx={{ paddingTop: "25px" }}>
+        <Container>
+          <Typography variant="h5" color={"black"}>
+            Next Appointments
+          </Typography>
+        </Container>
+
+        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              style={{ paddingTop: "5px", paddingBottom: "10px" }}
+            >
+              <AppointmentTable
+                data={currentRecord}
+                flag={flag}
+                setFlag={setFlag}
+              />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      <Box sx={{ paddingTop: "25px" }}>
+        <Container>
+          <Typography variant="h5" color={"black"}>
+            Finalized Cases
+          </Typography>
+        </Container>
+
+        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              style={{ paddingTop: "5px", paddingBottom: "10px" }}
+            >
+              <AppointmentTable
+                data={currentRecord}
+                flag={flag}
+                setFlag={setFlag}
+              />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
     </>
   );
 };

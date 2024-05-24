@@ -107,13 +107,15 @@ export const FirmDashboard = () => {
             </Button>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
-          {lawyerData?.map((lawyer, index) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <LawyerCard2 item={lawyer} />
-            </Grid>
-          ))}
-        </Grid>
+        <div
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
+          {lawyerData?.map((lawyer, index) => {
+            return (
+              <LawyerCard2 key={index} item={lawyer} />
+            );
+          })}
+        </div>
       </Container>
     </>
   );

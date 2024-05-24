@@ -19,8 +19,12 @@ export const FirmLawyers = () => {
   const [item, setItem] = useState();
 
   const handleDropDown = (type) => {
-    const array = lawyers.filter((lawyer) => lawyer.field === type);
-    setLawyerData(array);
+    if (type === 'All') {
+      setLawyerData(lawyers);
+    } else {
+      const array = lawyers.filter((lawyer) => lawyer.field === type);
+      setLawyerData(array);
+    }
   };
 
   const handleChange = (e) => {

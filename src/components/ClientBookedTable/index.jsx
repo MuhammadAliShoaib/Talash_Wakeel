@@ -55,24 +55,9 @@ export default function ClientBookedTable({ data }) {
                   {new Date(client.bookingDate).toLocaleDateString("en-GB")}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {/* {new Date(client.bookingDate) < new Date()
+                  {new Date(client.bookingDate) < new Date()
                     ? "Closed"
-                    : "Open"} */}
-                  <TextField
-                    required
-                    select
-                    name="mode"
-                    onChange={(e) => setStatus(e.target.value)}
-                    value={status}
-                    variant="outlined"
-                    sx={{ backgroundColor: 'white' }}
-                  >
-                    {["Done", "Cancel"].map((status, index) => (
-                      <MenuItem value={status} key={index}>
-                        <option label={status} />
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                    : "Open"}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
