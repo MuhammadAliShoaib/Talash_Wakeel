@@ -1,4 +1,5 @@
 export const lawyerTypes = [
+    "All",
     "Tax Lawyer",
     "Family Lawyer",
     "Criminal Lawyer",

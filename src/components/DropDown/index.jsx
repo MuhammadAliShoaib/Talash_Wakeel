@@ -65,7 +65,7 @@ export default function DropDown({ options, setType, value = null }) {
       </ButtonGroup>
       <Popper
         sx={{
-          zIndex: 1,
+          zIndex: 99,
         }}
         open={open}
         anchorEl={anchorRef.current}

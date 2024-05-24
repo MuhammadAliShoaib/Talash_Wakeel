@@ -21,12 +21,12 @@ const LawyerCard2 = ({ item, onClick, button = false }) => {
   const [color, setColor] = useState(getRandomColor())
 
   return (
-    <div >
+    <div>
       <div className="laweryCard">
         <div className="additional" style={{ backgroundColor: color }}>
           <div className="user-card">
             <div className="level center">
-              Tax Lawyer
+              {item.field}
             </div>
             <div className='profileContainer' >
               <img src={Image} className='profile' />
@@ -57,7 +57,7 @@ const LawyerCard2 = ({ item, onClick, button = false }) => {
                 sx={{ my: 1, mx: 1.5 }}
                 onClick={() => onClick(item)}
               >
-                Book Appointment
+                Request Appointment
               </Button>
             </span>
           }

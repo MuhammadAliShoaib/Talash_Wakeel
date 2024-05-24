@@ -16,6 +16,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import useAuth from "../../../hooks/useAuth";
 import axiosPrivate from "../../../api/axiosPrivate";
 import { toast } from "react-toastify";
+import { MobileTimePicker } from "@mui/x-date-pickers";
 
 export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   const { auth } = useAuth();
@@ -107,7 +108,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
             Name: {data.firstName} {data.lastName}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Email: {data.email}
+            Firm Email: Bring Firm email
           </Typography>
           <Typography variant="body1" gutterBottom>
             Field: {data.field}
@@ -135,6 +136,11 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
         </Grid>
         <Grid sx={{ paddingBottom: "10px" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <MobileTimePicker sx={{ width: '60%' }} defaultValue={dayjs('2022-04-17T15:30')} />
+          </LocalizationProvider>
+        </Grid>
+        <Grid sx={{ paddingBottom: "10px" }}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Appointment date"
               // value={date}
@@ -148,7 +154,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
           ) : null}
         </Grid>
         <Button onClick={book} variant="contained">
-          Confirm Booking
+          Confirm
         </Button>
       </Box>
     </Modal>

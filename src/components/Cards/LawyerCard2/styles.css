@@ -12,7 +12,7 @@
   height: 250px;
   background-color: #fff;
   background: linear-gradient(#f8f8f8, #fff);
-  box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
   border-radius: 6px;
   overflow: hidden;
   position: relative;
@@ -37,7 +37,7 @@
   background: linear-gradient(#92bCa6, #A2CCB6);
 }
 
-.profileContainer{
+.profileContainer {
   width: 92px;
   height: 92px;
   border-radius: 50%;
@@ -45,15 +45,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 10px 20px -10px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.4);
 }
 
-.profile { 
+.profile {
   width: 86px;
   height: 86px;
   border-radius: 50%;
 }
-.firmImage { 
+
+.firmImage {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -83,21 +84,35 @@
   top: 10%;
   right: -2px;
   height: 80%;
-  border-left: 2px solid rgba(0,0,0,0.025);
+  border-left: 2px solid rgba(0, 0, 0, 0.025);
 }
 
-.laweryCard .additional .user-card .level,
+.laweryCard .additional .user-card .level {
+  width: 80%;
+  text-align: center;
+  top: 15%;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  font-weight: bold;
+  /* background: rgba(0, 0, 0, 0.15); */
+  padding: 0.125rem 0.75rem;
+  border-radius: 100px;
+  /* white-space: nowrap; */
+}
+
 .laweryCard .additional .user-card .points {
   top: 15%;
   color: #fff;
   text-transform: uppercase;
   font-size: 0.75em;
   font-weight: bold;
-  background: rgba(0,0,0,0.15);
+  background: rgba(0, 0, 0, 0.15);
   padding: 0.125rem 0.75rem;
   border-radius: 100px;
   white-space: nowrap;
 }
+
 
 .laweryCard .additional .user-card .points {
   top: 85%;
@@ -134,7 +149,7 @@
   color: #325C46;
 }
 
-.laweryCard .additional .coords span + span {
+.laweryCard .additional .coords span+span {
   float: right;
 }
 
@@ -153,7 +168,7 @@
   color: #325C46;
 }
 
-.laweryCard .additional .stats > div {
+.laweryCard .additional .stats>div {
   flex: 1;
   text-align: center;
 }
