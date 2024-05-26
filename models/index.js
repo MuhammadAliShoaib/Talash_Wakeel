@@ -6,7 +6,12 @@ import { Counter } from "./Counter.js";
 import { Booking } from "./Booking.js";
 
 (async () => {
-  await mongoose.connect(process.env.DB_CONNECTION_STRING);
+  try {
+    // console.log("URI", process.env.DB_CONNECTION_STRING);
+    await mongoose.connect(process.env.DB_CONNECTION_STRING);
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+  }
 })();
 
 export const db = {

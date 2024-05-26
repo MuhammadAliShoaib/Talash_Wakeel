@@ -21,9 +21,17 @@ import { MobileTimePicker } from "@mui/x-date-pickers";
 export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   const { auth } = useAuth();
   const [error, setError] = useState(false);
+  console.log(data.firmDetails);
 
   const [date, setDate] = useState("");
   const [mode, setMode] = useState("");
+  const [selectedTime, setSelectedTime] = useState(dayjs("2022-04-17T15:30"));
+
+  const handleTimeChange = (newTime) => {
+    console.log("Type: ", typeof newTime);
+    setSelectedTime(newTime.format("hh:mm A"));
+    console.log("Selected time:", newTime.format("hh:mm A")); // Format the time if needed
+  };
 
   const handleDateChange = (selectedDate) => {
     setDate(dayjs(selectedDate).$d.toLocaleDateString());
@@ -34,13 +42,12 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
       const unix = +new Date();
       const res = await axiosPrivate.post(`/client/bookAppointment`, {
         appointmentId: unix,
-        firmBarCouncilId: firmId,
-        lawyerBarCouncilId: data.lawyerBarCouncilId,
-        lawyerName: data.firstName,
+        firmCouncilId: firmId,
+        lawyerCouncilId: data.lawyerCouncilId,
         clientID: auth.clientID,
-        clientName: auth.name,
         bookingDate: date,
-        status: "Pending",
+        bookingTime: selectedTime,
+        status: "Requested",
         mode,
       });
 
@@ -108,7 +115,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
             Name: {data.firstName} {data.lastName}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Firm Email: Bring Firm email
+            Firm Email: {data.firmDetails.firmEmail}
           </Typography>
           <Typography variant="body1" gutterBottom>
             Field: {data.field}
@@ -136,7 +143,11 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
         </Grid>
         <Grid sx={{ paddingBottom: "10px" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <MobileTimePicker sx={{ width: '60%' }} defaultValue={dayjs('2022-04-17T15:30')} />
+            <MobileTimePicker
+              sx={{ width: "60%" }}
+              defaultValue={dayjs("2022-04-17T15:30")}
+              onChange={handleTimeChange}
+            />
           </LocalizationProvider>
         </Grid>
         <Grid sx={{ paddingBottom: "10px" }}>

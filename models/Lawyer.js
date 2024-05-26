@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 const { model, Schema } = mongoose;
 
 const lawyerSchema = new Schema({
-  lawyerBarCouncilId: { type: Number, required: true },
-  firmBarCouncilId: { type: Number, required: true },
+  lawyerCouncilId: { type: Number, required: true },
+  firmCouncilId: { type: Number, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true },

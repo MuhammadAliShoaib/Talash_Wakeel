@@ -31,8 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function FirmTable({ data }) {
-
-  const [status, setStatus] = useState("Done")
+  const [status, setStatus] = useState("Done");
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -50,7 +49,7 @@ export default function FirmTable({ data }) {
             {data?.map((client, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell>{client.clientID}</StyledTableCell>
-                <StyledTableCell>{client.lawyerBarCouncilId}</StyledTableCell>
+                <StyledTableCell>{client.lawyerCouncilId}</StyledTableCell>
                 <StyledTableCell>
                   {" "}
                   {new Date(client.bookingDate).toLocaleDateString("en-GB")}
@@ -66,7 +65,7 @@ export default function FirmTable({ data }) {
                     onChange={(e) => setStatus(e.target.value)}
                     value={status}
                     variant="outlined"
-                    sx={{ backgroundColor: 'white' }}
+                    sx={{ backgroundColor: "white" }}
                   >
                     {["Done", "Cancel"].map((status, index) => (
                       <MenuItem value={status} key={index}>

@@ -16,7 +16,7 @@ export const LawyerDashboard = () => {
     try {
       const res = (
         await axiosPrivate.get("/lawyer/getAppointments", {
-          params: { id: auth.lawyerBarCouncilId },
+          params: { id: auth.lawyerCouncilId },
         })
       ).data;
       if (!res) {
@@ -143,7 +143,6 @@ export const LawyerDashboard = () => {
           </Grid>
         </Container>
       </Box>
-
     </>
   );
 };

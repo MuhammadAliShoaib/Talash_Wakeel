@@ -7,9 +7,8 @@ import jwt from "jsonwebtoken";
 router.post("/createFirm", async (req, res) => {
   try {
     const {
-      firmID,
       firmName,
-      firmBarCouncilId,
+      firmCouncilId,
       firmEmail,
       firmPhoneNumber,
       firmCity,
@@ -22,7 +21,7 @@ router.post("/createFirm", async (req, res) => {
     if (!firm) {
       await db.Firm.create({
         firmName,
-        firmBarCouncilId,
+        firmCouncilId,
         firmEmail,
         firmPhoneNumber,
         firmCity,

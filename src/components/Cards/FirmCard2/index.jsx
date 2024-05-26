@@ -1,24 +1,29 @@
-import React from 'react';
-import './styles.css'; // Make sure to import your CSS file
-import Image from "../../../assets/firm.jpeg"
-import Image2 from "../../../assets/lawBackground.jpg"
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import "./styles.css"; // Make sure to import your CSS file
+import Image from "../../../assets/firm.jpeg";
+import Image2 from "../../../assets/lawBackground.jpg";
+import { useNavigate } from "react-router-dom";
 
 const FirmCard2 = ({ item }) => {
-
   let navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/client/${item.firmBarCouncilId}`);
+    navigate(`/client/${item.firmCouncilId}`);
   };
 
   return (
     <div className="card">
-      <div className="banner" style={{
-        backgroundImage: `url(${Image2})`
-      }}>
-        <div className='imageContainer'>
-          <img src={Image} style={{ width: '8rem', height: '8rem', borderRadius: '50%' }} />
+      <div
+        className="banner"
+        style={{
+          backgroundImage: `url(${Image2})`,
+        }}
+      >
+        <div className="imageContainer">
+          <img
+            src={Image}
+            style={{ width: "8rem", height: "8rem", borderRadius: "50%" }}
+          />
         </div>
       </div>
       <div className="menu">
@@ -28,7 +33,7 @@ const FirmCard2 = ({ item }) => {
           <span></span> */}
         </div>
       </div>
-      <h2 className="name">SZABIST</h2>
+      <h2 className="name">{item.firmName}</h2>
       <div className="title">Firm</div>
       <div className="actions">
         <div className="follow-info">
@@ -51,9 +56,15 @@ const FirmCard2 = ({ item }) => {
       </div>
       {/* <div className="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi vero corrupti sit. Similique repellat rem tempora nihil consectetur, nemo enim dolorem sunt asperiores qui quis voluptate perspiciatis soluta. Voluptates sequi ducimus suscipit.</div> */}
       <div className="desc">
-        <p style={{ color: "black",fontWeight : 'bold' }}>{item.firmEmail}</p>
-        <p style={{ color: "black",fontWeight : 'bold' }}>{item.firmPhoneNumber}</p>
-        <p style={{ color: "black",fontWeight : 'bold' }}>{item.firmCity}</p>
+        <p style={{ color: "black", fontWeight: "bold" }}>
+          Email: {item.firmEmail}
+        </p>
+        <p style={{ color: "black", fontWeight: "bold" }}>
+          Contact: {item.firmPhoneNumber}
+        </p>
+        <p style={{ color: "black", fontWeight: "bold" }}>
+          City: {item.firmCity}
+        </p>
       </div>
     </div>
   );

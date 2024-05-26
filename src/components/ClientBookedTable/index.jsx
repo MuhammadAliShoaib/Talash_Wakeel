@@ -31,8 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function ClientBookedTable({ data }) {
-
-  const [status, setStatus] = useState("Done")
+  const [status, setStatus] = useState("Done");
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -49,7 +48,7 @@ export default function ClientBookedTable({ data }) {
           <TableBody>
             {data?.map((client, index) => (
               <StyledTableRow key={index}>
-                <StyledTableCell>{client.firmBarCouncilId}</StyledTableCell>
+                <StyledTableCell>{client.firmCouncilId}</StyledTableCell>
                 <StyledTableCell>{client.lawyerName}</StyledTableCell>
                 <StyledTableCell>
                   {new Date(client.bookingDate).toLocaleDateString("en-GB")}

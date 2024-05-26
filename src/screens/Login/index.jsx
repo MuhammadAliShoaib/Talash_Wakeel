@@ -126,12 +126,12 @@ export default function Login() {
           console.log(response.data);
           const name = response.data.firm.firmName;
           const email = response.data.firm.firmEmail;
-          const firmBarCouncilId = response.data.firm.firmBarCouncilId;
+          const firmCouncilId = response.data.firm.firmCouncilId;
           const accessToken = response.data.accessToken;
           setAuth({
             name,
             email,
-            firmBarCouncilId,
+            firmCouncilId,
             accessToken,
             role: "firm",
           });
@@ -205,12 +205,12 @@ export default function Login() {
           // console.log(response.data);
           const name = response.data.lawyer.firstName;
           const email = response.data.lawyer.email;
-          const lawyerBarCouncilId = response.data.lawyer.lawyerBarCouncilId;
+          const lawyerCouncilId = response.data.lawyer.lawyerCouncilId;
           const accessToken = response.data.accessToken;
           setAuth({
             name,
             email,
-            lawyerBarCouncilId,
+            lawyerCouncilId,
             accessToken,
             role: "lawyer",
           });

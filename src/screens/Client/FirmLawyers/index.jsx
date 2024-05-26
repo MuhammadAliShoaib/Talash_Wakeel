@@ -19,7 +19,7 @@ export const FirmLawyers = () => {
   const [item, setItem] = useState();
 
   const handleDropDown = (type) => {
-    if (type === 'All') {
+    if (type === "All") {
       setLawyerData(lawyers);
     } else {
       const array = lawyers.filter((lawyer) => lawyer.field === type);
@@ -64,7 +64,7 @@ export const FirmLawyers = () => {
 
   return (
     <>
-      <Header title="Szabist Firm" />
+      <Header title="Firm" />
       <div style={{ padding: "10px" }}>
         {item && (
           <BookLawyerModal
@@ -98,7 +98,12 @@ export const FirmLawyers = () => {
         >
           {lawyerData?.map((lawyer, index) => {
             return (
-              <LawyerCard2 key={index} item={lawyer} onClick={handleModal} button />
+              <LawyerCard2
+                key={index}
+                item={lawyer}
+                onClick={handleModal}
+                button
+              />
             );
           })}
         </div>

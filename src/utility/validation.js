@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export const firmSignupValidationSchema = Yup.object({
   firmName: Yup.string().required("Firm name is required"),
-  firmBarCouncilId: Yup.number().min(7).required("Council ID is required"),
+  firmCouncilId: Yup.number().min(7).required("Council ID is required"),
   firmEmail: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -17,7 +17,7 @@ export const firmSignupValidationSchema = Yup.object({
 export const createLawyerValidationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
   lastName: Yup.string().required("Last name is required"),
-  lawyerBarCouncilId: Yup.number().min(7).required("Council ID is required"),
+  lawyerCouncilId: Yup.number().min(7).required("Council ID is required"),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),

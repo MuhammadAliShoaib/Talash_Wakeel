@@ -35,7 +35,7 @@ export const FirmPaymentHistory = () => {
     try {
       const res = (
         await axiosPrivate.get("/firm/getAppointments", {
-          params: { id: auth.firmBarCouncilId },
+          params: { id: auth.firmCouncilId },
         })
       ).data;
       if (!res) {

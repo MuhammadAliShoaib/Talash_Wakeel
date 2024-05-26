@@ -21,7 +21,7 @@ const AddLawyerModal = ({ open, onClose }) => {
   const axiosPrivate = useAxiosPrivate();
   const lawyerFormik = useFormik({
     initialValues: {
-      lawyerBarCouncilId: null,
+      lawyerCouncilId: null,
       firstName: "",
       lastName: "",
       email: "",
@@ -36,8 +36,8 @@ const AddLawyerModal = ({ open, onClose }) => {
 
       try {
         const res = await axiosPrivate.post(`/firm/addLawyer`, {
-          firmBarCouncilId: auth.firmBarCouncilId,
-          lawyerBarCouncilId: values.lawyerBarCouncilId,
+          firmCouncilId: auth.firmCouncilId,
+          lawyerCouncilId: values.lawyerCouncilId,
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,
@@ -154,15 +154,15 @@ const AddLawyerModal = ({ open, onClose }) => {
             type="number"
             fullWidth
             margin="normal"
-            id="lawyerBarCouncilId"
-            name="lawyerBarCouncilId"
+            id="lawyerCouncilId"
+            name="lawyerCouncilId"
             onChange={lawyerFormik.handleChange}
-            value={lawyerFormik.values.lawyerBarCouncilId}
+            value={lawyerFormik.values.lawyerCouncilId}
           />
-          {lawyerFormik.errors.lawyerBarCouncilId &&
-          lawyerFormik.touched.lawyerBarCouncilId ? (
+          {lawyerFormik.errors.lawyerCouncilId &&
+          lawyerFormik.touched.lawyerCouncilId ? (
             <Box component={"span"} sx={{ display: "inline", color: "red" }}>
-              {lawyerFormik.errors.lawyerBarCouncilId}
+              {lawyerFormik.errors.lawyerCouncilId}
             </Box>
           ) : null}
         </Grid>

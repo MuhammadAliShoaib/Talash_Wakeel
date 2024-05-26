@@ -39,7 +39,7 @@ export const FirmDashboard = () => {
     try {
       const res = (
         await axiosPrivate.get("/firm/getLawyers", {
-          params: { id: auth.firmBarCouncilId },
+          params: { id: auth.firmCouncilId },
         })
       ).data;
       if (!res) {
@@ -111,9 +111,7 @@ export const FirmDashboard = () => {
           style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
         >
           {lawyerData?.map((lawyer, index) => {
-            return (
-              <LawyerCard2 key={index} item={lawyer} />
-            );
+            return <LawyerCard2 key={index} item={lawyer} />;
           })}
         </div>
       </Container>

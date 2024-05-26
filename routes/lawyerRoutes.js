@@ -8,7 +8,7 @@ router.get("/getAppointments", async (req, res) => {
   const { id } = req.query;
   // console.log("Id: ", id);
   try {
-    const bookings = await db.Booking.find({ lawyerBarCouncilId: id });
+    const bookings = await db.Booking.find({ lawyerCouncilId: id });
     if (bookings == null) return res.sendStatus(404);
     console.log(bookings);
     res.status(200).json(bookings);

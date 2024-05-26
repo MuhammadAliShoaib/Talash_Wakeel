@@ -68,7 +68,7 @@ export default function SignUp() {
   const firmFormik = useFormik({
     initialValues: {
       firmName: "",
-      firmBarCouncilId: 0,
+      firmCouncilId: null,
       firmEmail: "",
       firmPhoneNumber: "",
       firmCity: "",
@@ -83,7 +83,7 @@ export default function SignUp() {
         console.log(values.firmName);
         const response = await axios.post("/api/firmAuth/createFirm", {
           firmName: values.firmName,
-          firmBarCouncilId: values.firmBarCouncilId,
+          firmCouncilId: values.firmCouncilId,
           firmEmail: values.firmEmail,
           firmPhoneNumber: values.firmPhoneNumber,
           firmCity: values.firmCity,

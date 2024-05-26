@@ -17,9 +17,26 @@ router.get("/getFirms", async (req, res) => {
 
 router.get("/getLawyers", async (req, res) => {
   const { id } = req.query;
-  // console.log("Id: ", id);
+  const firmCouncilId = Number(id);
   try {
-    const lawyers = await db.Lawyer.find({ firmBarCouncilId: id });
+    const lawyers = await db.Lawyer.aggregate([
+      { $match: { firmCouncilId } },
+      {
+        $lookup: {
+          from: "firms",
+          localField: "firmCouncilId",
+          foreignField: "firmCouncilId",
+          as: "firmDetails",
+        },
+      },
+      { $unwind: "$firmDetails" }, // Deconstruct the array to get a single object
+      {
+        $project: {
+          refreshToken: 0, // Exclude refreshToken from Lawyer
+          "firmDetails.refreshToken": 0, // Exclude refreshToken from Firm
+        },
+      },
+    ]);
     console.log(lawyers);
     if (lawyers == null) return res.sendStatus(404);
     res.status(200).json(lawyers);
@@ -32,24 +49,26 @@ router.get("/getLawyers", async (req, res) => {
 router.post("/bookAppointment", async (req, res) => {
   const {
     appointmentId,
-    firmBarCouncilId,
-    lawyerBarCouncilId,
+    firmCouncilId,
+    lawyerCouncilId,
     lawyerName,
     clientID,
     clientName,
     bookingDate,
+    bookingTime,
     status,
     mode,
   } = req.body;
   try {
     await db.Booking.create({
       appointmentId,
-      firmBarCouncilId,
-      lawyerBarCouncilId,
+      firmCouncilId,
+      lawyerCouncilId,
       lawyerName,
       clientID,
       clientName,
       bookingDate,
+      bookingTime,
       status,
       mode,
     });

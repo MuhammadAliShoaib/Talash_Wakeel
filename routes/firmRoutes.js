@@ -4,8 +4,8 @@ import { db } from "../models/index.js";
 
 router.post("/addLawyer", async (req, res) => {
   const {
-    lawyerBarCouncilId,
-    firmBarCouncilId,
+    lawyerCouncilId,
+    firmCouncilId,
     firstName,
     lastName,
     email,
@@ -14,14 +14,14 @@ router.post("/addLawyer", async (req, res) => {
   } = req.body;
 
   try {
-    const lawyer = await db.Lawyer.findOne({ lawyerBarCouncilId, email });
+    const lawyer = await db.Lawyer.findOne({ lawyerCouncilId, email });
 
     if (lawyer)
       return res.status(409).json({ message: "Lawyer Already Exists" });
 
     await db.Lawyer.create({
-      firmBarCouncilId,
-      lawyerBarCouncilId,
+      firmCouncilId,
+      lawyerCouncilId,
       firstName,
       lastName,
       email,
@@ -41,7 +41,7 @@ router.get("/getLawyers", async (req, res) => {
   const { id } = req.query;
   console.log("Id: ", id);
   try {
-    const lawyers = await db.Lawyer.find({ firmBarCouncilId: id });
+    const lawyers = await db.Lawyer.find({ firmCouncilId: id });
     console.log(lawyers);
     if (lawyers == null) return res.sendStatus(404);
     res.status(200).json(lawyers);
@@ -55,7 +55,7 @@ router.get("/getAppointments", async (req, res) => {
   const { id } = req.query;
   console.log("Id: ", id);
   try {
-    const bookings = await db.Booking.find({ firmBarCouncilId: id });
+    const bookings = await db.Booking.find({ firmCouncilId: id });
     console.log(bookings);
     if (bookings == null) return res.sendStatus(404);
     res.status(200).json(bookings);
