@@ -14,6 +14,7 @@ import Image from "../../assets/profile.jpg";
 import { cities } from "../../utility/data";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
+import { UpdatePassModal } from "../Modal/UpdatePassModal";
 
 const ProfilePicture = styled("div")(() => ({
   display: "flex",
@@ -25,6 +26,7 @@ export default function ProfileForm() {
   const [selectedFile, setSelectedFile] = React.useState(null);
   const [profileUrl, setProfileUrl] = React.useState("");
   const [profileData, setProfileData] = React.useState({});
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const { auth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
@@ -97,6 +99,7 @@ export default function ProfileForm() {
         params: { clientID: auth.clientID },
       });
       setProfileData(response.data);
+      setProfileUrl(response.data.profileUrl)
       console.log(response.data);
     } catch (error) {
       console.log("Error: ", error);
@@ -109,6 +112,7 @@ export default function ProfileForm() {
 
   return (
     <Box sx={{ p: 2 }}>
+      <UpdatePassModal profileData={profileData} onChange={handleChange} open={isOpen} onClose={() => setIsOpen(false)} />
       <Grid container spacing={2}>
         <Grid item xs={12} mb={"15px"}>
           <ProfilePicture>
@@ -123,11 +127,7 @@ export default function ProfileForm() {
               >
                 <img
                   src={
-                    profileData.profileUrl === ""
-                      ? profileUrl.length !== 0
-                        ? profileUrl
-                        : Image
-                      : profileData.profileUrl
+                    profileUrl || Image
                   }
                   width="100%"
                   height="100%"
@@ -218,9 +218,17 @@ export default function ProfileForm() {
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
+        onClick={() => setIsOpen(true)}
+      >
+        Update Password
+      </Button>
+      <Button
+        fullWidth
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
         onClick={handleUpload}
       >
-        Update
+        Update Profile
       </Button>
     </Box>
   );
