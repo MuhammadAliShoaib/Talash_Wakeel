@@ -9,6 +9,7 @@ const clientSchema = new Schema({
   clientPhoneNumber: { type: String, required: true },
   clientCity: { type: String, required: true },
   clientPassword: { type: String, required: true },
+  profileUrl: String,
   isDeleted: Boolean,
   refreshToken: String,
 });

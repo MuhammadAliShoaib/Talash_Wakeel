@@ -49,14 +49,19 @@ export default function ClientBookedTable({ data }) {
             {data?.map((client, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell>{client.firmCouncilId}</StyledTableCell>
-                <StyledTableCell>{client.lawyerName}</StyledTableCell>
+                <StyledTableCell>
+                  {client.lawyerDetails.firstName +
+                    " " +
+                    client.lawyerDetails.lastName}
+                </StyledTableCell>
                 <StyledTableCell>
                   {new Date(client.bookingDate).toLocaleDateString("en-GB")}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {new Date(client.bookingDate) < new Date()
+                  {client.status}
+                  {/* {new Date(client.bookingDate) < new Date()
                     ? "Closed"
-                    : "Open"}
+                    : "Open"} */}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

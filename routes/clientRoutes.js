@@ -81,16 +81,82 @@ router.post("/bookAppointment", async (req, res) => {
 
 router.get("/getAppointments", async (req, res) => {
   const { clientID } = req.query;
-  console.log(clientID);
+  const Id = Number(clientID);
 
   try {
-    const bookings = await db.Booking.find({ clientID });
+    const bookings = await db.Booking.aggregate([
+      { $match: { clientID: Id } },
+      {
+        $lookup: {
+          from: "firms",
+          localField: "firmCouncilId",
+          foreignField: "firmCouncilId",
+          as: "firmDetails",
+        },
+      },
+      { $unwind: "$firmDetails" }, // Deconstruct the array to get a single object
+      {
+        $lookup: {
+          from: "lawyers",
+          localField: "lawyerCouncilId",
+          foreignField: "lawyerCouncilId",
+          as: "lawyerDetails",
+        },
+      },
+      { $unwind: "$lawyerDetails" },
+      {
+        $lookup: {
+          from: "clients",
+          localField: "clientID",
+          foreignField: "clientID",
+          as: "clientDetails",
+        },
+      },
+      { $unwind: "$clientDetails" },
+      {
+        $project: {
+          "firmDetails.refreshToken": 0, // Exclude refreshToken from Firm
+          "lawyerDetails.refreshToken": 0, // Exclude refreshToken from Firm
+          "clientDetails.refreshToken": 0, // Exclude refreshToken from Firm
+        },
+      },
+    ]);
+
+    console.log(bookings);
 
     res.status(200).json(bookings);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching appointments" });
   }
+});
+
+router.get("/getDetails", async (req, res) => {
+  const { clientID } = req.query;
+  try {
+    const details = await db.Client.findOne({ clientID });
+    if (!details) return res.status(404).json({ message: "User not found" });
+    res.status(200).json(details);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
+});
+
+router.put("/updateProfile", async (req, res) => {
+  // console.log("Data:.........", req.body);
+  try {
+    const client = await db.Client.findOne({ clientID: req.body.clientID });
+    if (!client) return res.sendStatus(404);
+    client.clientFirstName = req.body.clientFirstName;
+    client.clientLastName = req.body.clientLastName;
+    client.clientPhoneNumber = req.body.clientPhoneNumber;
+    client.clientCity = req.body.clientCity;
+    client.profileUrl = req.body.profileUrl;
+    await client.save();
+
+    res.status(200).json({ client, message: "Updated Successfully" });
+  } catch (error) {}
 });
 
 export default router;
