@@ -29,11 +29,11 @@ router.get("/getLawyers", async (req, res) => {
           as: "firmDetails",
         },
       },
-      { $unwind: "$firmDetails" }, // Deconstruct the array to get a single object
+      { $unwind: "$firmDetails" },
       {
         $project: {
-          refreshToken: 0, // Exclude refreshToken from Lawyer
-          "firmDetails.refreshToken": 0, // Exclude refreshToken from Firm
+          refreshToken: 0,
+          "firmDetails.refreshToken": 0,
         },
       },
     ]);
@@ -157,6 +157,23 @@ router.put("/updateProfile", async (req, res) => {
 
     res.status(200).json({ client, message: "Updated Successfully" });
   } catch (error) {}
+});
+
+router.put("/cancelBooking", async (req, res) => {
+  const { updatedStatus, appointmentId } = req.body;
+  // console.log("ID: ", appointmentId);
+  try {
+    const booking = await db.Booking.findOne({ appointmentId });
+    if (!booking) return res.sendStatus(404);
+
+    booking.status = updatedStatus;
+    booking.save();
+
+    res.status(200).json({ message: "Appointment Canceled" });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
 });
 
 export default router;

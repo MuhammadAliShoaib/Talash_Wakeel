@@ -4,12 +4,18 @@ import { Grid, Container, Box, Typography } from "@mui/material";
 import AppointmentTable from "../../../components/AppointmentTable";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { toast } from "react-toastify";
+import { RescheduleModal } from "../../../components/Modal/RescheduleModal";
 
 export const LawyerDashboard = () => {
   const axiosPrivate = useAxiosPrivate();
   const [flag, setFlag] = useState(false);
-  const [oldRecord, setOldRecord] = useState([]);
-  const [currentRecord, setCurrentRecord] = useState([]);
+  const [reqAppointments, setReqAppointments] = useState();
+  const [approvedAppointments, setApprovedAppointments] = useState();
+  const [followUpAppointments, setFollowUpAppointments] = useState();
+  const [closedAppointments, setClosedAppointments] = useState();
+  const [displayModal, setDisplayModal] = useState(false);
+  const [reschedule, setReschedule] = useState();
   const { auth } = useAuth();
 
   const getAppointments = async () => {
@@ -23,26 +29,66 @@ export const LawyerDashboard = () => {
         throw new Error("An Error Occurred");
       }
 
-      const currentDate = new Date();
-      const updatedCurrentRecord = [];
-      const updatedOldRecord = [];
+      const requested = [];
+      const approved = [];
+      const followUp = [];
+      const closed = [];
 
-      res.forEach((data) => {
-        if (
-          new Date(data.bookingDate) > currentDate &&
-          data.status !== "Done"
+      res.forEach((appointment) => {
+        if (appointment.status === "Requested") {
+          requested.push(appointment);
+        } else if (
+          appointment.status === "Approved" ||
+          appointment.status === "Rescheduled"
         ) {
-          updatedCurrentRecord.push(data);
-        } else {
-          updatedOldRecord.push(data);
+          approved.push(appointment);
+        } else if (appointment.status === "Follow Up") {
+          followUp.push(appointment);
+        } else if (
+          appointment.status === "Closed" ||
+          appointment.status === "Canceled"
+        ) {
+          closed.push(appointment);
         }
       });
 
-      setCurrentRecord(updatedCurrentRecord);
-      setOldRecord(updatedOldRecord);
+      setReqAppointments(requested);
+      setApprovedAppointments(approved);
+      setFollowUpAppointments(followUp);
+      setClosedAppointments(closed);
     } catch (error) {
       console.log("Error: ", error);
     }
+  };
+
+  const updateStatus = async (appointmentId) => {
+    try {
+      const res = await axiosPrivate.put(`/lawyer/updateStatus`, {
+        appointmentId,
+        updatedStatus: "Approved",
+      });
+      if (!res) {
+        throw new Error("Error Occured, Update Failed");
+      }
+      setFlag(!flag);
+      toast.success(`${res.data.message}`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
+  const handleModal = (booking) => {
+    setReschedule(booking);
+    setDisplayModal(true);
   };
 
   useEffect(() => {
@@ -52,6 +98,13 @@ export const LawyerDashboard = () => {
   return (
     <>
       <Header title="Dashboard" />
+      <RescheduleModal
+        open={displayModal}
+        onClose={() => setDisplayModal(false)}
+        data={reschedule}
+        flag={flag}
+        setFlag={setFlag}
+      />
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
           <Typography variant="h5" color={"black"}>
@@ -67,9 +120,10 @@ export const LawyerDashboard = () => {
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
               <AppointmentTable
-                data={currentRecord}
-                flag={flag}
-                setFlag={setFlag}
+                data={reqAppointments}
+                requestTable={true}
+                updateStatus={updateStatus}
+                onReschedule={handleModal}
               />
             </Grid>
           </Grid>
@@ -90,7 +144,7 @@ export const LawyerDashboard = () => {
               xs={12}
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              <AppointmentTable data={oldRecord} />
+              <AppointmentTable data={approvedAppointments} />
             </Grid>
           </Grid>
         </Container>
@@ -99,7 +153,7 @@ export const LawyerDashboard = () => {
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
           <Typography variant="h5" color={"black"}>
-            Next Appointments
+            Follow Up Appointments
           </Typography>
         </Container>
 
@@ -110,11 +164,7 @@ export const LawyerDashboard = () => {
               xs={12}
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              <AppointmentTable
-                data={currentRecord}
-                flag={flag}
-                setFlag={setFlag}
-              />
+              <AppointmentTable data={followUpAppointments} />
             </Grid>
           </Grid>
         </Container>
@@ -134,11 +184,7 @@ export const LawyerDashboard = () => {
               xs={12}
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              <AppointmentTable
-                data={currentRecord}
-                flag={flag}
-                setFlag={setFlag}
-              />
+              <AppointmentTable data={closedAppointments} />
             </Grid>
           </Grid>
         </Container>

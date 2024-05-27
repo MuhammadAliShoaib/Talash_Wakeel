@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MenuItem, TextField } from "@mui/material";
+import { Button, MenuItem, TextField } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,7 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ClientBookedTable({ data }) {
+export default function ClientBookedTable({ data, requestTable, handleClick }) {
   const [status, setStatus] = useState("Done");
 
   return (
@@ -43,26 +43,32 @@ export default function ClientBookedTable({ data }) {
               <StyledTableCell>Lawyer Name</StyledTableCell>
               <StyledTableCell>Date</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
+              {requestTable ? <StyledTableCell></StyledTableCell> : null}
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.map((client, index) => (
+            {data?.map((row, index) => (
               <StyledTableRow key={index}>
-                <StyledTableCell>{client.firmCouncilId}</StyledTableCell>
+                <StyledTableCell>{row.firmCouncilId}</StyledTableCell>
                 <StyledTableCell>
-                  {client.lawyerDetails.firstName +
+                  {row.lawyerDetails.firstName +
                     " " +
-                    client.lawyerDetails.lastName}
+                    row.lawyerDetails.lastName}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {new Date(client.bookingDate).toLocaleDateString("en-GB")}
+                  {new Date(row.bookingDate).toLocaleDateString("en-GB")}
                 </StyledTableCell>
-                <StyledTableCell>
-                  {client.status}
-                  {/* {new Date(client.bookingDate) < new Date()
-                    ? "Closed"
-                    : "Open"} */}
-                </StyledTableCell>
+                <StyledTableCell>{row.status}</StyledTableCell>
+                {requestTable ? (
+                  <StyledTableCell>
+                    <Button
+                      variant="contained"
+                      onClick={() => handleClick(row.appointmentId)}
+                    >
+                      Cancel
+                    </Button>
+                  </StyledTableCell>
+                ) : null}
               </StyledTableRow>
             ))}
           </TableBody>

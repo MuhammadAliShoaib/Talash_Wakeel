@@ -5,7 +5,7 @@ const useRefreshToken = () => {
   const { auth, setAuth } = useAuth();
 
   const refresh = async () => {
-    if (auth.isFirm) {
+    if (auth.role === "firm") {
       const res = await axios.get("/api/firmAuth/refreshToken", {
         withCredentials: true,
       });
@@ -15,8 +15,18 @@ const useRefreshToken = () => {
         return { ...prev, accessToken: res.data.accessToken };
       });
       return res.data.accessToken;
-    } else {
+    } else if (auth.role === "client") {
       const res = await axios.get("/api/clientAuth/refreshToken", {
+        withCredentials: true,
+      });
+      setAuth((prev) => {
+        console.log(JSON.stringify(prev));
+        console.log(res.data.accessToken);
+        return { ...prev, accessToken: res.data.accessToken };
+      });
+      return res.data.accessToken;
+    } else if (auth.role === "lawyer") {
+      const res = await axios.get("/api/lawyerAuth/refreshToken", {
         withCredentials: true,
       });
       setAuth((prev) => {

@@ -46,19 +46,17 @@ export default function FirmTable({ data }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.map((client, index) => (
+            {data?.map((row, index) => (
               <StyledTableRow key={index}>
-                <StyledTableCell>{client.clientID}</StyledTableCell>
-                <StyledTableCell>{client.lawyerCouncilId}</StyledTableCell>
+                <StyledTableCell>{row.clientID}</StyledTableCell>
+                <StyledTableCell>{row.lawyerCouncilId}</StyledTableCell>
                 <StyledTableCell>
                   {" "}
-                  {new Date(client.bookingDate).toLocaleDateString("en-GB")}
+                  {new Date(row.bookingDate).toLocaleDateString("en-GB")}
                 </StyledTableCell>
                 <StyledTableCell>
-                  {/* {new Date(client.bookingDate) < new Date()
-                    ? "Closed"
-                    : "Open"} */}
-                  <TextField
+                  {row.status}
+                  {/* <TextField
                     required
                     select
                     name="mode"
@@ -72,7 +70,7 @@ export default function FirmTable({ data }) {
                         <option label={status} />
                       </MenuItem>
                     ))}
-                  </TextField>
+                  </TextField> */}
                 </StyledTableCell>
               </StyledTableRow>
             ))}
