@@ -18,9 +18,7 @@ import axiosPrivate from "../../../api/axiosPrivate";
 import { toast } from "react-toastify";
 import { MobileTimePicker } from "@mui/x-date-pickers";
 
-export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
-  const { auth } = useAuth();
-  const [error, setError] = useState(false);
+export const FollowUpModal = ({ open, onClose, data, setFlag, flag }) => {
   const [date, setDate] = useState("");
   const [mode, setMode] = useState("");
 
@@ -41,18 +39,27 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
     setDate(dayjs(selectedDate).$d.toLocaleDateString());
   };
 
-  const book = async () => {
+  const handleFollowUp = async () => {
     try {
-      const unix = +new Date();
-      const res = await axiosPrivate.post(`/client/bookAppointment`, {
-        appointmentId: unix,
-        firmCouncilId: firmId,
-        lawyerCouncilId: data.lawyerCouncilId,
-        clientID: auth.clientID,
-        bookingDate: date,
-        bookingTime: selectedTime,
-        status: "Requested",
-        mode,
+      if (mode === "") {
+        toast.error(`Please Select Mode`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
+      const res = await axiosPrivate.put(`/lawyer/followUpAppointment`, {
+        appointmentId: data.appointmentId,
+        updatedMode: mode,
+        updatedBookingDate: date,
+        updatedBookingTime: selectedTime,
+        updatedStatus: "Follow Up",
       });
 
       if (!res) {
@@ -69,6 +76,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
         progress: undefined,
         theme: "dark",
       });
+      setFlag(!flag);
       onClose();
     } catch (error) {
       console.log("Error: ", error);
@@ -88,16 +96,8 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      aria-labelledby="user-details-modal"
-      aria-describedby="user-details-input"
-    >
+    <Modal open={open} onClose={onClose}>
       <Box
-        // component="form"
-        // noValidate
-        // onSubmit={book}
         sx={{
           position: "absolute",
           width: "90%",
@@ -112,17 +112,18 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
         }}
       >
         <Typography variant="h5" gutterBottom sx={{ color: "black" }}>
-          Book Lawyer
+          Follow Up Appointment
         </Typography>
         <Box sx={{ marginBottom: 2 }}>
           <Typography variant="body1" gutterBottom>
-            Name: {data.firstName} {data.lastName}
+            Appointment ID: {data?.appointmentId}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Firm Email: {data.firmDetails.firmEmail}
+            Client ID: {data?.clientID}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Field: {data.field}
+            Client Name: {data?.clientDetails.clientFirstName}{" "}
+            {data?.clientDetails.clientLastName}
           </Typography>
         </Box>
         <Grid sx={{ paddingBottom: "10px" }}>
@@ -158,13 +159,13 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker label="Appointment date" onChange={handleDateChange} />
           </LocalizationProvider>
-          {error ? (
-            <Box component={"span"} sx={{ display: "inline", color: "red" }}>
-              Please select date
-            </Box>
-          ) : null}
+          {/* {error ? (
+              <Box component={"span"} sx={{ display: "inline", color: "red" }}>
+                Please select date
+              </Box>
+            ) : null} */}
         </Grid>
-        <Button onClick={book} variant="contained">
+        <Button onClick={handleFollowUp} variant="contained">
           Confirm
         </Button>
       </Box>

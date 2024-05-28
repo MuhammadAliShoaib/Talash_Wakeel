@@ -15,6 +15,8 @@ import { cities } from "../../utility/data";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
 import { UpdatePassModal } from "../Modal/UpdatePassModal";
+import bcrypt from "bcryptjs";
+import { toast } from "react-toastify";
 
 const ProfilePicture = styled("div")(() => ({
   display: "flex",
@@ -26,6 +28,7 @@ export default function ProfileForm() {
   const [selectedFile, setSelectedFile] = React.useState(null);
   const [profileUrl, setProfileUrl] = React.useState("");
   const [profileData, setProfileData] = React.useState({});
+  const [newPass, setNewPass] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
 
   const { auth } = useAuth();
@@ -52,7 +55,53 @@ export default function ProfileForm() {
       ...prevData,
       [name]: value,
     }));
-    console.log(profileData.clientPassword);
+  };
+
+  const handlePassword = (e) => {
+    e.preventDefault();
+    setNewPass(e.target.value);
+  };
+
+  const updatePassword = async () => {
+    try {
+      if (newPass.length < 5) {
+        toast.error(`Password should be at least 5 characters`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
+      const salt = bcrypt.genSaltSync(10);
+      const newHash = bcrypt.hashSync(newPass, salt);
+      const res = (
+        await axiosPrivate.put("/client/updatePassword", {
+          Id: auth.clientID,
+          newHash,
+        })
+      ).data;
+      if (!res) {
+        throw new Error("Something Went Wrong Try Again");
+      }
+
+      toast.success(`${res.message}`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   const handleUpload = () => {
@@ -87,6 +136,16 @@ export default function ProfileForm() {
       .put("/client/updateProfile", data)
       .then((response) => {
         console.log("Profile updated successfully:", response.data);
+        toast.success(`${response.data.message}`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       })
       .catch((error) => {
         console.error("Error updating profile:", error);
@@ -99,7 +158,7 @@ export default function ProfileForm() {
         params: { clientID: auth.clientID },
       });
       setProfileData(response.data);
-      setProfileUrl(response.data.profileUrl)
+      setProfileUrl(response.data.profileUrl);
       console.log(response.data);
     } catch (error) {
       console.log("Error: ", error);
@@ -112,7 +171,13 @@ export default function ProfileForm() {
 
   return (
     <Box sx={{ p: 2 }}>
-      <UpdatePassModal profileData={profileData} onChange={handleChange} open={isOpen} onClose={() => setIsOpen(false)} />
+      <UpdatePassModal
+        password={newPass}
+        handlePassword={handlePassword}
+        updatePassword={updatePassword}
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
       <Grid container spacing={2}>
         <Grid item xs={12} mb={"15px"}>
           <ProfilePicture>
@@ -126,9 +191,7 @@ export default function ProfileForm() {
                 }}
               >
                 <img
-                  src={
-                    profileUrl || Image
-                  }
+                  src={profileUrl || Image}
                   width="100%"
                   height="100%"
                   alt="Profile"
@@ -218,17 +281,17 @@ export default function ProfileForm() {
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
-        onClick={() => setIsOpen(true)}
+        onClick={handleUpload}
       >
-        Update Password
+        Update Profile
       </Button>
       <Button
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
-        onClick={handleUpload}
+        onClick={() => setIsOpen(true)}
       >
-        Update Profile
+        Update Password
       </Button>
     </Box>
   );

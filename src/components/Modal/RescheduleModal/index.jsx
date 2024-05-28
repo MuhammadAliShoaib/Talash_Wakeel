@@ -20,7 +20,12 @@ import { MobileTimePicker } from "@mui/x-date-pickers";
 
 export const RescheduleModal = ({ open, onClose, data, setFlag, flag }) => {
   const [date, setDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState(dayjs("2022-04-17T15:30"));
+  const getCurrentDateWithTime = () => {
+    return dayjs().hour(15).minute(30).second(0).millisecond(0);
+  };
+  const [selectedTime, setSelectedTime] = useState(
+    getCurrentDateWithTime().format("hh:mm A")
+  );
 
   const handleTimeChange = (newTime) => {
     console.log("Type: ", typeof newTime);

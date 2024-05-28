@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { toast } from "react-toastify";
 import { RescheduleModal } from "../../../components/Modal/RescheduleModal";
+import { FollowUpModal } from "../../../components/Modal/FollowUpModal";
 
 export const LawyerDashboard = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -14,8 +15,10 @@ export const LawyerDashboard = () => {
   const [approvedAppointments, setApprovedAppointments] = useState();
   const [followUpAppointments, setFollowUpAppointments] = useState();
   const [closedAppointments, setClosedAppointments] = useState();
-  const [displayModal, setDisplayModal] = useState(false);
+  const [rescheduleModal, setRescheduleModal] = useState(false);
+  const [followUpModal, setFollowUpModal] = useState(false);
   const [reschedule, setReschedule] = useState();
+  const [followUp, setFollowUp] = useState();
   const { auth } = useAuth();
 
   const getAppointments = async () => {
@@ -61,11 +64,11 @@ export const LawyerDashboard = () => {
     }
   };
 
-  const updateStatus = async (appointmentId) => {
+  const updateStatus = async (Data) => {
     try {
       const res = await axiosPrivate.put(`/lawyer/updateStatus`, {
-        appointmentId,
-        updatedStatus: "Approved",
+        appointmentId: Data.appointmentId,
+        updatedStatus: Data.updatedStatus,
       });
       if (!res) {
         throw new Error("Error Occured, Update Failed");
@@ -86,9 +89,14 @@ export const LawyerDashboard = () => {
     }
   };
 
-  const handleModal = (booking) => {
+  const handleRescheduleModal = (booking) => {
     setReschedule(booking);
-    setDisplayModal(true);
+    setRescheduleModal(true);
+  };
+
+  const handleFollowUpModal = (booking) => {
+    setFollowUp(booking);
+    setFollowUpModal(true);
   };
 
   useEffect(() => {
@@ -99,9 +107,16 @@ export const LawyerDashboard = () => {
     <>
       <Header title="Dashboard" />
       <RescheduleModal
-        open={displayModal}
-        onClose={() => setDisplayModal(false)}
+        open={rescheduleModal}
+        onClose={() => setRescheduleModal(false)}
         data={reschedule}
+        flag={flag}
+        setFlag={setFlag}
+      />
+      <FollowUpModal
+        open={followUpModal}
+        onClose={() => setFollowUpModal(false)}
+        data={followUp}
         flag={flag}
         setFlag={setFlag}
       />
@@ -123,7 +138,7 @@ export const LawyerDashboard = () => {
                 data={reqAppointments}
                 requestTable={true}
                 updateStatus={updateStatus}
-                onReschedule={handleModal}
+                onReschedule={handleRescheduleModal}
               />
             </Grid>
           </Grid>
@@ -144,7 +159,12 @@ export const LawyerDashboard = () => {
               xs={12}
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              <AppointmentTable data={approvedAppointments} />
+              <AppointmentTable
+                data={approvedAppointments}
+                approveTable={true}
+                updateStatus={updateStatus}
+                onFollowUp={handleFollowUpModal}
+              />
             </Grid>
           </Grid>
         </Container>
@@ -164,7 +184,12 @@ export const LawyerDashboard = () => {
               xs={12}
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              <AppointmentTable data={followUpAppointments} />
+              <AppointmentTable
+                data={followUpAppointments}
+                approveTable={true}
+                updateStatus={updateStatus}
+                onFollowUp={handleFollowUpModal}
+              />
             </Grid>
           </Grid>
         </Container>

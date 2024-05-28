@@ -103,4 +103,33 @@ router.put("/rescheduleAppointment", async (req, res) => {
   }
 });
 
+router.put("/followUpAppointment", async (req, res) => {
+  const {
+    appointmentId,
+    updatedMode,
+    updatedStatus,
+    updatedBookingDate,
+    updatedBookingTime,
+  } = req.body;
+
+  try {
+    const booking = await db.Booking.findOne({ appointmentId });
+
+    if (!booking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    booking.mode = updatedMode;
+    booking.bookingDate = updatedBookingDate;
+    booking.bookingTime = updatedBookingTime;
+    booking.status = updatedStatus;
+    await booking.save();
+
+    res.status(200).json({ message: "Follow Up Updated" });
+  } catch (error) {
+    console.error("Error updating status:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default router;

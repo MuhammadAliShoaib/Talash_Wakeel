@@ -156,7 +156,24 @@ router.put("/updateProfile", async (req, res) => {
     await client.save();
 
     res.status(200).json({ client, message: "Updated Successfully" });
-  } catch (error) {}
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
+});
+
+router.put("/updatePassword", async (req, res) => {
+  try {
+    const client = await db.Client.findOne({ clientID: req.body.Id });
+    if (!client) return res.sendStatus(404);
+    client.clientPassword = req.body.newHash;
+    await client.save();
+
+    res.status(200).json({ client, message: "Updated Successfully" });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
 });
 
 router.put("/cancelBooking", async (req, res) => {

@@ -31,8 +31,12 @@ export const FirmDashboard = () => {
   };
 
   const handleDropDown = (type) => {
-    const array = lawyers.filter((lawyer) => lawyer.field === type);
-    setLawyerData(array);
+    if (type === "All") {
+      setLawyerData(lawyers);
+    } else {
+      const array = lawyers.filter((lawyer) => lawyer.field === type);
+      setLawyerData(array);
+    }
   };
 
   const getLawyers = async () => {

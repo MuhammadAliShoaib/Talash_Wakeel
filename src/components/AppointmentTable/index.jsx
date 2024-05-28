@@ -32,8 +32,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function AppointmentTable({
   data,
   requestTable,
+  approveTable,
   updateStatus,
   onReschedule,
+  onFollowUp,
 }) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -47,7 +49,7 @@ export default function AppointmentTable({
               <StyledTableCell>Time</StyledTableCell>
               <StyledTableCell>Mode</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
-              {requestTable ? (
+              {requestTable || approveTable ? (
                 <>
                   <StyledTableCell></StyledTableCell>
                   <StyledTableCell></StyledTableCell>
@@ -66,14 +68,19 @@ export default function AppointmentTable({
                   {new Date(booking.bookingDate).toLocaleDateString("en-GB")}
                 </StyledTableCell>
                 <StyledTableCell>{booking.bookingTime}</StyledTableCell>
-                <StyledTableCell>Online</StyledTableCell>
+                <StyledTableCell>{booking.mode}</StyledTableCell>
                 <StyledTableCell>{booking.status}</StyledTableCell>
                 {requestTable ? (
                   <>
                     <StyledTableCell>
                       <Button
                         variant="contained"
-                        onClick={() => updateStatus(booking.appointmentId)}
+                        onClick={() =>
+                          updateStatus({
+                            appointmentId: booking.appointmentId,
+                            updatedStatus: "Approved",
+                          })
+                        }
                       >
                         Approve
                       </Button>
@@ -84,6 +91,32 @@ export default function AppointmentTable({
                         onClick={() => onReschedule(booking)}
                       >
                         Reschedule
+                      </Button>
+                    </StyledTableCell>
+                  </>
+                ) : null}
+
+                {approveTable ? (
+                  <>
+                    <StyledTableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() =>
+                          updateStatus({
+                            appointmentId: booking.appointmentId,
+                            updatedStatus: "Closed",
+                          })
+                        }
+                      >
+                        Close Case
+                      </Button>
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() => onFollowUp(booking)}
+                      >
+                        Follow Up
                       </Button>
                     </StyledTableCell>
                   </>
