@@ -34,7 +34,7 @@ export const RescheduleModal = ({ open, onClose, data, setFlag, flag }) => {
   };
 
   const handleDateChange = (selectedDate) => {
-    setDate(dayjs(selectedDate).$d.toLocaleDateString());
+    setDate(selectedDate.format("YYYY-MM-DD"));
   };
 
   const handleReschedule = async () => {

@@ -21,7 +21,7 @@ import { MobileTimePicker } from "@mui/x-date-pickers";
 export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   const { auth } = useAuth();
   const [error, setError] = useState(false);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
   const [mode, setMode] = useState("");
 
   const getCurrentDateWithTime = () => {
@@ -38,7 +38,7 @@ export const BookLawyerModal = ({ open, onClose, data, firmId }) => {
   };
 
   const handleDateChange = (selectedDate) => {
-    setDate(dayjs(selectedDate).$d.toLocaleDateString());
+    setDate(selectedDate.format("YYYY-MM-DD"));
   };
 
   const book = async () => {

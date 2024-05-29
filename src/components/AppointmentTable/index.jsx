@@ -62,7 +62,7 @@ export default function AppointmentTable({
               <StyledTableRow key={index}>
                 <StyledTableCell>{booking.clientID}</StyledTableCell>
                 <StyledTableCell>
-                  {booking.clientDetails.clientFirstName}
+                  {booking.clientDetails.clientFirstName} {booking.clientDetails.clientLastName}
                 </StyledTableCell>
                 <StyledTableCell>
                   {new Date(booking.bookingDate).toLocaleDateString("en-GB")}
