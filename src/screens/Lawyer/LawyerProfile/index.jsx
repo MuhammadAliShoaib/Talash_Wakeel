@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../../../components/Header";
-import ProfileForm from "../../../components/ProfileForm";
+import LawyerProfileForm from "../../../components/LawyerProfileForm";
 import { Box } from "@mui/material";
 
-export const ClientSettings = () => {
+export const LawyerProfile = () => {
   return (
     <>
-      <Header title="Settings" />
+      <Header title="Profile" />
       <div
         style={{
           display: "flex",
@@ -25,7 +25,7 @@ export const ClientSettings = () => {
             borderRadius: "15px",
           }}
         >
-          <ProfileForm />
+          <LawyerProfileForm />
         </Box>
       </div>
     </>

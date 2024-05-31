@@ -24,10 +24,10 @@ import { db } from "./models/index.js";
 //   .then((res) => console.log(JSON.stringify(res, null, 2)))
 //   .then((res) => process.exit());
 
-const appointmentId = "1716723857056";
+const lawyerCouncilId = 281;
 
 db.Booking.aggregate([
-  { $match: { appointmentId: appointmentId } },
+  { $match: { lawyerCouncilId } },
   {
     $lookup: {
       from: "firms",

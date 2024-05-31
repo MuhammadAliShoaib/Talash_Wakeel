@@ -132,4 +132,50 @@ router.put("/followUpAppointment", async (req, res) => {
   }
 });
 
+router.get("/getDetails", async (req, res) => {
+  const { lawyerCouncilId } = req.query;
+  try {
+    const details = await db.Lawyer.findOne({ lawyerCouncilId });
+    if (!details) return res.status(404).json({ message: "Lawyer not found" });
+    res.status(200).json(details);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
+});
+
+router.put("/updateProfile", async (req, res) => {
+  // console.log("Data:.........", req.body);
+  try {
+    const lawyer = await db.Lawyer.findOne({
+      lawyerCouncilId: req.body.lawyerCouncilId,
+    });
+    if (!lawyer) return res.sendStatus(404);
+    lawyer.firstName = req.body.firstName;
+    lawyer.lastName = req.body.lastName;
+    lawyer.field = req.body.field;
+    lawyer.profileUrl = req.body.profileUrl;
+    await lawyer.save();
+
+    res.status(200).json({ lawyer, message: "Updated Successfully" });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
+});
+
+router.put("/updatePassword", async (req, res) => {
+  try {
+    const lawyer = await db.Lawyer.findOne({ lawyerCouncilId: req.body.Id });
+    if (!lawyer) return res.sendStatus(404);
+    lawyer.password = req.body.newHash;
+    await lawyer.save();
+
+    res.status(200).json({ lawyer, message: "Updated Successfully" });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
+});
+
 export default router;
