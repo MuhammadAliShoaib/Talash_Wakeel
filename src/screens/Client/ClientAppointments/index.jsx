@@ -5,6 +5,7 @@ import useAuth from "../../../hooks/useAuth";
 import ClientBookedTable from "../../../components/ClientBookedTable";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { toast } from "react-toastify";
+import { RateLawyerModal } from "../../../components/Modal/RateLawyerModal";
 
 export const ClientAppointments = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -13,6 +14,8 @@ export const ClientAppointments = () => {
   const [followUpAppointments, setFollowUpAppointments] = useState();
   const [closedAppointments, setClosedAppointments] = useState();
   const [flag, setFlag] = useState(false);
+  const [ratingModal, setRatingModal] = useState(false);
+  const [booking, setBooking] = useState();
   const { auth } = useAuth();
 
   const getAppointments = async () => {
@@ -81,12 +84,24 @@ export const ClientAppointments = () => {
     }
   };
 
+  const handleRatingModal = (row) => {
+    setBooking(row);
+    setRatingModal(true);
+  };
+
   useEffect(() => {
     getAppointments();
   }, [flag]);
 
   return (
     <div>
+      <RateLawyerModal
+        open={ratingModal}
+        onClose={() => setRatingModal(false)}
+        data={booking}
+        flag={flag}
+        setFlag={setFlag}
+      />
       <Header title="Appointment Details" />
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
@@ -163,7 +178,11 @@ export const ClientAppointments = () => {
               xs={12}
               style={{ paddingTop: "5px", paddingBottom: "10px" }}
             >
-              <ClientBookedTable data={closedAppointments} />
+              <ClientBookedTable
+                data={closedAppointments}
+                closedTable={true}
+                handleRatingModal={handleRatingModal}
+              />
             </Grid>
           </Grid>
         </Container>

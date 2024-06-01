@@ -10,6 +10,8 @@ const bookingSchema = new Schema({
   bookingTime: { type: String, required: true },
   status: { type: String, required: true },
   mode: { type: String, required: true },
+  isRated: { type: Boolean, required: true },
+  lawyerRating: Number,
 });
 
 export const Booking = model("Booking", bookingSchema);
