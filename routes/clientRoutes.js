@@ -205,6 +205,28 @@ router.put("/rating", async (req, res) => {
     booking.lawyerRating = stars;
     await booking.save();
 
+    const lawyer = await db.Lawyer.findOne({
+      lawyerCouncilId: booking.lawyerCouncilId,
+    });
+    if (!lawyer) return res.sendStatus(404);
+    const ratedBookings = await db.Booking.find({
+      lawyerCouncilId: booking.lawyerCouncilId,
+      isRated: true,
+    });
+
+    console.log("Bookings", ratedBookings);
+
+    const totalRating = ratedBookings.reduce(
+      (acc, booking) => acc + booking.lawyerRating,
+      0
+    );
+
+    console.log(totalRating);
+    console.log(typeof totalRating);
+    const avgRating = totalRating / ratedBookings.length;
+    lawyer.rating = avgRating;
+    await lawyer.save();
+
     res.status(200).json({ message: "Rating Uploaded" });
   } catch (error) {
     console.log("Error: ", error);

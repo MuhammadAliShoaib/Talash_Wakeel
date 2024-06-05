@@ -27,6 +27,8 @@ router.post("/addLawyer", async (req, res) => {
       email,
       password,
       field,
+      rating: 0,
+      profileUrl: "",
       isDeleted: false,
     });
 

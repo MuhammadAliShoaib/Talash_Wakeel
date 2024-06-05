@@ -85,6 +85,7 @@ export default function ClientBookedTable({
                     </Button>
                   </StyledTableCell>
                 ) : (
+                  closedTable &&
                   row.status !== "Canceled" && (
                     <StyledTableCell>Rated</StyledTableCell>
                   )
