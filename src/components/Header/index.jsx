@@ -11,6 +11,7 @@ export default function Header({ title }) {
 
   const handleDisconnect = async () => {
     try {
+      localStorage.removeItem("auth");
       if (auth.role === "firm") {
         const response = (await axios.get("/api/firmAuth/logout")).data;
         toast.success(`${response.message}`, {

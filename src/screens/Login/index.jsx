@@ -38,235 +38,90 @@ export default function Login() {
     },
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
-      if (loginType === "client") {
-        try {
-          const response = await axios.post(
-            "/api/clientAuth/login",
-            {
-              email: values.email,
-              password: values.password,
-            },
-            {
-              headers: { "Content-Type": "application/json" },
-              withCredentials: true,
-            }
-          );
-          console.log(response.data);
-          const clientID = response.data.client.clientID;
-          const name = response.data.client.clientFirstName;
-          const email = response.data.client.clientEmail;
-          const accessToken = response.data.accessToken;
-          setAuth({ name, email, accessToken, role: "client", clientID });
-          if (!response) {
-            throw new Error("Error Occured");
-          }
+      console.log(loginType);
+      const authEndpoint = {
+        client: "/api/clientAuth/login",
+        firm: "/api/firmAuth/login",
+        lawyer: "/api/lawyerAuth/login",
+      }[loginType];
 
-          if (response.status === 200) {
-            navigate("/client");
-            toast.success(`Login Successful`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
+      try {
+        const response = await axios.post(
+          authEndpoint,
+          {
+            email: values.email,
+            password: values.password,
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
           }
-        } catch (error) {
-          if (error.response && error.response.status === 401) {
-            toast.error(`${error.response.data.message}`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          } else if (error.response && error.response.status === 404) {
-            toast.error(`${error.response.data.message}`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          } else {
-            toast.error(`Internal Server Error`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          }
-        }
-      } else if (loginType === "firm") {
-        try {
-          const response = await axios.post(
-            "/api/firmAuth/login",
-            {
-              email: values.email,
-              password: values.password,
-            },
-            {
-              headers: { "Content-Type": "application/json" },
-              withCredentials: true,
-            }
-          );
-          console.log(response.data);
-          const name = response.data.firm.firmName;
-          const email = response.data.firm.firmEmail;
-          const firmCouncilId = response.data.firm.firmCouncilId;
-          const accessToken = response.data.accessToken;
-          setAuth({
-            name,
-            email,
-            firmCouncilId,
-            accessToken,
+        );
+
+        const userData = {
+          client: {
+            name: response.data.client?.clientFirstName || "",
+            email: response.data.client?.clientEmail || "",
+            clientID: response.data.client?.clientID || "",
+            accessToken: response.data.accessToken || "",
+            role: "client",
+          },
+          firm: {
+            name: response.data.firm?.firmName || "",
+            email: response.data.firm?.firmEmail || "",
+            firmCouncilId: response.data.firm?.firmCouncilId || "",
+            accessToken: response.data.accessToken || "",
             role: "firm",
-          });
-
-          if (!response) {
-            throw new Error("Error Occured");
-          }
-
-          if (response.status === 200) {
-            navigate("/firm");
-            toast.success(`Login Successful`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          }
-        } catch (error) {
-          if (error.response && error.response.status === 401) {
-            toast.error(`${error.response.data.message}`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          } else if (error.response && error.response.status === 404) {
-            toast.error(`${error.response.data.message}`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          } else {
-            toast.error(`Internal Server Error`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          }
-        }
-      } else if (loginType === "lawyer") {
-        try {
-          const response = await axios.post(
-            "/api/lawyerAuth/login",
-            {
-              email: values.email,
-              password: values.password,
-            },
-            {
-              headers: { "Content-Type": "application/json" },
-              withCredentials: true,
-            }
-          );
-          // console.log(response.data);
-          const name = response.data.lawyer.firstName;
-          const email = response.data.lawyer.email;
-          const lawyerCouncilId = response.data.lawyer.lawyerCouncilId;
-          const accessToken = response.data.accessToken;
-          setAuth({
-            name,
-            email,
-            lawyerCouncilId,
-            accessToken,
+          },
+          lawyer: {
+            name: response.data.lawyer?.firstName || "",
+            email: response.data.lawyer?.email || "",
+            lawyerCouncilId: response.data.lawyer?.lawyerCouncilId || "",
+            accessToken: response.data.accessToken || "",
             role: "lawyer",
+          },
+        }[loginType];
+
+        setAuth(userData);
+
+        if (response.status === 200) {
+          navigate(`/${loginType}`);
+          toast.success(`Login Successful`, {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
           });
-
-          if (!response) {
-            throw new Error("Error Occured");
-          }
-
-          if (response.status === 200) {
-            navigate("/lawyer");
-            toast.success(`Login Successful`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          }
-        } catch (error) {
-          if (error.response && error.response.status === 401) {
-            toast.error(`${error.response.data.message}`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          } else if (error.response && error.response.status === 404) {
-            toast.error(`${error.response.data.message}`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          } else {
-            toast.error(`Internal Server Error`, {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            });
-          }
+        }
+      } catch (error) {
+        if (error.response) {
+          const errorMessage = error.response.data.message;
+          toast.error(errorMessage, {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else {
+          console.log(error);
+          toast.error("Internal Server Error", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
         }
       }
     },
