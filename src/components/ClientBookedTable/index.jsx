@@ -8,6 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -47,9 +48,8 @@ export default function ClientBookedTable({
               <StyledTableCell>Lawyer Name</StyledTableCell>
               <StyledTableCell>Date</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
-              {requestTable || closedTable ? (
-                <StyledTableCell></StyledTableCell>
-              ) : null}
+              {requestTable ? <StyledTableCell></StyledTableCell> : null}
+              {closedTable ? <StyledTableCell>Rating</StyledTableCell> : null}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -87,9 +87,19 @@ export default function ClientBookedTable({
                 ) : (
                   closedTable &&
                   row.status !== "Canceled" && (
-                    <StyledTableCell>Rated</StyledTableCell>
+                    <StyledTableCell>
+                      Rated: {row.lawyerRating}{" "}
+                      <StarIcon
+                        key={index}
+                        fontSize="xs"
+                        sx={{ color: "gold" }}
+                      />
+                    </StyledTableCell>
                   )
                 )}
+                {closedTable && row.status === "Canceled" ? (
+                  <StyledTableCell></StyledTableCell>
+                ) : null}
               </StyledTableRow>
             ))}
           </TableBody>

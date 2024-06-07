@@ -51,6 +51,19 @@ export default function Header({ title }) {
           theme: "dark",
         });
         navigate("/login");
+      } else if (auth.role === "admin") {
+        const response = (await axios.get("/api/adminAuth/logout")).data;
+        toast.success(`${response.message}`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        navigate("/");
       } else throw new Error("Something went wrong");
     } catch (error) {
       console.log(error);

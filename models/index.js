@@ -4,6 +4,7 @@ import { Lawyer } from "./Lawyer.js";
 import { Client } from "./Client.js";
 import { Counter } from "./Counter.js";
 import { Booking } from "./Booking.js";
+import { Admin } from "./Admin.js";
 
 (async () => {
   try {
@@ -20,4 +21,5 @@ export const db = {
   Client,
   Counter,
   Booking,
+  Admin,
 };

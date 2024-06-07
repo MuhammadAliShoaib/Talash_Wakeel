@@ -8,6 +8,7 @@ import clientAuth from "./routes/clientAuth.js";
 import clientRoutes from "./routes/clientRoutes.js";
 import lawyerAuth from "./routes/lawyerAuth.js";
 import lawyerRoutes from "./routes/lawyerRoutes.js";
+import adminAuth from "./routes/adminAuth.js";
 import { verifyJWT } from "./middleware/verifyJWT.js";
 import cookieParser from "cookie-parser";
 const PORT = process.env.PORT || 5000;
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use("/firmAuth", firmAuth);
 app.use("/clientAuth", clientAuth);
 app.use("/lawyerAuth", lawyerAuth);
+app.use("/adminAuth", adminAuth);
 
 app.use(verifyJWT);
 app.use("/client", clientRoutes);

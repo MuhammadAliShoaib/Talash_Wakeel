@@ -30,16 +30,8 @@ const LawyerCard2 = ({ item, onClick, button = false }) => {
             </div>
             <div className="points center">
               {Array.from({ length: item.rating }).map((_, index) => (
-                <StarIcon
-                  key={index}
-                  fontSize="small"
-                  sx={{ color: "yellow" }}
-                />
+                <StarIcon key={index} fontSize="small" sx={{ color: "gold" }} />
               ))}
-              {/* <StarIcon fontSize="small" sx={{ color: "yellow" }} />
-              <StarIcon fontSize="small" sx={{ color: "yellow" }} />
-              <StarIcon fontSize="small" sx={{ color: "yellow" }} />
-              <StarIcon fontSize="small" sx={{ color: "yellow" }} /> */}
             </div>
             <div style={{ marginTop: "15px", color: "white" }}>
               Rating: {item.rating}
