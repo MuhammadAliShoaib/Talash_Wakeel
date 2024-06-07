@@ -9,15 +9,15 @@ import "./styles.css"
 const docs = [
   {
     title: 'CNIC',
-    imageUrl: "https://res.cloudinary.com/dg8syp8h6/image/upload/v1716061115/pjo5lckoorckgqxz1j6s.png"
+    imageUrl: "https://res.cloudinary.com/dg8syp8h6/image/upload/v1716020742/cld-sample.jpg"
   },
   {
     title: 'CNIC',
-    imageUrl: "https://res.cloudinary.com/dg8syp8h6/image/upload/v1716061115/pjo5lckoorckgqxz1j6s.png"
+    imageUrl: "https://res.cloudinary.com/dg8syp8h6/image/upload/v1716020742/cld-sample.jpg"
   },
   {
     title: 'CNIC',
-    imageUrl: "https://res.cloudinary.com/dg8syp8h6/image/upload/v1716061115/pjo5lckoorckgqxz1j6s.png"
+    imageUrl: "https://res.cloudinary.com/dg8syp8h6/image/upload/v1716020742/cld-sample.jpg"
   },
 ]
 
