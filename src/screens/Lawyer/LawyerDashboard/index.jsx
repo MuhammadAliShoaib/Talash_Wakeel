@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header";
-import { Grid, Container, Box, Typography } from "@mui/material";
+import { Grid, Container, Box, Typography, Tab } from "@mui/material";
 import AppointmentTable from "../../../components/AppointmentTable";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { toast } from "react-toastify";
 import { RescheduleModal } from "../../../components/Modal/RescheduleModal";
 import { FollowUpModal } from "../../../components/Modal/FollowUpModal";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 
 export const LawyerDashboard = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -21,7 +22,18 @@ export const LawyerDashboard = () => {
   const [followUp, setFollowUp] = useState();
   const { auth } = useAuth();
 
+
+
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const getAppointments = async () => {
+
+
+
     try {
       const res = (
         await axiosPrivate.get("/lawyer/getAppointments", {
@@ -120,99 +132,128 @@ export const LawyerDashboard = () => {
         flag={flag}
         setFlag={setFlag}
       />
-      <Box sx={{ paddingTop: "25px" }}>
-        <Container>
-          <Typography variant="h5" color={"black"}>
-            Requested Appointments
-          </Typography>
-        </Container>
 
-        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Grid container>
-            <Grid
-              item
-              xs={12}
-              style={{ paddingTop: "5px", paddingBottom: "10px" }}
-            >
-              <AppointmentTable
-                data={reqAppointments}
-                requestTable={true}
-                updateStatus={updateStatus}
-                onReschedule={handleRescheduleModal}
-              />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',marginTop : '25px' }}>
+        <Box sx={{ width: '80%', typography: 'body1', }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList centered onChange={handleChange} aria-label="lab API tabs example">
+                <Tab label="Requested" value="1" />
+                <Tab label="Confirmed" value="2" />
+                <Tab label="Follow Up" value="3" />
+                <Tab label="Finalized Cases" value="4" />
+              </TabList>
+            </Box>
 
-      <Box sx={{ paddingTop: "25px" }}>
-        <Container>
-          <Typography variant="h5" color={"black"}>
-            Confirmed Appointments
-          </Typography>
-        </Container>
 
-        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Grid container>
-            <Grid
-              item
-              xs={12}
-              style={{ paddingTop: "5px", paddingBottom: "10px" }}
-            >
-              <AppointmentTable
-                data={approvedAppointments}
-                approveTable={true}
-                updateStatus={updateStatus}
-                onFollowUp={handleFollowUpModal}
-              />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
 
-      <Box sx={{ paddingTop: "25px" }}>
-        <Container>
-          <Typography variant="h5" color={"black"}>
-            Follow Up Appointments
-          </Typography>
-        </Container>
 
-        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Grid container>
-            <Grid
-              item
-              xs={12}
-              style={{ paddingTop: "5px", paddingBottom: "10px" }}
-            >
-              <AppointmentTable
-                data={followUpAppointments}
-                approveTable={true}
-                updateStatus={updateStatus}
-                onFollowUp={handleFollowUpModal}
-              />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+            <TabPanel value="1">
+              <Box sx={{ paddingTop: "25px" }}>
+                {/* <Container>
+              <Typography variant="h5" color={"black"}>
+              Requested Appointments
+              </Typography>
+              </Container> */}
 
-      <Box sx={{ paddingTop: "25px" }}>
-        <Container>
-          <Typography variant="h5" color={"black"}>
-            Finalized Cases
-          </Typography>
-        </Container>
+                <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+                  <Grid container>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ paddingTop: "5px", paddingBottom: "10px" }}
+                    >
+                      <AppointmentTable
+                        data={reqAppointments}
+                        requestTable={true}
+                        updateStatus={updateStatus}
+                        onReschedule={handleRescheduleModal}
+                      />
+                    </Grid>
+                  </Grid>
+                </Container>
+              </Box>
+            </TabPanel>
 
-        <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Grid container>
-            <Grid
-              item
-              xs={12}
-              style={{ paddingTop: "5px", paddingBottom: "10px" }}
-            >
-              <AppointmentTable data={closedAppointments} />
-            </Grid>
-          </Grid>
-        </Container>
+            <TabPanel value="2">
+
+              <Box sx={{ paddingTop: "25px" }}>
+                {/* <Container>
+              <Typography variant="h5" color={"black"}>
+              Confirmed Appointments
+              </Typography>
+              </Container> */}
+
+                <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+                  <Grid container>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ paddingTop: "5px", paddingBottom: "10px" }}
+                    >
+                      <AppointmentTable
+                        data={approvedAppointments}
+                        approveTable={true}
+                        updateStatus={updateStatus}
+                        onFollowUp={handleFollowUpModal}
+                      />
+                    </Grid>
+                  </Grid>
+                </Container>
+              </Box>
+            </TabPanel>
+
+            <TabPanel value="3">
+
+              <Box sx={{ paddingTop: "25px" }}>
+                {/* <Container>
+              <Typography variant="h5" color={"black"}>
+              Follow Up Appointments
+              </Typography>
+              </Container> */}
+
+                <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+                  <Grid container>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ paddingTop: "5px", paddingBottom: "10px" }}
+                    >
+                      <AppointmentTable
+                        data={followUpAppointments}
+                        approveTable={true}
+                        updateStatus={updateStatus}
+                        onFollowUp={handleFollowUpModal}
+                      />
+                    </Grid>
+                  </Grid>
+                </Container>
+              </Box>
+            </TabPanel>
+
+            <TabPanel value="4">
+              <Box sx={{ paddingTop: "25px" }}>
+                {/* <Container>
+                <Typography variant="h5" color={"black"}>
+                Finalized Cases
+                </Typography>
+                </Container> */}
+
+                <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+                  <Grid container>
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ paddingTop: "5px", paddingBottom: "10px" }}
+                    >
+                      <AppointmentTable data={closedAppointments} />
+                    </Grid>
+                  </Grid>
+                </Container>
+              </Box>
+            </TabPanel>
+          </TabContext>
+        </Box>
       </Box>
     </>
   );
