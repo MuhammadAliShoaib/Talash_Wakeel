@@ -20,10 +20,11 @@ const ProfilePicture = styled("div")(() => ({
 }));
 
 export const AddDocumentModal = ({ open, onClose }) => {
-  const [type, setType] = useState("");
-  const [profileUrl, setProfileUrl] = React.useState("");
 
-  const handleFollowUp = () => {};
+  const [profileUrl, setProfileUrl] = React.useState("");
+  const [title, setTitle] = useState("")
+
+  const handleFollowUp = () => { };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -38,6 +39,54 @@ export const AddDocumentModal = ({ open, onClose }) => {
     } else {
       setProfileUrl("");
     }
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("upload_preset", "TalashWakeel");
+      formData.append("cloud_name", "dg8syp8h6");
+
+      axios
+        .post(
+          "https://api.cloudinary.com/v1_1/dg8syp8h6/image/upload",
+          formData
+        )
+        .then((response) => {
+          const documentData = {
+            ...title,
+            documentUrl: response.data.secure_url,
+          };
+          submitProfileData(updatedProfileData);
+        })
+        .catch((error) => {
+          console.error("Error uploading image:", error);
+        });
+    } else {
+      submitProfileData(profileData);
+    }
+  };
+
+  const submitProfileData = (data) => {
+    axiosPrivate
+      .put("/client/updateProfile", data)
+      .then((response) => {
+        console.log("Profile updated successfully:", response.data);
+        toast.success(`${response.data.message}`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+      });
   };
 
   return (
@@ -59,41 +108,37 @@ export const AddDocumentModal = ({ open, onClose }) => {
         <Typography variant="h5" gutterBottom sx={{ color: "black" }}>
           Add Document
         </Typography>
-        <Grid sx={{ paddingBottom: "10px" }}>
+        <Grid item xs={12} sm={6} sx={{ marginBottom: '15px' }}>
           <TextField
-            required
-            sx={{
-              width: "62%",
-            }}
-            select
-            name="type"
-            onChange={(e) => setType(e.target.value)}
-            label="Select Type"
-            value={type}
-            variant="outlined"
-          >
-            {["CNIC", "Supportive Document"].map((mode, index) => (
-              <MenuItem value={mode} key={index}>
-                <option label={mode} />
-              </MenuItem>
-            ))}
-          </TextField>
+            sx={{ width: '63%' }}
+            label="Title"
+            fullWidth
+            margin="normal"
+            id="title"
+            name="title"
+          // onChange={setTitle}
+          />
         </Grid>
-        <Grid item xs={12} mb={"15px"}>
+
+        <Grid item xs={12} sm={6} sx={{ marginBottom: '15px' }}>
           <ProfilePicture>
             <label htmlFor="profile-picture" style={{ position: "relative" }}>
               <div
                 style={{
-                  borderRadius: "50%",
-                  width: "150px",
-                  height: "150px",
+                  // borderRadius: "50%",
+                  width: "350px",
+                  height: "200px",
                   overflow: "hidden",
+                  backgroundColor: '#666666',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
                 }}
               >
                 <img
                   src={profileUrl || Image}
-                  width="100%"
-                  height="100%"
+                  width="100px"
+                  height="100px"
                   alt="Profile"
                 />
               </div>
@@ -104,7 +149,7 @@ export const AddDocumentModal = ({ open, onClose }) => {
                 style={{ display: "none" }}
                 onChange={handleFileChange}
               />
-              <IconButton
+              {/* <IconButton
                 component="span"
                 sx={{
                   backgroundColor: "#EEEEEE",
@@ -114,7 +159,7 @@ export const AddDocumentModal = ({ open, onClose }) => {
                 }}
               >
                 <PhotoCamera />
-              </IconButton>
+              </IconButton> */}
             </label>
           </ProfilePicture>
         </Grid>
