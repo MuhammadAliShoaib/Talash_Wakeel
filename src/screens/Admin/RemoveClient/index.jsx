@@ -7,10 +7,10 @@ import FirmCard2 from "../../../components/Cards/FirmCard2";
 import LawyerCard2 from "../../../components/Cards/LawyerCard2";
 import AdminTable from "../../../components/AdminTable";
 import { Box, Container, Typography, Grid } from "@mui/material";
-import { AdminModal } from "../../../components/Modal/AdminModal";
+import { AdminModalClient } from "../../../components/Modal/AdminModalClient";
 
-export const AdminDashboard = () => {
-  const [firms, setFirms] = useState([]);
+export const RemoveClient = () => {
+  const [clients, setClients] = useState([]);
   const [flag, setFlag] = useState(false);
   const [adminModal, setAdminModal] = useState(false);
   const [row, setRow] = useState();
@@ -18,10 +18,10 @@ export const AdminDashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getFirms = async () => {
+  const getClients = async () => {
     try {
-      const response = (await axiosPrivate.get("/admin/getFirms")).data;
-      setFirms(response);
+      const response = (await axiosPrivate.get("/admin/getClients")).data;
+      setClients(response);
     } catch (error) {
       console.log(error);
       navigate("/", { state: { from: location }, replace: true });
@@ -29,7 +29,7 @@ export const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    getFirms();
+    getClients();
   }, [flag]);
 
   const handleModal = (row) => {
@@ -39,7 +39,7 @@ export const AdminDashboard = () => {
 
   return (
     <div>
-      <AdminModal
+      <AdminModalClient
         open={adminModal}
         onClose={() => setAdminModal(false)}
         data={row}
@@ -50,7 +50,7 @@ export const AdminDashboard = () => {
       <Box sx={{ paddingTop: "25px" }}>
         <Container>
           <Typography variant="h5" color={"black"}>
-            Firms List
+            Client List
           </Typography>
           <div
             style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
@@ -61,7 +61,11 @@ export const AdminDashboard = () => {
                 xs={12}
                 style={{ paddingTop: "5px", paddingBottom: "10px" }}
               >
-                <AdminTable data={firms} handleModal={handleModal} />
+                <AdminTable
+                  data={clients}
+                  handleModal={handleModal}
+                  client={true}
+                />
               </Grid>
             </Grid>
           </div>

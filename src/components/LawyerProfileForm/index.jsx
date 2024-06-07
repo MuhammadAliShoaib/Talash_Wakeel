@@ -17,6 +17,7 @@ import useAuth from "../../hooks/useAuth";
 import { UpdatePassModal } from "../Modal/UpdatePassModal";
 import bcrypt from "bcryptjs";
 import { toast } from "react-toastify";
+import { lawyerTypes } from "../../utility/utils";
 
 const ProfilePicture = styled("div")(() => ({
   display: "flex",
@@ -241,31 +242,22 @@ export default function LawyerProfileForm() {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            required
-            fullWidth
-            label="field"
-            name="field"
-            value={profileData.field}
-            onChange={handleChange}
-          />
-        </Grid>
-        {/* <Grid item xs={12}>
-          <TextField
+            label="Field"
             fullWidth
             select
-            label="Select City"
-            name="clientCity"
-            value={profileData.clientCity}
+            margin="normal"
+            id="field"
+            name="field"
             onChange={handleChange}
-            variant="outlined"
+            value={profileData.field}
           >
-            {cities.map((city) => (
-              <MenuItem key={city.id} value={city.name}>
-                {city.name}
+            {lawyerTypes.map((lawyer) => (
+              <MenuItem key={lawyer} value={lawyer}>
+                <option label={lawyer} />
               </MenuItem>
             ))}
           </TextField>
-        </Grid> */}
+        </Grid>
       </Grid>
       <Button
         fullWidth

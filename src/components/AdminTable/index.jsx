@@ -31,27 +31,54 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function AdminTable({ data, handleModal }) {
+export default function AdminTable({ data, handleModal, client }) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Firm Id</StyledTableCell>
-              <StyledTableCell>Firm Name</StyledTableCell>
+              {client ? (
+                <>
+                  <StyledTableCell>Client Id</StyledTableCell>
+                  <StyledTableCell>Client Name</StyledTableCell>
+                </>
+              ) : (
+                <>
+                  <StyledTableCell>Firm Id</StyledTableCell>
+                  <StyledTableCell>Firm Name</StyledTableCell>
+                </>
+              )}
               <StyledTableCell>Remove</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data?.map((row, index) => (
               <StyledTableRow key={index}>
-                <StyledTableCell>{row.firmCouncilId}</StyledTableCell>
-                <StyledTableCell>{row.firmName}</StyledTableCell>
                 <StyledTableCell>
-                  <Button variant="contained" onClick={() => handleModal(row)}>
-                    Remove Firm
-                  </Button>
+                  {client ? row.clientID : row.firmCouncilId}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {client
+                    ? row.clientFirstName + " " + row.clientLastName
+                    : row.firmName}
+                </StyledTableCell>
+                <StyledTableCell>
+                  {client ? (
+                    <Button
+                      variant="contained"
+                      onClick={() => handleModal(row)}
+                    >
+                      Remove Client
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      onClick={() => handleModal(row)}
+                    >
+                      Remove Firm
+                    </Button>
+                  )}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

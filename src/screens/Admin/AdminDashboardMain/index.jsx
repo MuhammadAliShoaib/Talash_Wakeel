@@ -15,6 +15,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { AdminDashboard } from "../AdminDashboard";
+import { RemoveClient } from "../RemoveClient";
 
 const drawerWidth = 240;
 
@@ -93,11 +94,11 @@ export default function ClientDashboardMain() {
       route: "",
       icon: <DashboardIcon />,
     },
-    // {
-    //   Name: "Appointment",
-    //   route: "appointment",
-    //   icon: <BookmarkAddedIcon />,
-    // },
+    {
+      Name: "Remove User",
+      route: "user",
+      icon: <DashboardIcon />,
+    },
     // {
     //   Name: "Documents",
     //   route: "documents",
@@ -185,6 +186,7 @@ export default function ClientDashboardMain() {
       <Box component="main" sx={{ width: "100vw", height: "100vh" }}>
         <Routes>
           <Route path="/" element={<AdminDashboard />} />
+          <Route path="/user" element={<RemoveClient />} />
         </Routes>
       </Box>
     </Box>

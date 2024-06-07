@@ -13,11 +13,11 @@ import useAuth from "../../../hooks/useAuth";
 import axiosPrivate from "../../../api/axiosPrivate";
 import { toast } from "react-toastify";
 
-export const AdminModal = ({ open, onClose, data, setFlag, flag }) => {
-  const handleClick = async (firmCouncilId) => {
+export const AdminModalClient = ({ open, onClose, data, setFlag, flag }) => {
+  const handleClick = async (clientID) => {
     try {
-      const res = await axiosPrivate.delete("/admin/removeFirm", {
-        data: { firmCouncilId },
+      const res = await axiosPrivate.delete("/admin/removeClient", {
+        data: { clientID },
       });
       setFlag(!flag);
 
@@ -57,15 +57,12 @@ export const AdminModal = ({ open, onClose, data, setFlag, flag }) => {
           ARE YOU SURE?
         </Typography>
         <Typography variant="body1" gutterBottom>
-          Firm ID: {data?.firmCouncilId}
+          Client ID: {data?.clientID}
         </Typography>
         <Typography variant="body1" gutterBottom>
-          Firm Name: {data?.firmName}
+          Client Name: {data?.clientFirstName + " " + data?.clientLastName}
         </Typography>
-        <Button
-          variant="contained"
-          onClick={() => handleClick(data?.firmCouncilId)}
-        >
+        <Button variant="contained" onClick={() => handleClick(data?.clientID)}>
           Confirm
         </Button>
       </Box>
