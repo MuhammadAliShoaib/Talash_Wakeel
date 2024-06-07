@@ -9,6 +9,7 @@ import clientRoutes from "./routes/clientRoutes.js";
 import lawyerAuth from "./routes/lawyerAuth.js";
 import lawyerRoutes from "./routes/lawyerRoutes.js";
 import adminAuth from "./routes/adminAuth.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import { verifyJWT } from "./middleware/verifyJWT.js";
 import cookieParser from "cookie-parser";
 const PORT = process.env.PORT || 5000;
@@ -25,6 +26,7 @@ app.use(verifyJWT);
 app.use("/client", clientRoutes);
 app.use("/firm", firmRoutes);
 app.use("/lawyer", lawyerRoutes);
+app.use("/admin", adminRoutes);
 
 mongoose.connection.once("open", () => {
   console.log("Connected to Database");
