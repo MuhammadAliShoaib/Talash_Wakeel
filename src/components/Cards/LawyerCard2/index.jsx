@@ -47,7 +47,7 @@ const LawyerCard2 = ({ item, onClick, button = false }) => {
             {item.firstName} {item.lastName}
           </h3>
           <p style={{ color: "black" }}>ID : {item.lawyerCouncilId}</p>
-          <p style={{ color: "black" }}>Description : Lorem ipsum</p>
+          {/* <p style={{ color: "black" }}>Description : Lorem ipsum</p> */}
           {button && (
             <span className="more">
               <Button

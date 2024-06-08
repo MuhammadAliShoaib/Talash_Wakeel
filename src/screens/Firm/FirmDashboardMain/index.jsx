@@ -21,7 +21,7 @@ import { FirmPaymentHistory } from "../FirmPaymentHistory";
 import { FirmDocuments } from "../FirmDocuments";
 import { FirmSettings } from "../FirmSettings";
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import SettingsIcon from '@mui/icons-material/Settings';
 
 const drawerWidth = 240;

@@ -25,6 +25,8 @@ import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { ClientPayment } from "../ClientPayment";
+import AddCardIcon from '@mui/icons-material/AddCard';
+import { BookingSucesss } from "../BookingSucesss";
 
 const drawerWidth = 240;
 
@@ -116,7 +118,7 @@ export default function ClientDashboardMain() {
     {
       Name: "Payment",
       route: "payment",
-      icon: <AssignmentIcon />,
+      icon: <AddCardIcon />,
     },
     {
       Name: "Settings",
@@ -204,6 +206,7 @@ export default function ClientDashboardMain() {
           <Route path="/appointment" element={<ClientAppointments />} />
           <Route path="/documents" element={<ClientDocuments />} />
           <Route path="/payment" element={<ClientPayment />} />
+          <Route path="/payment/:id" element={<BookingSucesss />} />
           <Route path="/settings" element={<ClientSettings />} />
         </Routes>
       </Box>

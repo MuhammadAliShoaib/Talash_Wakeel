@@ -279,32 +279,21 @@ router.post("/create-checkout-session", async (req, res) => {
         product_data: {
           name: "Appointment"
         },
-        unit_amount: 200,
+        unit_amount: 1000,
       },
-      quantity: 2
+      // price: "price_1PPTe4GTQPnrhQONwHsSTVYb",
+      quantity: 1
     }
   ]
+
+  const id = 1
 
   try {
     const session = await stripe.checkout.sessions.create({
       line_items: lineItem,
       mode: 'payment',
-      // shipping_address_collection: {
-      //   allowed_countries: ['US'],
-      // },
-      // custom_text: {
-      //   shipping_address: {
-      //     message: "Please note that we can't guarantee 2-day delivery for PO boxes at this time.",
-      //   },
-      //   submit: {
-      //     message: "We'll email you instructions on how to get started.",
-      //   },
-      //   after_submit: {
-      //     message: 'Learn more about **your purchase** on our [product page](https://www.stripe.com/).',
-      //   },
-      // },
-      success_url: 'https://localhost:5173/dashboard', // Use HTTP for local testing
-      cancel_url: 'https://localhost:5173/dashboard',
+      success_url: `http://localhost:5173/client/payment/:${id}`,
+      cancel_url: 'http://localhost:5173/client/payment',
     });
 
 

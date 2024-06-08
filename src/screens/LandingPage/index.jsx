@@ -91,7 +91,7 @@ export default function LandingPage() {
                     </Grid> */}
                 </Container>
             </Container>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 }
