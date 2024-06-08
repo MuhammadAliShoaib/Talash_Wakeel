@@ -1,6 +1,10 @@
 import express from "express";
 const router = express.Router();
 import { db } from "../models/index.js";
+import Stripe from "stripe"
+
+const stripe = new Stripe(process.env.STRIPE_SECRET);
+
 
 router.get("/getFirms", async (req, res) => {
   try {
@@ -264,5 +268,51 @@ router.get("/getDocuments", async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router.post("/create-checkout-session", async (req, res) => {
+
+
+  const lineItem = [
+    {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: "Appointment"
+        },
+        unit_amount: 200,
+      },
+      quantity: 2
+    }
+  ]
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items: lineItem,
+      mode: 'payment',
+      // shipping_address_collection: {
+      //   allowed_countries: ['US'],
+      // },
+      // custom_text: {
+      //   shipping_address: {
+      //     message: "Please note that we can't guarantee 2-day delivery for PO boxes at this time.",
+      //   },
+      //   submit: {
+      //     message: "We'll email you instructions on how to get started.",
+      //   },
+      //   after_submit: {
+      //     message: 'Learn more about **your purchase** on our [product page](https://www.stripe.com/).',
+      //   },
+      // },
+      success_url: 'https://localhost:5173/dashboard', // Use HTTP for local testing
+      cancel_url: 'https://localhost:5173/dashboard',
+    });
+
+
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 
 export default router;

@@ -24,6 +24,7 @@ import { FirmLawyers } from "../FirmLawyers";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { ClientPayment } from "../ClientPayment";
 
 const drawerWidth = 240;
 
@@ -113,6 +114,11 @@ export default function ClientDashboardMain() {
       icon: <AssignmentIcon />,
     },
     {
+      Name: "Payment",
+      route: "payment",
+      icon: <AssignmentIcon />,
+    },
+    {
       Name: "Settings",
       route: "settings",
       icon: <SettingsIcon />,
@@ -197,6 +203,7 @@ export default function ClientDashboardMain() {
           <Route path="/:id" element={<FirmLawyers />} />
           <Route path="/appointment" element={<ClientAppointments />} />
           <Route path="/documents" element={<ClientDocuments />} />
+          <Route path="/payment" element={<ClientPayment />} />
           <Route path="/settings" element={<ClientSettings />} />
         </Routes>
       </Box>
