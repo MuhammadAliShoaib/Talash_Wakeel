@@ -5,10 +5,10 @@ import { Client } from "./Client.js";
 import { Counter } from "./Counter.js";
 import { Booking } from "./Booking.js";
 import { Admin } from "./Admin.js";
+import { Document } from "./Document.js";
 
 (async () => {
   try {
-    // console.log("URI", process.env.DB_CONNECTION_STRING);
     await mongoose.connect(process.env.DB_CONNECTION_STRING);
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
@@ -22,4 +22,5 @@ export const db = {
   Counter,
   Booking,
   Admin,
+  Document,
 };

@@ -6,6 +6,6 @@ import { AddDocumentModal } from "../../../components/Modal/AddDocumentModal";
 import "./styles.css";
 import { AddDocuments } from "../../../components/AddDocument";
 
-export const ClientDocuments = () => {
+export const LawyerDocuments = () => {
   return <AddDocuments />;
 };

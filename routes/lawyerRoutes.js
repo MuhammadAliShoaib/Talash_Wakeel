@@ -178,4 +178,36 @@ router.put("/updatePassword", async (req, res) => {
   }
 });
 
+router.post("/uploadDocument", async (req, res) => {
+  try {
+    console.log("Request...", JSON.stringify(req.body, null, 4));
+    await db.Document.create({
+      ownerId: req.body.ownerId,
+      title: req.body.title,
+      docURL: req.body.documentUrl,
+    });
+
+    res.status(200).json({ message: "Document Uploaded" });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
+});
+
+router.get("/getDocuments", async (req, res) => {
+  const { ownerId } = req.query;
+  try {
+    console.log("Request...", JSON.stringify(req.query, null, 4));
+    const documents = await db.Document.find({ ownerId });
+    if (documents === null) {
+      res.status(404).json({ message: "Document Not Found" });
+    }
+
+    res.status(200).json({ documents });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.sendStatus(500);
+  }
+});
+
 export default router;

@@ -1,0 +1,14 @@
+.documentContainer {
+  width: 320px;
+  height: 250px;
+  overflow: hidden;
+  background-color: #dde7f4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  padding-top: 10px;
+  border-radius: 15px;
+  margin: 10px;
+}

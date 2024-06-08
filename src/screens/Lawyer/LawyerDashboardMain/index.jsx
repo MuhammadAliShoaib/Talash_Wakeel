@@ -14,12 +14,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import TimelineIcon from "@mui/icons-material/Timeline";
-// import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
+import MedicationLiquidIcon from "@mui/icons-material/MedicationLiquid";
 import { Route, Routes, useNavigate } from "react-router-dom";
 // import { FirmDashboard } from "../../Firm/FirmDashboard";
 // import { FirmPaymentHistory } from "../FirmPaymentHistory";
 // import { FirmDocuments } from "../FirmDocuments";
 // import { FirmSettings } from "../FirmSettings";
+import { LawyerDocuments } from "../LawyerDocuments";
 import { LawyerDashboard } from "../LawyerDashboard";
 import { LawyerProfile } from "../LawyerProfile";
 
@@ -105,11 +106,11 @@ export default function LawyerDashboardMain() {
     //   route: "paymentHistory",
     //   icon: <MedicationLiquidIcon />,
     // },
-    // {
-    //   Name: "Documents",
-    //   route: "documents",
-    //   icon: <MedicationLiquidIcon />,
-    // },
+    {
+      Name: "Documents",
+      route: "documents",
+      icon: <MedicationLiquidIcon />,
+    },
     {
       Name: "Profile",
       route: "profile",
@@ -193,7 +194,8 @@ export default function LawyerDashboardMain() {
         <Routes>
           <Route path="/" element={<LawyerDashboard />} />
           {/* <Route path="/paymentHistory" element={<FirmPaymentHistory />} />
-          <Route path="/documents" element={<FirmDocuments />} /> */}
+          // <Route path="/documents" element={<FirmDocuments />} /> */}
+          <Route path="/documents" element={<LawyerDocuments />} />
           <Route path="/profile" element={<LawyerProfile />} />
         </Routes>
       </Box>
