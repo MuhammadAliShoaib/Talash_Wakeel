@@ -11,9 +11,9 @@ export const ClientPayment = () => {
 
 
     const makePayment = async () => {
-        const stripe = await loadStripe("pk_test_51PPMcbGTQPnrhQONJ6mYJ7MMjOyDfIFaiNrUVSBXQBuvK5IsvyfXvG9JX2D04dymhTqCd5pF1QoyXPZKba66CYw900NbjTbFU9")
+        const stripe = await loadStripe("pk_test_51PPUiWBIdeT3bEotMd4YOfCRcvyT3ttXFWSpXnpdfRhqhYXOMQI6AW7LtyWwvjWZsDcm8aCYcu6mcuclf0l0f20t00cJu1my69")
         const paymentData = {
-            appointment : {}
+            appointment: {}
         }
 
         axiosPrivate
