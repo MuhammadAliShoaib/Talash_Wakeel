@@ -45,6 +45,9 @@ export default function PaymentTable({ payments, makePayment }) {
               ) : (
                 <StyledTableCell>Client ID</StyledTableCell>
               )}
+              {auth?.role === "firm" ? (
+                <StyledTableCell>Lawyer ID</StyledTableCell>
+              ) : null}
               <StyledTableCell>Pending Amount</StyledTableCell>
               <StyledTableCell>Paid Amount</StyledTableCell>
               <StyledTableCell>Payment Status</StyledTableCell>
@@ -55,15 +58,18 @@ export default function PaymentTable({ payments, makePayment }) {
             {payments?.map((payment, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell>{payment.appointmentId}</StyledTableCell>
-                {auth?.role === "client" ? (
+                {auth?.role === "client" && auth?.role !== "firm" ? (
                   <StyledTableCell>{payment.lawyerCouncilId}</StyledTableCell>
                 ) : (
                   <StyledTableCell>{payment.clientID}</StyledTableCell>
                 )}
+                {auth?.role === "firm" ? (
+                  <StyledTableCell>{payment.lawyerCouncilId}</StyledTableCell>
+                ) : null}
                 <StyledTableCell>{payment.pendingAmount}</StyledTableCell>
                 <StyledTableCell>{payment.amountPaid}</StyledTableCell>
                 <StyledTableCell>{payment.paymentStatus}</StyledTableCell>
-                {auth?.role !== "lawyer" &&
+                {(auth?.role !== "lawyer" || auth?.role !== "firm") &&
                 payment.paymentStatus === "Pending" ? (
                   <StyledTableCell>
                     <Button

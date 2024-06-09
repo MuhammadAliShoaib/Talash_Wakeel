@@ -39,13 +39,13 @@ const FirmCard2 = ({ item }) => {
         <div className="follow-info">
           <h2>
             <a href="#">
-              <span>12</span>
+              <span>{item.numberOfLawyers}</span>
               <small>Lawyers</small>
             </a>
           </h2>
           <h2>
             <a href="#">
-              <span>1000</span>
+              <span>{item.numberOfBookings}</span>
               <small>Cases</small>
             </a>
           </h2>

@@ -5,30 +5,30 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
-const sample = [
-  {
-    clientID: 1,
-    barCouncilId: "2012281",
-    date: "08/05/2024",
-    status: "Done",
-  },
-  {
-    clientID: 2,
-    barCouncilId: "2012281",
-    date: "08/05/2024",
-    status: "Done",
-  },
-  {
-    clientID: 3,
-    barCouncilId: "2012281",
-    date: "08/05/2024",
-    status: "Done",
-  },
-];
+// const sample = [
+//   {
+//     clientID: 1,
+//     barCouncilId: "2012281",
+//     date: "08/05/2024",
+//     status: "Done",
+//   },
+//   {
+//     clientID: 2,
+//     barCouncilId: "2012281",
+//     date: "08/05/2024",
+//     status: "Done",
+//   },
+//   {
+//     clientID: 3,
+//     barCouncilId: "2012281",
+//     date: "08/05/2024",
+//     status: "Done",
+//   },
+// ];
 
-export const FirmPaymentHistory = () => {
+export const FirmAppointments = () => {
   const axiosPrivate = useAxiosPrivate();
-  const [data, setData] = useState(sample);
+  const [data, setData] = useState();
   const { auth } = useAuth();
 
   const getAppointments = async () => {

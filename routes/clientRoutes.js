@@ -7,11 +7,41 @@ const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 router.get("/getFirms", async (req, res) => {
   try {
-    const firms = await db.Firm.find();
-    // console.log(firms);
-    if (firms !== null) {
+    const firms = await db.Firm.aggregate([
+      {
+        $lookup: {
+          from: "lawyers",
+          localField: "firmCouncilId",
+          foreignField: "firmCouncilId",
+          as: "lawyers",
+        },
+      },
+      {
+        $lookup: {
+          from: "bookings",
+          localField: "firmCouncilId",
+          foreignField: "firmCouncilId",
+          as: "bookings",
+        },
+      },
+      {
+        $project: {
+          firmCouncilId: 1,
+          firmName: 1,
+          firmEmail: 1,
+          firmPhoneNumber: 1,
+          firmCity: 1,
+          numberOfLawyers: { $size: "$lawyers" },
+          numberOfBookings: { $size: "$bookings" },
+        },
+      },
+    ]);
+
+    if (firms.length > 0) {
       res.status(200).json(firms);
-    } else res.status(404).json({ message: "No Firms Found" });
+    } else {
+      res.status(404).json({ message: "No Firms Found" });
+    }
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
