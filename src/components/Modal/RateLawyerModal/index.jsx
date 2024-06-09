@@ -14,7 +14,7 @@ import axiosPrivate from "../../../api/axiosPrivate";
 import { toast } from "react-toastify";
 
 export const RateLawyerModal = ({ open, onClose, data, setFlag, flag }) => {
-  const [stars, setStars] = useState();
+  const [stars, setStars] = useState(2);
 
   const marks = [
     {
