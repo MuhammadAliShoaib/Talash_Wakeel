@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -72,8 +73,13 @@ export default function AppointmentTable({
               <StyledTableRow key={index}>
                 <StyledTableCell>{booking.clientID}</StyledTableCell>
                 <StyledTableCell>
-                  {booking.clientDetails.clientFirstName}{" "}
-                  {booking.clientDetails.clientLastName}
+                  <Link
+                    to={`clientDetails/${booking.clientID}`}
+                    relative="route"
+                  >
+                    {booking.clientDetails.clientFirstName}{" "}
+                    {booking.clientDetails.clientLastName}
+                  </Link>
                 </StyledTableCell>
                 <StyledTableCell>
                   {new Date(booking.bookingDate).toLocaleDateString("en-GB")}

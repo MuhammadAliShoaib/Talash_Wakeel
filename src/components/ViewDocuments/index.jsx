@@ -6,12 +6,13 @@ import { AddDocumentModal } from "../Modal/AddDocumentModal";
 import Header from "../Header";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useParams } from "react-router-dom";
 
-export const AddDocuments = ({ data }) => {
+export const ViewDocuments = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [flag, setFlag] = useState(false);
   const [documents, setDocuments] = useState([]);
-
+  const { id } = useParams();
   const { auth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
 
@@ -21,25 +22,10 @@ export const AddDocuments = ({ data }) => {
 
   useEffect(() => {
     (async () => {
-      if (auth.role === "client") {
-        try {
-          const res = await axiosPrivate.get("/client/getDocuments", {
-            params: { ownerId: auth?.clientID },
-          });
-
-          if (!res) {
-            throw new Error("Something went wrong!");
-          }
-          console.log(res.data);
-          setDocuments(res.data.documents);
-          console.log("DOCS......", documents);
-        } catch (error) {
-          console.log("Error: ", error);
-        }
-      } else if (auth.role === "lawyer") {
+      if (auth.role === "lawyer") {
         try {
           const res = await axiosPrivate.get("/lawyer/getDocuments", {
-            params: { ownerId: auth?.lawyerCouncilId },
+            params: { ownerId: id },
           });
 
           if (!res) {
@@ -52,18 +38,12 @@ export const AddDocuments = ({ data }) => {
         }
       }
     })();
-  }, [flag]);
+  }, []);
 
   return (
     <div>
-      <Header title="Documents" />
+      <Header title="Client Documents" />
       <Container maxWidth="false" disableGutters sx={{ padding: "10px" }}>
-        <AddDocumentModal
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
-          flag={flag}
-          setFlag={setFlag}
-        />
         <Grid container spacing={2} sx={{ my: 0 }}>
           <Grid item xs={12} md={2}></Grid>
           <Grid
@@ -72,26 +52,6 @@ export const AddDocuments = ({ data }) => {
             md={4}
             sx={{ display: "flex", alignItems: "center" }}
           ></Grid>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              displa: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Button
-              onClick={toggleModal}
-              href=""
-              size="medium"
-              variant="contained"
-            >
-              Add Document
-            </Button>
-          </Grid>
         </Grid>
         <div
           style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}

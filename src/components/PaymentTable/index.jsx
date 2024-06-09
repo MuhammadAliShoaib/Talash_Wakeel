@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
+import useAuth from "../../hooks/useAuth";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,6 +31,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function PaymentTable({ payments, makePayment }) {
+  const { auth } = useAuth();
+
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer component={Paper}>
@@ -37,7 +40,11 @@ export default function PaymentTable({ payments, makePayment }) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Appointment ID</StyledTableCell>
-              <StyledTableCell>Lawyer ID</StyledTableCell>
+              {auth?.role === "client" ? (
+                <StyledTableCell>Lawyer ID</StyledTableCell>
+              ) : (
+                <StyledTableCell>Client ID</StyledTableCell>
+              )}
               <StyledTableCell>Pending Amount</StyledTableCell>
               <StyledTableCell>Paid Amount</StyledTableCell>
               <StyledTableCell>Payment Status</StyledTableCell>
@@ -48,11 +55,16 @@ export default function PaymentTable({ payments, makePayment }) {
             {payments?.map((payment, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell>{payment.appointmentId}</StyledTableCell>
-                <StyledTableCell>{payment.lawyerCouncilId}</StyledTableCell>
+                {auth?.role === "client" ? (
+                  <StyledTableCell>{payment.lawyerCouncilId}</StyledTableCell>
+                ) : (
+                  <StyledTableCell>{payment.clientID}</StyledTableCell>
+                )}
                 <StyledTableCell>{payment.pendingAmount}</StyledTableCell>
                 <StyledTableCell>{payment.amountPaid}</StyledTableCell>
                 <StyledTableCell>{payment.paymentStatus}</StyledTableCell>
-                {payment.paymentStatus === "Pending" ? (
+                {auth?.role !== "lawyer" &&
+                payment.paymentStatus === "Pending" ? (
                   <StyledTableCell>
                     <Button
                       onClick={() =>

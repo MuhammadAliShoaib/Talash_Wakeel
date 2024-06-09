@@ -19,6 +19,9 @@ import { LawyerDocuments } from "../LawyerDocuments";
 import { LawyerDashboard } from "../LawyerDashboard";
 import { LawyerProfile } from "../LawyerProfile";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import PaymentIcon from "@mui/icons-material/Payment";
+import { LawyerPaymentHistory } from "../LawyerPaymentHistory";
+import { ViewClientDocuments } from "../ViewClientDocuments";
 
 const drawerWidth = 240;
 
@@ -97,11 +100,11 @@ export default function LawyerDashboardMain() {
       route: "",
       icon: <DashboardIcon />,
     },
-    // {
-    //   Name: "Payment History",
-    //   route: "paymentHistory",
-    //   icon: <MedicationLiquidIcon />,
-    // },
+    {
+      Name: "Payment History",
+      route: "paymentHistory",
+      icon: <PaymentIcon />,
+    },
     {
       Name: "Documents",
       route: "documents",
@@ -189,7 +192,9 @@ export default function LawyerDashboardMain() {
       <Box component="main" sx={{ width: "100vw", height: "100vh" }}>
         <Routes>
           <Route path="/" element={<LawyerDashboard />} />
+          <Route path="/clientDetails/:id" element={<ViewClientDocuments />} />
           <Route path="/documents" element={<LawyerDocuments />} />
+          <Route path="/paymentHistory" element={<LawyerPaymentHistory />} />
           <Route path="/profile" element={<LawyerProfile />} />
         </Routes>
       </Box>
