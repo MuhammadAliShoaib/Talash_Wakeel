@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { RescheduleModal } from "../../../components/Modal/RescheduleModal";
 import { FollowUpModal } from "../../../components/Modal/FollowUpModal";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { PaymentModal } from "../../../components/Modal/PaymentModal";
 
 export const LawyerDashboard = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -20,20 +21,18 @@ export const LawyerDashboard = () => {
   const [followUpModal, setFollowUpModal] = useState(false);
   const [reschedule, setReschedule] = useState();
   const [followUp, setFollowUp] = useState();
+  // const [payments, setPayments] = useState();
+  const [paymentModal, setPaymentModal] = useState(false);
+  const [paymentData, setPaymentData] = useState();
   const { auth } = useAuth();
 
-
-
-  const [value, setValue] = React.useState('1');
+  const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const getAppointments = async () => {
-
-
-
     try {
       const res = (
         await axiosPrivate.get("/lawyer/getAppointments", {
@@ -76,6 +75,23 @@ export const LawyerDashboard = () => {
     }
   };
 
+  // const getPayments = async () => {
+  //   try {
+  //     const res = (
+  //       await axiosPrivate.get("/lawyer/getPayments", {
+  //         params: { id: auth.lawyerCouncilId },
+  //       })
+  //     ).data;
+  //     if (!res) {
+  //       throw new Error("An Error Occurred");
+  //     }
+
+  //     setPayments(res);
+  //   } catch (error) {
+  //     console.log("Error: ", error);
+  //   }
+  // };
+
   const updateStatus = async (Data) => {
     try {
       const res = await axiosPrivate.put(`/lawyer/updateStatus`, {
@@ -111,8 +127,14 @@ export const LawyerDashboard = () => {
     setFollowUpModal(true);
   };
 
+  const handlePaymentModal = (booking) => {
+    setPaymentData(booking);
+    setPaymentModal(true);
+  };
+
   useEffect(() => {
     getAppointments();
+    // getPayments();
   }, [flag]);
 
   return (
@@ -132,21 +154,36 @@ export const LawyerDashboard = () => {
         flag={flag}
         setFlag={setFlag}
       />
-
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',marginTop : '25px' }}>
-        <Box sx={{ width: '80%', typography: 'body1', }}>
+      <PaymentModal
+        open={paymentModal}
+        onClose={() => setPaymentModal(false)}
+        data={paymentData}
+        flag={flag}
+        setFlag={setFlag}
+      />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "25px",
+        }}
+      >
+        <Box sx={{ width: "80%", typography: "body1" }}>
           <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList centered onChange={handleChange} aria-label="lab API tabs example">
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                centered
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
                 <Tab label="Requested" value="1" />
                 <Tab label="Confirmed" value="2" />
                 <Tab label="Follow Up" value="3" />
                 <Tab label="Finalized Cases" value="4" />
               </TabList>
             </Box>
-
-
-
 
             <TabPanel value="1">
               <Box sx={{ paddingTop: "25px" }}>
@@ -176,7 +213,6 @@ export const LawyerDashboard = () => {
             </TabPanel>
 
             <TabPanel value="2">
-
               <Box sx={{ paddingTop: "25px" }}>
                 {/* <Container>
               <Typography variant="h5" color={"black"}>
@@ -204,7 +240,6 @@ export const LawyerDashboard = () => {
             </TabPanel>
 
             <TabPanel value="3">
-
               <Box sx={{ paddingTop: "25px" }}>
                 {/* <Container>
               <Typography variant="h5" color={"black"}>
@@ -221,9 +256,10 @@ export const LawyerDashboard = () => {
                     >
                       <AppointmentTable
                         data={followUpAppointments}
-                        approveTable={true}
+                        followUpTable={true}
                         updateStatus={updateStatus}
                         onFollowUp={handleFollowUpModal}
+                        onPayment={handlePaymentModal}
                       />
                     </Grid>
                   </Grid>

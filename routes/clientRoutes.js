@@ -1,10 +1,9 @@
 import express from "express";
 const router = express.Router();
 import { db } from "../models/index.js";
-import Stripe from "stripe"
+import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET);
-
 
 router.get("/getFirms", async (req, res) => {
   try {
@@ -270,38 +269,74 @@ router.get("/getDocuments", async (req, res) => {
 });
 
 router.post("/create-checkout-session", async (req, res) => {
-
+  const { appointmentId, pendingAmount } = req.body;
+  const amount = pendingAmount * 100;
 
   const lineItem = [
     {
       price_data: {
         currency: "usd",
         product_data: {
-          name: "Appointment"
+          name: "Appointment",
         },
-        unit_amount: 1000,
+        unit_amount: amount,
       },
       // price: "price_1PPTe4GTQPnrhQONwHsSTVYb",
-      quantity: 1
-    }
-  ]
-
-  const id = 1
+      quantity: 1,
+    },
+  ];
 
   try {
     const session = await stripe.checkout.sessions.create({
       line_items: lineItem,
-      mode: 'payment',
-      success_url: `http://localhost:5173/client/payment/:${id}`,
-      cancel_url: 'http://localhost:5173/client/payment',
+      mode: "payment",
+      success_url: `http://localhost:5173/client/payment/:${appointmentId}`,
+      cancel_url: "http://localhost:5173/client/payment",
     });
-
 
     res.json({ id: session.id });
   } catch (error) {
-    console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error creating checkout session:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-})
+});
+
+router.get("/getPayments", async (req, res) => {
+  const { id } = req.query;
+  const clientID = Number(id);
+
+  try {
+    const payments = await db.Payment.find({ clientID });
+    if (payments === null) {
+      return res.status(404).json({ message: "No Payments Found" });
+    }
+
+    res.status(200).json(payments);
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+router.put("/updatePayment", async (req, res) => {
+  const { appointmentId, paymentStatus } = req.body;
+  console.log(appointmentId);
+  try {
+    const payment = await db.Payment.findOne({ appointmentId });
+    if (!payment) {
+      return res.status(404).json({ message: "No Payment Found" });
+    }
+
+    payment.amountPaid += payment.pendingAmount;
+    payment.pendingAmount = 0;
+    payment.paymentStatus = paymentStatus;
+    await payment.save();
+
+    res.status(200).json({ payment, message: "Payment Updated" });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
 
 export default router;

@@ -9,8 +9,8 @@ import LawyerCard2 from "../../../components/Cards/LawyerCard2";
 export const ClientDashboard = () => {
   const [firms, setFirms] = useState([]);
   const axiosPrivate = useAxiosPrivate();
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   const getFirms = async () => {
     try {
@@ -18,7 +18,7 @@ export const ClientDashboard = () => {
       setFirms(response);
     } catch (error) {
       console.log(error);
-      navigate("/", { state: { from: location }, replace: true });
+      // navigate("/", { state: { from: location }, replace: true });
     }
   };
 

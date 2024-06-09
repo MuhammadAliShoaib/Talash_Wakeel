@@ -77,6 +77,7 @@ export default function Login() {
             name: response.data.lawyer?.firstName || "",
             email: response.data.lawyer?.email || "",
             lawyerCouncilId: response.data.lawyer?.lawyerCouncilId || "",
+            firmCouncilId: response.data.lawyer?.firmCouncilId || "",
             accessToken: response.data.accessToken || "",
             role: "lawyer",
           },

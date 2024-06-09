@@ -140,7 +140,7 @@ router.get("/getDetails", async (req, res) => {
     res.status(200).json(details);
   } catch (error) {
     console.log("Error: ", error);
-    res.sendStatus(500);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
@@ -160,7 +160,7 @@ router.put("/updateProfile", async (req, res) => {
     res.status(200).json({ lawyer, message: "Updated Successfully" });
   } catch (error) {
     console.log("Error: ", error);
-    res.sendStatus(500);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
@@ -174,7 +174,7 @@ router.put("/updatePassword", async (req, res) => {
     res.status(200).json({ lawyer, message: "Updated Successfully" });
   } catch (error) {
     console.log("Error: ", error);
-    res.sendStatus(500);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
@@ -190,7 +190,7 @@ router.post("/uploadDocument", async (req, res) => {
     res.status(200).json({ message: "Document Uploaded" });
   } catch (error) {
     console.log("Error: ", error);
-    res.sendStatus(500);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
@@ -206,8 +206,61 @@ router.get("/getDocuments", async (req, res) => {
     res.status(200).json({ documents });
   } catch (error) {
     console.log("Error: ", error);
-    res.sendStatus(500);
+    res.status(500).json({ message: "Server Error" });
   }
 });
+
+router.post("/requestPayment", async (req, res) => {
+  const {
+    appointmentId,
+    lawyerCouncilId,
+    firmCouncilId,
+    clientID,
+    paymentAmount,
+    paymentStatus,
+  } = req.body;
+  try {
+    const payment = await db.Payment.findOne({ appointmentId });
+
+    if (!payment) {
+      await db.Payment.create({
+        appointmentId,
+        firmCouncilId,
+        lawyerCouncilId,
+        clientID,
+        pendingAmount: paymentAmount,
+        amountPaid: 0,
+        paymentStatus,
+      });
+
+      return res.status(200).json({ message: "Request Sent" });
+    }
+
+    payment.pendingAmount = paymentAmount;
+    payment.paymentStatus = paymentStatus;
+    await payment.save();
+
+    res.status(200).json({ message: "Request Sent" });
+  } catch (error) {
+    console.log("Error: ", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// router.get("/getPayments", async (req, res) => {
+//   const { id } = req.query;
+
+//   try {
+//     const payments = await db.Payment.find({ lawyerCouncilId: id });
+//     if (payments === null) {
+//       return res.status(404).json({ message: "No Payment Found" });
+//     }
+
+//     res.status(200).json(payments);
+//   } catch (error) {
+//     console.log("Error: ", error);
+//     res.status(500).json({ message: "Server Error" });
+//   }
+// });
 
 export default router;

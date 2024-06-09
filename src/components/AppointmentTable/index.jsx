@@ -33,9 +33,12 @@ export default function AppointmentTable({
   data,
   requestTable,
   approveTable,
+  followUpTable,
   updateStatus,
   onReschedule,
   onFollowUp,
+  onPayment,
+  payments,
 }) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -55,6 +58,13 @@ export default function AppointmentTable({
                   <StyledTableCell></StyledTableCell>
                 </>
               ) : null}
+              {followUpTable ? (
+                <>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell>Follow Up</StyledTableCell>
+                  <StyledTableCell>Payment</StyledTableCell>
+                </>
+              ) : null}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -62,7 +72,8 @@ export default function AppointmentTable({
               <StyledTableRow key={index}>
                 <StyledTableCell>{booking.clientID}</StyledTableCell>
                 <StyledTableCell>
-                  {booking.clientDetails.clientFirstName} {booking.clientDetails.clientLastName}
+                  {booking.clientDetails.clientFirstName}{" "}
+                  {booking.clientDetails.clientLastName}
                 </StyledTableCell>
                 <StyledTableCell>
                   {new Date(booking.bookingDate).toLocaleDateString("en-GB")}
@@ -117,6 +128,39 @@ export default function AppointmentTable({
                         onClick={() => onFollowUp(booking)}
                       >
                         Follow Up
+                      </Button>
+                    </StyledTableCell>
+                  </>
+                ) : null}
+                {followUpTable ? (
+                  <>
+                    <StyledTableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() =>
+                          updateStatus({
+                            appointmentId: booking.appointmentId,
+                            updatedStatus: "Closed",
+                          })
+                        }
+                      >
+                        Close Case
+                      </Button>
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() => onFollowUp(booking)}
+                      >
+                        Follow Up
+                      </Button>
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      <Button
+                        variant="contained"
+                        onClick={() => onPayment(booking)}
+                      >
+                        Request Payment
                       </Button>
                     </StyledTableCell>
                   </>
