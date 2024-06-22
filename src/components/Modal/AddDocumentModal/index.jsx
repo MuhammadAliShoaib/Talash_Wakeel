@@ -51,12 +51,12 @@ export const AddDocumentModal = ({ open, onClose, flag, setFlag }) => {
       const formData = new FormData();
       formData.append("file", selectedFile);
       formData.append("upload_preset", "TalashWakeel.pk");
-      formData.append("cloud_name", "dm4up5gp6");
+      formData.append("cloud_name", "dg8syp8h6");
 
       if (auth?.role === "client") {
         axios
           .post(
-            "https://api.cloudinary.com/v1_1/dm4up5gp6/image/upload",
+            "https://api.cloudinary.com/v1_1/dg8syp8h6/image/upload",
             formData
           )
           .then((response) => {
