@@ -18,7 +18,7 @@ export default function LandingPage() {
                 <Container maxWidth={false} sx={{ mt: 5, textAlign: 'center' }} disableGutters>
                     <Grid container spacing={3} sx={{ paddingX: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Grid item xs={12} md={6}>
-                            <span className="header2">TalashWakeel.pk</span>
+                            <span className="header2">Talash Wakeel</span>
                             <br />
                             <span className="subHeading">Empower Your Legal Journey With Us</span>
                             <br />
