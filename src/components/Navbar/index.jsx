@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Toolbar, Typography, Grid, Box } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Image from "../../assets/logoIcon.png";
@@ -23,46 +23,65 @@ const Navbar = () => {
       sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
     >
       <Toolbar sx={{ flexWrap: "wrap" }}>
-        <div style={{ width: "60px", height: "60px", borderRadius: "50%" }}>
-          <img src={Image} width={"100%"} height={"100%"} />
-        </div>
-        <Typography
-          variant="h6"
-          color="inherit"
-          noWrap
-          sx={{ flexGrow: 1, color: "#ffffff" }}
-        >
-          TalashWakeel
-        </Typography>
-        <Button
-          href=""
-          size="medium"
-          variant="contained"
-          sx={{ my: 1, mx: 1.5, background: "white", color: "#000" }}
-          onClick={() => handleClick("/adminLogin")}
-        >
-          Admin Login
-        </Button>
-        <Button
-          href=""
-          size="medium"
-          variant="contained"
-          sx={{ my: 1, mx: 1.5, background: "white", color: "#000" }}
-          onClick={() => handleClick("/login")}
-        >
-          Login
-        </Button>
-        <Button
-          href=""
-          size="medium"
-          variant="contained"
-          sx={{ my: 1, mx: 1.5, background: "white", color: "#000" }}
-          onClick={() => handleClick("/signup")}
-        >
-          Signup
-        </Button>
+        <Grid container alignItems="center">
+          <Grid item xs={12} sm={6} md={6} lg={6}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <img
+                src={Image}
+                alt="Logo"
+                style={{ width: "60px", height: "60px", borderRadius: "50%" }}
+              />
+              <Typography
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ ml: 2, color: "#ffffff" }}
+              >
+                TalashWakeel
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} md={6} lg={6}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: { xs: "center", md: "flex-end" },
+                flexWrap: "wrap",
+              }}
+            >
+              <Button
+                href=""
+                size="medium"
+                variant="contained"
+                sx={{ my: 1, mx: 1.5, background: "white", color: "#000" }}
+                onClick={() => handleClick("/adminLogin")}
+              >
+                Admin Login
+              </Button>
+              <Button
+                href=""
+                size="medium"
+                variant="contained"
+                sx={{ my: 1, mx: 1.5, background: "white", color: "#000" }}
+                onClick={() => handleClick("/login")}
+              >
+                Login
+              </Button>
+              <Button
+                href=""
+                size="medium"
+                variant="contained"
+                sx={{ my: 1, mx: 1.5, background: "white", color: "#000" }}
+                onClick={() => handleClick("/signup")}
+              >
+                Signup
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   );
 };
+
 export default Navbar;
